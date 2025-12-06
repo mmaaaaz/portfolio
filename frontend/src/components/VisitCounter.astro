@@ -16,12 +16,10 @@
 <script>
     // Alien character set for loading animation
     const alienChars = "▓▒░█▄▀■□▪▫◘◙○●►◄↕‼¶§▬↨↑↓→←∟↔▲▼";
-    const numbers = "0123456789";
 
-    // Scramble text effect
-    function scrambleText(element: HTMLElement, finalText: string, duration: number = 1500) {
+    // Scramble text effect - super fast
+    function scrambleText(element: HTMLElement, finalText: string, duration: number = 350) {
         const startTime = Date.now();
-        let frame = 0;
 
         const animate = () => {
             const elapsed = Date.now() - startTime;
@@ -52,41 +50,47 @@
         animate();
     }
 
-    // Fetch visit count on page load
+    // Fetch visit count - optimized with timeout
     async function updateVisitCount() {
         const countElement = document.getElementById("visit-count");
         const alienText = countElement?.querySelector(".alien-text") as HTMLElement;
 
         if (!alienText) return;
 
-        // Initial scramble animation
+        // Faster initial scramble animation
         let scrambleFrame = 0;
         const initialScramble = setInterval(() => {
             let scrambled = "";
-            for (let i = 0; i < 12; i++) {
+            for (let i = 0; i < 10; i++) {
                 scrambled += alienChars[Math.floor(Math.random() * alienChars.length)];
             }
             alienText.textContent = scrambled;
             scrambleFrame++;
 
-            // Stop after a bit to avoid too long loading
-            if (scrambleFrame > 20) {
+            // Stop after 5 frames (500ms max)
+            if (scrambleFrame > 5) {
                 clearInterval(initialScramble);
-                alienText.textContent = "█▓▒░ ... ░▒▓█";
+                alienText.textContent = "▓░...░▓";
             }
         }, 100);
 
         try {
-            // Use environment variable for API URL, fallback to placeholder
-            const apiUrl = import.meta.env.PUBLIC_API_URL || "https://portfolio-api.YOUR_SUBDOMAIN.workers.dev";
+            // Use environment variable for API URL, fallback to deployed URL
+            const apiUrl = import.meta.env.PUBLIC_API_URL || "https://portfolio-api.devmaaaaz.workers.dev";
+
+            // Add timeout to prevent hanging
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
 
             const response = await fetch(apiUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
+                signal: controller.signal,
             });
 
+            clearTimeout(timeoutId);
             clearInterval(initialScramble);
 
             if (!response.ok) {
@@ -100,8 +104,8 @@
                 const formattedViews = data.totalViews.toLocaleString();
                 const finalText = `${formattedViews} visits`;
 
-                // Scramble into final text
-                scrambleText(alienText, finalText, 1200);
+                // Super fast scramble into final text (350ms)
+                scrambleText(alienText, finalText, 350);
 
                 // Add tooltip with unique visitors
                 countElement.title = `${data.uniqueViews.toLocaleString()} unique · ${data.todayUnique} today`;
@@ -111,10 +115,14 @@
             }
         } catch (error) {
             clearInterval(initialScramble);
-            console.error("Visit counter error:", error);
+
+            // Don't log aborted fetches (timeout)
+            if (error instanceof Error && error.name !== "AbortError") {
+                console.error("Visit counter error:", error);
+            }
 
             if (alienText) {
-                scrambleText(alienText, "— visits", 800);
+                scrambleText(alienText, "— visits", 250);
                 if (countElement) {
                     countElement.title = "Counter unavailable";
                     countElement.classList.remove("loading");
@@ -123,11 +131,21 @@
         }
     }
 
-    // Run on page load
+    // Use requestIdleCallback for non-blocking execution
+    // Falls back to setTimeout if not supported
+    const scheduleUpdate = () => {
+        if ("requestIdleCallback" in window) {
+            requestIdleCallback(updateVisitCount, { timeout: 2000 });
+        } else {
+            setTimeout(updateVisitCount, 100);
+        }
+    };
+
+    // Run after page loads - non-blocking
     if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", updateVisitCount);
+        document.addEventListener("DOMContentLoaded", scheduleUpdate);
     } else {
-        updateVisitCount();
+        scheduleUpdate();
     }
 </script>
 

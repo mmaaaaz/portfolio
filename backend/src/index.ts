@@ -1,5 +1,5 @@
 export interface Env {
-	VISITOR_STATS: KVNamespace;
+	portfolio_visitor_stats: KVNamespace;
 }
 
 const corsHeaders = {
@@ -25,9 +25,9 @@ export default {
 			const uniqueKey = `visitors:unique:${today}:${ip}`;
 
 			// Get current stats
-			const totalViewsStr = await env.VISITOR_STATS.get("visitors:total");
-			const uniqueViewsStr = await env.VISITOR_STATS.get("visitors:unique:total");
-			const todayUniqueSetStr = await env.VISITOR_STATS.get(`visitors:daily:${today}`);
+			const totalViewsStr = await env.portfolio_visitor_stats.get("visitors:total");
+			const uniqueViewsStr = await env.portfolio_visitor_stats.get("visitors:unique:total");
+			const todayUniqueSetStr = await env.portfolio_visitor_stats.get(`visitors:daily:${today}`);
 
 			let totalViews = totalViewsStr ? parseInt(totalViewsStr) : 0;
 			let uniqueViews = uniqueViewsStr ? parseInt(uniqueViewsStr) : 0;
@@ -36,21 +36,21 @@ export default {
 			// Only increment on POST
 			if (request.method === "POST") {
 				// Check if this IP has visited today
-				const hasVisitedToday = await env.VISITOR_STATS.get(uniqueKey);
+				const hasVisitedToday = await env.portfolio_visitor_stats.get(uniqueKey);
 
 				if (!hasVisitedToday) {
 					// Increment unique visitors
 					uniqueViews++;
-					await env.VISITOR_STATS.put("visitors:unique:total", uniqueViews.toString());
+					await env.portfolio_visitor_stats.put("visitors:unique:total", uniqueViews.toString());
 
 					// Mark this IP as visited today (expires in 24 hours)
-					await env.VISITOR_STATS.put(uniqueKey, "1", {
+					await env.portfolio_visitor_stats.put(uniqueKey, "1", {
 						expirationTtl: 86400, // 24 hours
 					});
 
 					// Add to today's unique set
 					todayUniqueSet.add(ip);
-					await env.VISITOR_STATS.put(
+					await env.portfolio_visitor_stats.put(
 						`visitors:daily:${today}`,
 						JSON.stringify([...todayUniqueSet]),
 						{
@@ -61,7 +61,7 @@ export default {
 
 				// Always increment total views
 				totalViews++;
-				await env.VISITOR_STATS.put("visitors:total", totalViews.toString());
+				await env.portfolio_visitor_stats.put("visitors:total", totalViews.toString());
 			}
 
 			const todayUnique = todayUniqueSet.size;
