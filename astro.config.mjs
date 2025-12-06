@@ -1,16 +1,16 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
-import cloudflare from '@astrojs/cloudflare';
+import { defineConfig } from "astro/config";
+import cloudflare from "@astrojs/cloudflare";
 
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
+  output: "static",
   adapter: cloudflare(),
   image: {
     service: {
-      entrypoint: 'astro/assets/services/sharp',
+      entrypoint: "astro/assets/services/no-op",
     },
   },
   vite: {
@@ -21,6 +21,6 @@ export default defineConfig({
   },
   compressHTML: true,
   prefetch: {
-    defaultStrategy: 'hover',
+    defaultStrategy: "hover",
   },
 });
