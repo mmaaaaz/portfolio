@@ -1,5 +1,5 @@
 ---
-// Visit counter component with futuristic loading animation
+
 ---
 
 <div class="visit-counter fixed bottom-6 right-6 z-40">
@@ -7,141 +7,82 @@
         <div class="flex items-center gap-3 text-neutral-500 uppercase tracking-wider">
             <span class="w-2 h-2 bg-neutral-600 animate-pulse"></span>
             <span id="visit-count" class="text-neutral-400 loading">
-                <span class="alien-text" data-final="Loading..."></span>
+                <span class="alien-text">Loading...</span>
             </span>
         </div>
     </div>
 </div>
 
 <script>
-    // Alien character set for loading animation
     const alienChars = "▓▒░█▄▀■□▪▫◘◙○●►◄↕‼¶§▬↨↑↓→←∟↔▲▼";
 
-    // Scramble text effect - super fast
-    function scrambleText(element: HTMLElement, finalText: string, duration: number = 350) {
-        const startTime = Date.now();
+    function scrambleText(element: HTMLElement, finalText: string, duration = 350): void {
+        const start = performance.now();
 
-        const animate = () => {
-            const elapsed = Date.now() - startTime;
-            const progress = Math.min(elapsed / duration, 1);
+        const animate = (time: number) => {
+            const progress = Math.min((time - start) / duration, 1);
+            const reveal = Math.floor(progress * finalText.length);
 
-            // Calculate how many characters should be revealed
-            const revealCount = Math.floor(progress * finalText.length);
+            element.textContent = finalText
+                .split("")
+                .map((c, i) => (i < reveal ? c : alienChars[Math.floor(Math.random() * alienChars.length)]))
+                .join("");
 
-            let output = "";
-            for (let i = 0; i < finalText.length; i++) {
-                if (i < revealCount) {
-                    output += finalText[i];
-                } else {
-                    // Random alien character
-                    output += alienChars[Math.floor(Math.random() * alienChars.length)];
-                }
-            }
-
-            element.textContent = output;
-
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                element.textContent = finalText;
-            }
+            if (progress < 1) requestAnimationFrame(animate);
+            else element.textContent = finalText;
         };
 
-        animate();
+        requestAnimationFrame(animate);
     }
 
-    // Fetch visit count - optimized with timeout
-    async function updateVisitCount() {
-        const countElement = document.getElementById("visit-count");
-        const alienText = countElement?.querySelector(".alien-text") as HTMLElement;
+    interface VisitData {
+        success: boolean;
+        totalViews: number;
+        uniqueViews: number;
+        todayUnique: number;
+    }
 
-        if (!alienText) return;
-
-        // Faster initial scramble animation
-        let scrambleFrame = 0;
-        const initialScramble = setInterval(() => {
-            let scrambled = "";
-            for (let i = 0; i < 10; i++) {
-                scrambled += alienChars[Math.floor(Math.random() * alienChars.length)];
-            }
-            alienText.textContent = scrambled;
-            scrambleFrame++;
-
-            // Stop after 5 frames (500ms max)
-            if (scrambleFrame > 5) {
-                clearInterval(initialScramble);
-                alienText.textContent = "▓░...░▓";
-            }
-        }, 100);
+    async function updateVisitCount(): Promise<void> {
+        const countEl = document.getElementById("visit-count") as HTMLSpanElement | null;
+        const alienEl = countEl?.querySelector(".alien-text") as HTMLSpanElement | null;
+        if (!alienEl || !countEl) return;
 
         try {
-            // Use environment variable for API URL, fallback to deployed URL
-            const apiUrl = import.meta.env.PUBLIC_API_URL || "https://portfolio-api.devmaaaaz.workers.dev";
-
-            // Add timeout to prevent hanging
+            const apiUrl: string = import.meta.env.PUBLIC_API_URL || "https://portfolio-api.devmaaaaz.workers.dev";
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
 
             const response = await fetch(apiUrl, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 signal: controller.signal,
             });
 
             clearTimeout(timeoutId);
-            clearInterval(initialScramble);
 
-            if (!response.ok) {
-                throw new Error("Failed to fetch visit count");
+            if (!response.ok) throw new Error("Failed to fetch visit count");
+
+            const data: VisitData = await response.json();
+
+            if (data.success) {
+                const formatted = `${data.totalViews.toLocaleString()} visits`;
+                scrambleText(alienEl, formatted, 350);
+                countEl.title = `${data.uniqueViews.toLocaleString()} unique · ${data.todayUnique} today`;
+                countEl.classList.remove("loading");
             }
-
-            const data = await response.json();
-
-            if (data.success && countElement) {
-                // Format number with commas
-                const formattedViews = data.totalViews.toLocaleString();
-                const finalText = `${formattedViews} visits`;
-
-                // Super fast scramble into final text (350ms)
-                scrambleText(alienText, finalText, 350);
-
-                // Add tooltip with unique visitors
-                countElement.title = `${data.uniqueViews.toLocaleString()} unique · ${data.todayUnique} today`;
-
-                // Remove loading class
-                countElement.classList.remove("loading");
-            }
-        } catch (error) {
-            clearInterval(initialScramble);
-
-            // Don't log aborted fetches (timeout)
-            if (error instanceof Error && error.name !== "AbortError") {
-                console.error("Visit counter error:", error);
-            }
-
-            if (alienText) {
-                scrambleText(alienText, "— visits", 250);
-                if (countElement) {
-                    countElement.title = "Counter unavailable";
-                    countElement.classList.remove("loading");
-                }
-            }
+        } catch {
+            scrambleText(alienEl, "— visits", 250);
+            countEl.title = "Counter unavailable";
+            countEl.classList.remove("loading");
         }
     }
 
-    // Use requestIdleCallback for non-blocking execution
-    // Falls back to setTimeout if not supported
-    const scheduleUpdate = () => {
-        if ("requestIdleCallback" in window) {
-            requestIdleCallback(updateVisitCount, { timeout: 2000 });
-        } else {
-            setTimeout(updateVisitCount, 100);
-        }
+    const scheduleUpdate = (): void => {
+        "requestIdleCallback" in window
+            ? (window as any).requestIdleCallback(updateVisitCount, { timeout: 2000 })
+            : setTimeout(updateVisitCount, 100);
     };
 
-    // Run after page loads - non-blocking
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", scheduleUpdate);
     } else {
@@ -154,7 +95,6 @@
         animation: fade-in 0.4s ease-out 0.5s both;
     }
 
-    /* Alien loading effect */
     .loading .alien-text {
         color: #52525b;
         text-shadow: 0 0 8px rgba(82, 82, 91, 0.5);
@@ -171,14 +111,12 @@
         }
     }
 
-    /* Mobile responsiveness */
     @media (max-width: 768px) {
         .visit-counter {
             bottom: 1rem;
             right: 1rem;
             font-size: 0.65rem;
         }
-
         .visit-counter > div {
             padding: 0.5rem 0.75rem;
         }
