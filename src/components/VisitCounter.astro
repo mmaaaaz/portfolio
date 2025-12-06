@@ -1,0 +1,75 @@
+---
+// Visit counter component matching brutalist design
+---
+
+<div class="visit-counter fixed bottom-6 right-6 z-40 hidden md:block">
+    <div class="border border-neutral-800 bg-black/90 backdrop-blur-sm px-4 py-3 font-mono text-xs">
+        <div class="flex items-center gap-3 text-neutral-500 uppercase tracking-wider">
+            <span class="w-2 h-2 bg-neutral-600 animate-pulse"></span>
+            <span id="visit-count" class="text-neutral-400"> Loading... </span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Fetch visit count on page load
+    async function updateVisitCount() {
+        try {
+            const response = await fetch("/api/visits", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch visit count");
+            }
+
+            const data = await response.json();
+
+            if (data.success) {
+                const countElement = document.getElementById("visit-count");
+                if (countElement) {
+                    // Format number with commas
+                    const formattedViews = data.totalViews.toLocaleString();
+                    countElement.textContent = `${formattedViews} visits`;
+
+                    // Add tooltip with unique visitors
+                    countElement.title = `${data.uniqueViews.toLocaleString()} unique · ${data.todayUnique} today`;
+                }
+            }
+        } catch (error) {
+            console.error("Visit counter error:", error);
+            const countElement = document.getElementById("visit-count");
+            if (countElement) {
+                countElement.textContent = "— visits";
+                countElement.title = "Counter unavailable";
+            }
+        }
+    }
+
+    // Run on page load
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", updateVisitCount);
+    } else {
+        updateVisitCount();
+    }
+</script>
+
+<style>
+    .visit-counter {
+        animation: fade-in 0.4s ease-out 0.5s both;
+    }
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

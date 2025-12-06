@@ -1,0 +1,79 @@
+---
+const currentYear = new Date().getFullYear();
+const profile = (await import('../data/profile.json')).default;
+---
+
+<footer class="bg-black mt-24 sm:mt-32 gpu-accelerated relative">
+  <!-- Subtle top divider -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-neutral-800 to-transparent"></div>
+  
+  <div class="border-t border-neutral-900 pt-16 pb-12">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12 lg:gap-20">
+          <!-- Left: Links -->
+          <div>
+            <h3 class="text-mono text-xs uppercase tracking-widest text-neutral-600 mb-6 font-bold">
+              Connect
+            </h3>
+            <div class="grid grid-cols-2 gap-3">
+              <a 
+                href={profile.githubUrl}
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="group border border-neutral-900 hover:border-neutral-700 px-6 py-4 text-center text-neutral-400 hover:text-white transition-all flex items-center justify-between"
+              >
+                <span class="text-sm font-medium">GitHub</span>
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity text-xs">→</span>
+              </a>
+              
+              <a 
+                href="https://linkedin.com/in/mmaaaaz"
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="group border border-neutral-900 hover:border-neutral-700 px-6 py-4 text-center text-neutral-400 hover:text-white transition-all flex items-center justify-between"
+              >
+                <span class="text-sm font-medium">LinkedIn</span>
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity text-xs">→</span>
+              </a>
+              
+              <a 
+                href={`mailto:${profile.email || 'contact@' + profile.website}`}
+                class="group md:col-span-2 border border-neutral-900 hover:border-neutral-700 px-6 py-4 text-center text-neutral-400 hover:text-white transition-all flex items-center justify-between"
+              >
+                <span class="text-sm font-medium">Email</span>
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity text-xs">→</span>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Right: Info -->
+          <div class="flex flex-col justify-between">
+            <div>
+              <p class="text-neutral-500 text-mono text-xs uppercase tracking-widest mb-3">
+                © {currentYear} M. Maaz Uddin
+              </p>
+              <p class="text-neutral-700 text-sm mb-4">
+                Designed and developed with focus on performance and modern web standards.
+              </p>
+              <a 
+                href="https://github.com/mmaaaaz/portfolio" 
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-xs text-neutral-600 hover:text-neutral-400 transition-colors font-mono"
+              >
+                <span>View Source</span>
+                <span>→</span>
+              </a>
+            </div>
+            
+            <div class="flex items-center gap-2 text-xs text-neutral-700 mt-6">
+              <span class="w-2 h-2 bg-neutral-800"></span>
+              <span class="text-mono">Karachi, Pakistan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

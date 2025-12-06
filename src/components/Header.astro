@@ -1,0 +1,50 @@
+---
+const profile = (await import('../data/profile.json')).default;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-neutral-900 gpu-accelerated">
+  <nav class="container mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between">
+    <!-- Logo with accent -->
+    <a href="/" class="group text-white font-black text-base sm:text-lg tracking-tighter hover:text-neutral-400 transition-colors flex items-center gap-2">
+      <span class="w-2 h-2 bg-white group-hover:bg-neutral-400 transition-colors"></span>
+      mz<span class="text-neutral-600">__</span>
+    </a>
+    
+    <!-- Mobile: Minimal -->
+    <div class="flex md:hidden">
+      <a 
+        href={`mailto:${profile.email || 'contact@' + profile.website}`}
+        class="border border-neutral-700 hover:border-white px-3 py-1.5 text-[10px] text-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-all"
+      >
+        Contact
+      </a>
+    </div>
+    
+    <!-- Desktop: Full nav -->
+    <div class="hidden md:flex items-center gap-8 lg:gap-10">
+      <a 
+        href="#work" 
+        class="text-neutral-400 hover:text-white transition-colors text-mono text-xs uppercase tracking-widest relative group"
+      >
+        <span>Work</span>
+        <span class="absolute bottom-0 left-0 w-0 group-hover:w-full h-px bg-white transition-all duration-300"></span>
+      </a>
+      <a 
+        href="#about" 
+        class="text-neutral-400 hover:text-white transition-colors text-mono text-xs uppercase tracking-widest relative group"
+      >
+        <span>About</span>
+        <span class="absolute bottom-0 left-0 w-0 group-hover:w-full h-px bg-white transition-all duration-300"></span>
+      </a>
+      <a 
+        href={`mailto:${profile.email || 'contact@' + profile.website}`}
+        class="border border-neutral-700 hover:border-white hover:bg-white hover:text-black px-5 py-2.5 text-xs text-mono uppercase tracking-widest text-neutral-300 hover:text-black transition-all"
+      >
+        Contact
+      </a>
+    </div>
+  </nav>
+</header>
+
+<!-- Spacer -->
+<div class="h-16 sm:h-18"></div>

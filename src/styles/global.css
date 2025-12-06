@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Enhanced high contrast grayscale */
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0a0a0a;
+  --color-bg-card: #0f0f0f;
+
+  --color-border-subtle: #1a1a1a;
+  --color-border-primary: #333333;
+  --color-border-accent: #ffffff;
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #cccccc;
+  --color-text-tertiary: #999999;
+  --color-text-muted: #666666;
+
+  /* Micro-animation timings */
+  --transition-fast: 150ms;
+  --transition-base: 250ms;
+  --transition-slow: 400ms;
+
+  /* Typography */
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-mono: 'Space Mono', 'SF Mono', 'Monaco', monospace;
+}
+
+@layer base {
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  * {
+    border-color: #333333;
+  }
+
+  html {
+    background-color: #000000;
+  }
+
+  body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: var(--font-family-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    cursor: none;
+    /* Custom cursor on desktop */
+  }
+
+  /* Custom cursor styles */
+  #custom-cursor {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    will-change: transform;
+  }
+
+  #custom-cursor-dot {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ffffff;
+    pointer-events: none;
+    z-index: 9998;
+    mix-blend-mode: difference;
+    will-change: transform;
+  }
+
+  ::selection {
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  :focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 4px;
+  }
+
+  /* Remove all border radius globally */
+  * {
+    border-radius: 0 !important;
+  }
+
+  /* Smooth micro-animations */
+  a,
+  button {
+    transition: color var(--transition-base) ease,
+      border-color var(--transition-base) ease,
+      background-color var(--transition-base) ease;
+  }
+}
+
+@layer components {
+  .text-display {
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+  }
+
+  .text-mono {
+    font-family: var(--font-family-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Subtle hover micro-animation */
+  .hover-lift {
+    transition: transform var(--transition-base) ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Fade in animation utility */
+  .animate-fade-in {
+    animation: fade-in var(--transition-slow) ease-out forwards;
+  }
+
+  .animate-slide-in {
+    animation: slide-in-right var(--transition-slow) ease-out forwards;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gpu-accelerated {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+}

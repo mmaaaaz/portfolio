@@ -1,0 +1,105 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Developer Portfolio" } = Astro.props;
+
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import VisitCounter from "../components/VisitCounter.astro";
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <title>{title}</title>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <!-- Simplified custom cursor (desktop only) - no snapping -->
+    <div id="custom-cursor" class="hidden md:block"></div>
+    <div id="custom-cursor-dot" class="hidden md:block"></div>
+
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <VisitCounter />
+
+    <!-- Lenis Smooth Scroll (desktop only) -->
+    <script>
+      import Lenis from "lenis";
+
+      if (window.innerWidth >= 768) {
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smooth: true,
+          smoothTouch: false,
+        });
+
+        function raf(time: number) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+      }
+    </script>
+
+    <!-- Simple follow cursor - no snapping -->
+    <script>
+      if (window.innerWidth >= 768) {
+        const cursor = document.getElementById("custom-cursor");
+        const cursorDot = document.getElementById("custom-cursor-dot");
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let dotX = 0;
+        let dotY = 0;
+
+        document.addEventListener(
+          "mousemove",
+          (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Immediate small cursor
+            if (cursor) {
+              cursor.style.transform = `translate3d(${mouseX - 4}px, ${mouseY - 4}px, 0)`;
+            }
+          },
+          { passive: true },
+        );
+
+        // Smooth follow for outer cursor
+        function animateCursor() {
+          dotX += (mouseX - dotX) * 0.15;
+          dotY += (mouseY - dotY) * 0.15;
+
+          if (cursorDot) {
+            cursorDot.style.transform = `translate3d(${dotX - 20}px, ${dotY - 20}px, 0)`;
+          }
+
+          requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+      }
+    </script>
+  </body>
+</html>

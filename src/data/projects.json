@@ -1,0 +1,26 @@
+[
+  {
+    "id": "project-1",
+    "type": "github",
+    "title": "E-Commerce Platform",
+    "description": "Full-stack e-commerce solution built with Next.js, featuring advanced filtering, cart management, and Stripe integration. Optimized for performance with ISR and edge caching.",
+    "url": "https://github.com/mmaaaaz/ecommerce-platform",
+    "technologies": ["Next.js", "TypeScript", "PostgreSQL", "Stripe"],
+    "featured": true,
+    "status": "active"
+  },
+  {
+    "id": "project-2",
+    "type": "product",
+    "title": "TaskFlow Pro",
+    "description": "SaaS project management tool with real-time collaboration, Kanban boards, and team analytics. Built for remote teams and freelancers.",
+    "url": "https://taskflow.example.com",
+    "technologies": ["React", "Node.js", "Socket.io", "MongoDB"],
+    "featured": true,
+    "status": "live",
+    "metrics": {
+      "users": "2.5K+",
+      "rating": "4.8/5"
+    }
+  }
+]
