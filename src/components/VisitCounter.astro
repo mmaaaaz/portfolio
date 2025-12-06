@@ -1,19 +1,81 @@
 ---
-// Visit counter component matching brutalist design
+// Visit counter component with futuristic loading animation
 ---
 
-<div class="visit-counter fixed bottom-6 right-6 z-40 hidden md:block">
+<div class="visit-counter fixed bottom-6 right-6 z-40">
     <div class="border border-neutral-800 bg-black/90 backdrop-blur-sm px-4 py-3 font-mono text-xs">
         <div class="flex items-center gap-3 text-neutral-500 uppercase tracking-wider">
             <span class="w-2 h-2 bg-neutral-600 animate-pulse"></span>
-            <span id="visit-count" class="text-neutral-400"> Loading... </span>
+            <span id="visit-count" class="text-neutral-400 loading">
+                <span class="alien-text" data-final="Loading..."></span>
+            </span>
         </div>
     </div>
 </div>
 
 <script>
+    // Alien character set for loading animation
+    const alienChars = "▓▒░█▄▀■□▪▫◘◙○●►◄↕‼¶§▬↨↑↓→←∟↔▲▼";
+    const numbers = "0123456789";
+
+    // Scramble text effect
+    function scrambleText(element: HTMLElement, finalText: string, duration: number = 1500) {
+        const startTime = Date.now();
+        let frame = 0;
+
+        const animate = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            // Calculate how many characters should be revealed
+            const revealCount = Math.floor(progress * finalText.length);
+
+            let output = "";
+            for (let i = 0; i < finalText.length; i++) {
+                if (i < revealCount) {
+                    output += finalText[i];
+                } else {
+                    // Random alien character
+                    output += alienChars[Math.floor(Math.random() * alienChars.length)];
+                }
+            }
+
+            element.textContent = output;
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                element.textContent = finalText;
+            }
+        };
+
+        animate();
+    }
+
     // Fetch visit count on page load
     async function updateVisitCount() {
+        const countElement = document.getElementById("visit-count");
+        const alienText = countElement?.querySelector(".alien-text") as HTMLElement;
+
+        if (!alienText) return;
+
+        // Initial scramble animation
+        let scrambleFrame = 0;
+        const initialScramble = setInterval(() => {
+            let scrambled = "";
+            for (let i = 0; i < 12; i++) {
+                scrambled += alienChars[Math.floor(Math.random() * alienChars.length)];
+            }
+            alienText.textContent = scrambled;
+            scrambleFrame++;
+
+            // Stop after a bit to avoid too long loading
+            if (scrambleFrame > 20) {
+                clearInterval(initialScramble);
+                alienText.textContent = "█▓▒░ ... ░▒▓█";
+            }
+        }, 100);
+
         try {
             const response = await fetch("/api/visits", {
                 method: "POST",
@@ -22,29 +84,38 @@
                 },
             });
 
+            clearInterval(initialScramble);
+
             if (!response.ok) {
                 throw new Error("Failed to fetch visit count");
             }
 
             const data = await response.json();
 
-            if (data.success) {
-                const countElement = document.getElementById("visit-count");
-                if (countElement) {
-                    // Format number with commas
-                    const formattedViews = data.totalViews.toLocaleString();
-                    countElement.textContent = `${formattedViews} visits`;
+            if (data.success && countElement) {
+                // Format number with commas
+                const formattedViews = data.totalViews.toLocaleString();
+                const finalText = `${formattedViews} visits`;
 
-                    // Add tooltip with unique visitors
-                    countElement.title = `${data.uniqueViews.toLocaleString()} unique · ${data.todayUnique} today`;
-                }
+                // Scramble into final text
+                scrambleText(alienText, finalText, 1200);
+
+                // Add tooltip with unique visitors
+                countElement.title = `${data.uniqueViews.toLocaleString()} unique · ${data.todayUnique} today`;
+
+                // Remove loading class
+                countElement.classList.remove("loading");
             }
         } catch (error) {
+            clearInterval(initialScramble);
             console.error("Visit counter error:", error);
-            const countElement = document.getElementById("visit-count");
-            if (countElement) {
-                countElement.textContent = "— visits";
-                countElement.title = "Counter unavailable";
+
+            if (alienText) {
+                scrambleText(alienText, "— visits", 800);
+                if (countElement) {
+                    countElement.title = "Counter unavailable";
+                    countElement.classList.remove("loading");
+                }
             }
         }
     }
@@ -62,6 +133,12 @@
         animation: fade-in 0.4s ease-out 0.5s both;
     }
 
+    /* Alien loading effect */
+    .loading .alien-text {
+        color: #52525b;
+        text-shadow: 0 0 8px rgba(82, 82, 91, 0.5);
+    }
+
     @keyframes fade-in {
         from {
             opacity: 0;
@@ -70,6 +147,19 @@
         to {
             opacity: 1;
             transform: translateY(0);
+        }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        .visit-counter {
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 0.65rem;
+        }
+
+        .visit-counter > div {
+            padding: 0.5rem 0.75rem;
         }
     }
 </style>
