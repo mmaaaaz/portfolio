@@ -14,7 +14,7 @@ export const onRequestOptions = async () => {
   });
 };
 
-export const onRequestPost = async (context: { request: Request; env: Record<string, string>; }) => {
+export const onRequestPost = async (context: { request: Request; env: Record<string, string> }) => {
   try {
     const { request, env } = context;
 
