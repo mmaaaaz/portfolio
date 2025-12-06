@@ -5,7 +5,7 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.SITE_URL || "https://maazu.xyz", // Can be overridden with SITE_URL env var
+  site: process.env.SITE_URL || "https://maazu.dev", // Can be overridden with SITE_URL env var
   output: "static",
   image: {
     service: {
