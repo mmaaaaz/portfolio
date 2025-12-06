@@ -10,6 +10,29 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import VisitCounter from "../components/VisitCounter.astro";
 import "../styles/global.css";
+
+const profile = (await import("../data/profile.json")).default;
+
+// Domain-agnostic URLs
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = profile.avatarUrl;
+
+// Structured data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  url: Astro.site?.toString(),
+  jobTitle: "Full Stack Web Developer",
+  description: profile.bio,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Karachi",
+    addressCountry: "Pakistan",
+  },
+  alumniOf: "Salim Habib University",
+  sameAs: [profile.githubUrl, "https://linkedin.com/in/mmaaaaz"],
+};
 ---
 
 <!doctype html>
@@ -18,11 +41,31 @@ import "../styles/global.css";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="author" content={profile.name} />
+    <meta
+      name="keywords"
+      content="Full Stack Developer, Web Developer, React, Next.js, TypeScript, JavaScript, Node.js, Karachi, Pakistan"
+    />
+    <meta name="theme-color" content="#000000" />
+    <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:site_name" content="{profile.name} - Portfolio" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
     <title>{title}</title>
 

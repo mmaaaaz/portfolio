@@ -77,7 +77,10 @@
         }, 100);
 
         try {
-            const response = await fetch("/api/visits", {
+            // Use environment variable for API URL, fallback to placeholder
+            const apiUrl = import.meta.env.PUBLIC_API_URL || "https://portfolio-api.YOUR_SUBDOMAIN.workers.dev";
+
+            const response = await fetch(apiUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

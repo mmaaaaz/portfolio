@@ -1,0 +1,15 @@
+{
+	"name": "portfolio-api",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-12-06",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"kv_namespaces": [
+		{
+			"binding": "portfolio_visitor_stats",
+			"id": "a2e20893ffe449cb97a008a8b388d377",
+			"remote": true
+		}
+	]
+}

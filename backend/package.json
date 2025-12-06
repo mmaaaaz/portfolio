@@ -1,0 +1,15 @@
+{
+  "name": "portfolio-api",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run wrangler dev",
+    "deploy": "bun run wrangler deploy",
+    "create-kv": "bun run wrangler kv namespace create VISITOR_STATS"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241127.0",
+    "typescript": "^5.7.2",
+    "wrangler": "^4.53.0"
+  }
+}

@@ -9,9 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.12",
+    "@astrojs/sitemap": "^3.6.0",
     "@tailwindcss/vite": "^4.1.17",
-    "@upstash/redis": "^1.35.7",
     "astro": "^5.16.4",
     "lenis": "^1.3.15",
     "tailwindcss": "^4.1.17"
