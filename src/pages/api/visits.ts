@@ -1,9 +1,8 @@
+import type { APIRoute } from 'astro';
 import { Redis } from '@upstash/redis';
 
-const redis = Redis.fromEnv()
-
-export default async (req: Request, context: any) => {
-  // Set CORS headers for Cloudflare proxy
+export const POST: APIRoute = async ({ request, locals }) => {
+  // Set CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -11,21 +10,17 @@ export default async (req: Request, context: any) => {
     'Content-Type': 'application/json',
   };
 
-  // Handle OPTIONS preflight request
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { 
-      status: 204, 
-      headers 
-    });
-  }
-
   try {
-    // Get visitor IP (works with Cloudflare proxy)
-    const ip = 
-      req.headers.get('cf-connecting-ip') || 
-      req.headers.get('x-forwarded-for')?.split(',')[0] || 
-      req.headers.get('x-real-ip') || 
-      'unknown';
+    // Initialize Redis with Cloudflare environment variables
+    // @ts-ignore - locals.runtime is injected by Cloudflare adapter
+    const env = locals.runtime?.env || {};
+    const redis = new Redis({
+      url: env.UPSTASH_REDIS_REST_URL,
+      token: env.UPSTASH_REDIS_REST_TOKEN,
+    });
+
+    // Get visitor IP
+    const ip = request.headers.get('cf-connecting-ip') || 'unknown';
 
     // Get current date for daily unique tracking
     const today = new Date().toISOString().split('T')[0];
@@ -35,8 +30,8 @@ export default async (req: Request, context: any) => {
     // Check if this IP has visited today
     const hasVisitedToday = await redis.get(uniqueKey);
     
-    let totalViews = await redis.get('visitors:total') || 0;
-    let uniqueViews = await redis.get('visitors:unique:total') || 0;
+    let totalViews = await redis.get<number>('visitors:total') || 0;
+    let uniqueViews = await redis.get<number>('visitors:unique:total') || 0;
     
     // If new visitor for today, increment counters
     if (!hasVisitedToday) {
@@ -88,6 +83,13 @@ export default async (req: Request, context: any) => {
   }
 };
 
-export const config = {
-  path: '/api/visits',
+export const OPTIONS: APIRoute = async () => {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    }
+  });
 };

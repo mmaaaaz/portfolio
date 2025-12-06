@@ -20,7 +20,8 @@ https://mmaaaaz.github.io/portfolio
 - TailwindCSS v4  
 - Lenis  
 - Bun  
-- Upstash Redis  
+- Upstash Redis
+- Cloudflare Pages (Hosting & Serverless)
 
 ## Installation
 
@@ -28,5 +29,17 @@ https://mmaaaaz.github.io/portfolio
 git clone https://github.com/mmaaaaz/portfolio.git
 cd portfolio
 bun install
+# Set up environment variables (.env) for Upstash Redis if running locally
 bun run dev
 ```
+
+## Deployment
+
+Deploy to **Cloudflare Pages**:
+1. Connect your GitHub repository.
+2. Select **Framework Preset**: `Astro`.
+3. Add environment variables:
+   - `UPSTASH_REDIS_REST_URL`
+   - `UPSTASH_REDIS_REST_TOKEN`
+4. Deploy!
+

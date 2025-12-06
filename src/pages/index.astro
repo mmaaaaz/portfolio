@@ -1,27 +1,32 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import ProjectGrid from '../components/ProjectGrid.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import ProjectGrid from "../components/ProjectGrid.astro";
 
-const profile = (await import('../data/profile.json')).default;
+const profile = (await import("../data/profile.json")).default;
 ---
 
 <BaseLayout title="mz__ — Developer" description="Full Stack Web Developer from Karachi, Pakistan">
   <Hero />
   <ProjectGrid />
-  
+
   <!-- About Section - Modern storytelling approach -->
   <section id="about" class="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 gpu-accelerated relative">
     <!-- Subtle divider -->
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-neutral-800 to-transparent"></div>
-    
+    <div
+      class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-neutral-800 to-transparent"
+    >
+    </div>
+
     <div class="container mx-auto max-w-6xl">
       <div class="lg:ml-12">
         <div class="border-l-[3px] border-white pl-6 sm:pl-8 lg:pl-12 animate-fade-in">
-          <h2 class="text-display text-4xl sm:text-5xl lg:text-6xl font-black mb-10 sm:mb-14 text-white uppercase tracking-tighter">
+          <h2
+            class="text-display text-4xl sm:text-5xl lg:text-6xl font-black mb-10 sm:mb-14 text-white uppercase tracking-tighter"
+          >
             About
           </h2>
-          
+
           <!-- Story grid -->
           <div class="grid lg:grid-cols-3 gap-8 sm:gap-12 max-w-4xl">
             <!-- Main story -->
@@ -29,22 +34,24 @@ const profile = (await import('../data/profile.json')).default;
               <p class="text-xl sm:text-2xl font-medium text-white">
                 I build digital products that prioritize speed, accessibility, and user experience.
               </p>
-              
+
               <p>
-                Currently pursuing CS at Salim Habib University in Karachi with {new Date().getFullYear() - 2021}+ years of hands-on development experience. My work spans web applications, e-commerce platforms, and interactive interfaces.
+                Currently pursuing CS at Salim Habib University in Karachi with {new Date().getFullYear() - 2021}+ years
+                of hands-on development experience. My work spans web applications, e-commerce platforms, and
+                interactive interfaces.
               </p>
-              
+
               <p class="text-neutral-300">
-                I approach development with a focus on clean architecture, performance optimization, and thoughtful design. Every project is an opportunity to learn something new and push the boundaries of what's possible on the web.
+                I approach development with a focus on clean architecture, performance optimization, and thoughtful
+                design. Every project is an opportunity to learn something new and push the boundaries of what's
+                possible on the web.
               </p>
             </div>
-            
+
             <!-- Quick facts -->
             <div class="space-y-6">
               <div>
-                <h3 class="text-mono text-xs uppercase tracking-wider text-neutral-500 mb-3 font-bold">
-                  Status
-                </h3>
+                <h3 class="text-mono text-xs uppercase tracking-wider text-neutral-500 mb-3 font-bold">Status</h3>
                 <div class="space-y-2 text-sm text-neutral-300">
                   <div class="flex items-center gap-2">
                     <span class="w-1 h-1 bg-white rounded-full"></span>
@@ -62,26 +69,30 @@ const profile = (await import('../data/profile.json')).default;
               </div>
             </div>
           </div>
-          
+
           <!-- Tech stack with better grouping -->
           <div class="mt-12 sm:mt-16 pt-12 sm:pt-16 border-t border-neutral-900 max-w-4xl">
             <h3 class="text-mono text-xs sm:text-sm font-bold mb-6 sm:mb-8 text-white uppercase tracking-wider">
               Core Technologies
             </h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-              {['JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js', 'PostgreSQL', 'TailwindCSS', 'Git'].map((tech, index) => (
-                <div 
-                  class="border border-neutral-900 bg-neutral-950 px-4 py-3 hover:border-neutral-700 transition-colors group"
-                  style={`animation-delay: ${index * 50}ms;`}
-                >
-                  <span class="text-mono text-xs text-neutral-400 group-hover:text-neutral-200 uppercase tracking-wide transition-colors">
-                    {tech}
-                  </span>
-                </div>
-              ))}
+              {
+                ["JavaScript", "TypeScript", "React", "Next.js", "Node.js", "PostgreSQL", "TailwindCSS", "Git"].map(
+                  (tech, index) => (
+                    <div
+                      class="border border-neutral-900 bg-neutral-950 px-4 py-3 hover:border-neutral-700 transition-colors group"
+                      style={`animation-delay: ${index * 50}ms;`}
+                    >
+                      <span class="text-mono text-xs text-neutral-400 group-hover:text-neutral-200 uppercase tracking-wide transition-colors">
+                        {tech}
+                      </span>
+                    </div>
+                  ),
+                )
+              }
             </div>
           </div>
-          
+
           <!-- Currently working on -->
           <div class="mt-12 sm:mt-16 pt-12 sm:pt-16 border-t border-neutral-900 max-w-4xl">
             <h3 class="text-mono text-xs sm:text-sm font-bold mb-6 sm:mb-8 text-white uppercase tracking-wider">
@@ -110,35 +121,40 @@ const profile = (await import('../data/profile.json')).default;
       </div>
     </div>
   </section>
-  
+
   <!-- Contact - Modern CTA approach -->
   <section class="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 gpu-accelerated relative">
     <!-- Subtle divider -->
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-neutral-800 to-transparent"></div>
-    
+    <div
+      class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-neutral-800 to-transparent"
+    >
+    </div>
+
     <div class="container mx-auto max-w-6xl">
       <div class="lg:ml-12">
         <div class="border-l-[3px] border-white pl-6 sm:pl-8 lg:pl-12 max-w-4xl">
-          <h2 class="text-display text-4xl sm:text-5xl lg:text-6xl font-black mb-8 sm:mb-10 text-white uppercase tracking-tighter">
+          <h2
+            class="text-display text-4xl sm:text-5xl lg:text-6xl font-black mb-8 sm:mb-10 text-white uppercase tracking-tighter"
+          >
             Let's Talk
           </h2>
-          
+
           <p class="text-lg sm:text-xl text-neutral-200 mb-10 sm:mb-12 max-w-2xl leading-relaxed">
-            I'm currently available for freelance work, full-time opportunities, and interesting collaborations. 
-            Let's build something great together.
+            I'm currently available for freelance work, full-time opportunities, and interesting collaborations. Let's
+            build something great together.
           </p>
-          
+
           <!-- Modern CTA grid -->
           <div class="grid sm:grid-cols-2 gap-4 max-w-2xl">
-            <a 
-              href={`mailto:${profile.email || 'contact@' + profile.website}`}
+            <a
+              href={`mailto:${profile.email || "contact@" + profile.website}`}
               class="group border-2 border-white bg-white hover:bg-black text-black hover:text-white px-8 py-5 text-mono text-sm uppercase tracking-wider transition-all flex items-center justify-between font-bold"
             >
               <span>Send Email</span>
               <span class="group-hover:translate-x-2 transition-transform">→</span>
             </a>
-            
-            <a 
+
+            <a
               href={profile.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -148,18 +164,24 @@ const profile = (await import('../data/profile.json')).default;
               <span class="opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all">→</span>
             </a>
           </div>
-          
+
           <!-- Social links -->
           <div class="mt-10 pt-10 border-t border-neutral-900 max-w-2xl">
-            <p class="text-mono text-xs uppercase tracking-wider text-neutral-500 mb-4">
-              Connect Elsewhere
-            </p>
+            <p class="text-mono text-xs uppercase tracking-wider text-neutral-500 mb-4">Connect Elsewhere</p>
             <div class="flex flex-wrap gap-6 text-sm">
-              <a href="https://linkedin.com/in/mmaaaaz" target="_blank" class="text-neutral-400 hover:text-white transition-colors">
+              <a
+                href="https://linkedin.com/in/mmaaaaz"
+                target="_blank"
+                class="text-neutral-400 hover:text-white transition-colors"
+              >
                 LinkedIn →
               </a>
-              <a href={profile.website ? `https://${profile.website}` : '#'} target="_blank" class="text-neutral-400 hover:text-white transition-colors">
-                Website →
+              <a
+                href="https://wa.me/923353393916"
+                target="_blank"
+                class="text-neutral-400 hover:text-white transition-colors"
+              >
+                WhatsApp →
               </a>
             </div>
           </div>

@@ -1,12 +1,18 @@
 ---
 // Modern 2025 hero with expressive typography
-const profile = (await import('../data/profile.json')).default;
+const profile = (await import("../data/profile.json")).default;
 ---
 
-<section class="relative flex items-center px-4 sm:px-6 lg:px-8 py-20 sm:py-32 lg:py-40 gpu-accelerated overflow-hidden">
+<section
+  class="relative flex items-center px-4 sm:px-6 lg:px-8 py-20 sm:py-32 lg:py-40 gpu-accelerated overflow-hidden"
+>
   <!-- Subtle grid background -->
-  <div class="absolute inset-0 opacity-[0.02]" style="background-image: linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px); background-size: 50px 50px;"></div>
-  
+  <div
+    class="absolute inset-0 opacity-[0.02]"
+    style="background-image: linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px); background-size: 50px 50px;"
+  >
+  </div>
+
   <div class="container mx-auto max-w-6xl relative z-10">
     <!-- Asymmetric layout with offset border -->
     <div class="lg:ml-12">
@@ -14,35 +20,37 @@ const profile = (await import('../data/profile.json')).default;
         <!-- Expressive name treatment -->
         <div class="space-y-6">
           <div class="inline-block">
-            <h1 class="text-display text-[clamp(3.5rem,12vw,7rem)] font-black text-white uppercase leading-none tracking-tighter">
+            <h1
+              class="text-display text-[clamp(3.5rem,12vw,7rem)] font-black text-white uppercase leading-none tracking-tighter"
+            >
               mz<span class="text-neutral-600">__</span>
             </h1>
-            <!-- Decorative element -->
-            <div class="w-24 h-[3px] bg-white mt-3"></div>
           </div>
-          
+
           <p class="text-lg sm:text-xl lg:text-2xl text-neutral-200 font-medium max-w-xl leading-snug">
             {profile.bio}
           </p>
         </div>
-        
+
         <!-- Compact meta info -->
         <div class="flex flex-wrap items-center gap-6 text-sm text-neutral-500 font-mono">
-          {profile.location && (
-            <span class="flex items-center gap-2">
-              <span class="w-2 h-2 bg-neutral-500 rounded-full animate-pulse"></span>
-              {profile.location}
-            </span>
-          )}
+          {
+            profile.location && (
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-neutral-500 rounded-full animate-pulse" />
+                {profile.location}
+              </span>
+            )
+          }
           <span class="flex items-center gap-2">
             <span class="w-2 h-2 bg-white"></span>
             Available for work
           </span>
         </div>
-        
+
         <!-- Modern link grid -->
         <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 sm:gap-4 pt-6 border-t border-neutral-900">
-          <a 
+          <a
             href={profile.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -51,8 +59,8 @@ const profile = (await import('../data/profile.json')).default;
             <span>GitHub</span>
             <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
           </a>
-          
-          <a 
+
+          <a
             href="https://linkedin.com/in/mmaaaaz"
             target="_blank"
             rel="noopener noreferrer"
@@ -61,9 +69,9 @@ const profile = (await import('../data/profile.json')).default;
             <span>LinkedIn</span>
             <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
           </a>
-          
-          <a 
-            href={`mailto:${profile.email || 'contact@' + profile.website}`}
+
+          <a
+            href={`mailto:${profile.email || "contact@" + profile.website}`}
             class="group sm:col-span-2 border border-white bg-white hover:bg-black text-black hover:text-white px-5 py-3 text-mono text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 font-bold"
           >
             <span>Get in Touch</span>
