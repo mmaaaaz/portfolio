@@ -1,26 +1,157 @@
 [
   {
     "id": "project-1",
-    "type": "github",
-    "title": "E-Commerce Platform",
-    "description": "Full-stack e-commerce solution built with Next.js, featuring advanced filtering, cart management, and Stripe integration. Optimized for performance with ISR and edge caching.",
-    "url": "https://github.com/mmaaaaz/ecommerce-platform",
-    "technologies": ["Next.js", "TypeScript", "PostgreSQL", "Stripe"],
+    "type": "product",
+    "title": "AskSHU - University RAG Chatbot",
+    "description": "Scalable serverless RAG chatbot for universities, powered by Cloudflare Workers, Vectorize, D1, and modern Next.js UI. Handles ingestion, semantic search, and real-time chat with persistent history.",
+    "url": "https://askshu.vercel.app",
+    "technologies": [
+      "Cloudflare Workers",
+      "Next.js 15",
+      "TypeScript",
+      "Vector Search",
+      "Python",
+      "Hono.js",
+      "D1",
+      "Langchain",
+      "OpenAI"
+    ],
     "featured": true,
-    "status": "active"
+    "status": "live",
+    "metrics": {
+      "users": "Internal SHU",
+      "rating": "3/5"
+    }
   },
   {
     "id": "project-2",
     "type": "product",
-    "title": "TaskFlow Pro",
-    "description": "SaaS project management tool with real-time collaboration, Kanban boards, and team analytics. Built for remote teams and freelancers.",
-    "url": "https://taskflow.example.com",
-    "technologies": ["React", "Node.js", "Socket.io", "MongoDB"],
+    "title": "AhsanAutos.pk",
+    "description": "Production-grade automotive e-commerce storefront built with Next.js and BigCommerce. Fully featured with SEO, analytics, dynamic pricing, cart operations, and brand/category browsing.",
+    "url": "https://ahsanautos.pk",
+    "technologies": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind",
+      "BigCommerce",
+      "GraphQL",
+      "SWR",
+      "Jotai"
+    ],
+    "featured": true,
+    "status": "active",
+    "metrics": {
+      "users": "Established",
+      "rating": "5/5 (client)"
+    }
+  },
+  {
+    "id": "project-3",
+    "type": "product",
+    "title": "ZenMall.pk E-Commerce Platform",
+    "description": "High-performance Shopify-powered e-commerce platform with App Router, custom UI system, real-time search, analytics, and advanced cart experience.",
+    "url": "https://zenmall.pk",
+    "technologies": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "Shopify Storefront API",
+      "ShadCN UI",
+      "Framer Motion"
+    ],
     "featured": true,
     "status": "live",
     "metrics": {
-      "users": "2.5K+",
-      "rating": "4.8/5"
+      "users": "Growing",
+      "rating": "5/5 (client)"
     }
+  },
+  {
+    "id": "project-8",
+    "type": "product",
+    "title": "SHUFF - SHU Film Festival Website",
+    "description": "Cinematic, animation-rich Next.js 15 website for the SHU Film Festival. Features 3D hero scenes, festival schedules, submission categories, jury details, gallery pages, and smooth motion design built for filmmakers and attendees.",
+    "url": "https://filmfest.shu.edu.pk",
+    "technologies": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "Framer Motion",
+      "Three.js"
+    ],
+    "featured": true,
+    "status": "active"
+  },
+  {
+    "id": "project-4",
+    "type": "github",
+    "title": "DSA Sorting Visualizer",
+    "description": "Interactive sorting algorithm visualizer built with React, TypeScript, Vite, and Tailwind. Supports Bubble, Insertion, Merge, Quick, Heap, and Selection sort with adjustable speed and array size.",
+    "url": "https://github.com/mmaaaaz/sorting-visualizer",
+    "technologies": [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS"
+    ],
+    "featured": false,
+    "status": "active"
+  },
+  {
+    "id": "project-5",
+    "type": "product",
+    "title": "Encore — EncoreMND Website",
+    "description": "Production-grade marketing website for Encore Marketing & Developers. Built with Next.js, TypeScript, Tailwind, Sass, Framer Motion, and optimized with strong SEO, image optimization, and strict security headers.",
+    "url": "https://encoremnd.com",
+    "technologies": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind",
+      "Sass",
+      "Framer Motion",
+      "Swiper",
+      "Headless UI"
+    ],
+    "featured": false,
+    "status": "active",
+    "metrics": {
+      "users": "Growing",
+      "rating": "5/5 (client)"
+    }
+  },
+  {
+    "id": "project-6",
+    "type": "product",
+    "title": "SmartInsure",
+    "description": "Insurance comparison and purchasing frontend for the Pakistani market. Features provider listings, bike/car insurance forms, validation helpers, theme support, and Firebase-backed data storage.",
+    "url": "https://smartinsure.pk",
+    "technologies": [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "Sass",
+      "Firebase",
+      "SWR",
+      "Axios"
+    ],
+    "featured": false,
+    "status": "deprecated"
+  },
+  {
+    "id": "project-7",
+    "type": "product",
+    "title": "Cozmik Engineering Website",
+    "description": "Corporate informational site built with Next.js and TypeScript. Includes responsive multi-page layout, reusable components, analytics hooks, strong SEO through next-sitemap, and Tailwind + Sass styling.",
+    "url": "https://cozmikengineering.com",
+    "technologies": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Sass",
+      "next-sitemap",
+      "NProgress"
+    ],
+    "featured": false,
+    "status": "deprecated"
   }
 ]
