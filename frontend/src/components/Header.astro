@@ -19,7 +19,15 @@ const profile = (await import("../data/profile.json")).default;
     </a>
 
     <!-- Mobile: Minimal -->
-    <div class="flex md:hidden">
+    <div class="flex md:hidden gap-2">
+      <a
+        href="/resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="border border-neutral-700 hover:border-white px-3 py-1.5 text-[10px] text-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-all"
+      >
+        Resume
+      </a>
       <a
         href={`mailto:${profile.email || "contact@" + profile.website}`}
         class="border border-neutral-700 hover:border-white px-3 py-1.5 text-[10px] text-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-all"
@@ -42,6 +50,15 @@ const profile = (await import("../data/profile.json")).default;
         class="text-neutral-400 hover:text-white transition-colors text-mono text-xs uppercase tracking-widest relative group"
       >
         <span>About</span>
+        <span class="absolute bottom-0 left-0 w-0 group-hover:w-full h-px bg-white transition-all duration-300"></span>
+      </a>
+      <a
+        href="/resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-neutral-400 hover:text-white transition-colors text-mono text-xs uppercase tracking-widest relative group"
+      >
+        <span>Resume</span>
         <span class="absolute bottom-0 left-0 w-0 group-hover:w-full h-px bg-white transition-all duration-300"></span>
       </a>
       <a

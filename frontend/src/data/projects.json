@@ -19,8 +19,7 @@
     "featured": true,
     "status": "live",
     "metrics": {
-      "users": "Internal SHU",
-      "rating": "3/5"
+      "users": "Internal SHU"
     }
   },
   {
@@ -41,8 +40,7 @@
     "featured": true,
     "status": "active",
     "metrics": {
-      "users": "Established",
-      "rating": "5/5 (client)"
+      "users": "Established"
     }
   },
   {
@@ -62,8 +60,7 @@
     "featured": true,
     "status": "live",
     "metrics": {
-      "users": "Growing",
-      "rating": "5/5 (client)"
+      "users": "Growing"
     }
   },
   {
@@ -80,7 +77,7 @@
       "Three.js"
     ],
     "featured": true,
-    "status": "active"
+    "status": "live"
   },
   {
     "id": "project-4",
@@ -95,7 +92,7 @@
       "Tailwind CSS"
     ],
     "featured": false,
-    "status": "active"
+    "status": "live"
   },
   {
     "id": "project-5",
@@ -113,10 +110,9 @@
       "Headless UI"
     ],
     "featured": false,
-    "status": "active",
+    "status": "live",
     "metrics": {
-      "users": "Growing",
-      "rating": "5/5 (client)"
+      "users": "Growing"
     }
   },
   {

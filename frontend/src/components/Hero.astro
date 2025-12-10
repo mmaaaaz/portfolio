@@ -71,8 +71,18 @@ const profile = (await import("../data/profile.json")).default;
           </a>
 
           <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group border border-neutral-800 hover:border-white px-5 py-3 text-mono text-xs uppercase tracking-wider text-neutral-400 hover:text-white transition-all flex items-center justify-between gap-2"
+          >
+            <span>Resume</span>
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+          </a>
+
+          <a
             href={`mailto:${profile.email || "contact@" + profile.website}`}
-            class="group sm:col-span-2 border border-white bg-white hover:bg-black text-black hover:text-white px-5 py-3 text-mono text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 font-bold"
+            class="group sm:col-span-3 border border-white bg-white hover:bg-black text-black hover:text-white px-5 py-3 text-mono text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 font-bold"
           >
             <span>Get in Touch</span>
             <span class="group-hover:translate-x-1 transition-transform">→</span>

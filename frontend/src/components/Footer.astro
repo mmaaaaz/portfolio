@@ -39,6 +39,16 @@ const profile = (await import("../data/profile.json")).default;
               </a>
 
               <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group border border-neutral-900 hover:border-neutral-700 px-6 py-4 text-center text-neutral-400 hover:text-white transition-all flex items-center justify-between"
+              >
+                <span class="text-sm font-medium">Resume</span>
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity text-xs">→</span>
+              </a>
+
+              <a
                 href={`mailto:${profile.email || "contact@" + profile.website}`}
                 class="group md:col-span-2 border border-neutral-900 hover:border-neutral-700 px-6 py-4 text-center text-neutral-400 hover:text-white transition-all flex items-center justify-between"
               >
