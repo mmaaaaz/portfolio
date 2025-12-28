@@ -1,11 +1,29 @@
 ---
-import ProjectCard from './ProjectCard.astro';
+import ProjectCard from "./ProjectCard.astro";
 
-let projects = [];
+interface Project {
+  id: string;
+  type: "github" | "product" | "project";
+  title: string;
+  description: string;
+  url: string;
+  technologies: string[];
+  featured?: boolean;
+  status?: string;
+  hasCaseStudy?: boolean;
+  caseStudyId?: string;
+  metrics?: {
+    users?: string;
+    rating?: string;
+    stars?: number;
+  };
+}
+
+let projects: Project[] = [];
 try {
-  projects = (await import('../data/projects.json')).default;
+  projects = (await import("../data/projects.json")).default as Project[];
 } catch (error) {
-  console.warn('No projects found.');
+  console.warn("No projects found.");
 }
 ---
 
@@ -19,44 +37,50 @@ try {
             Work
           </h2>
           <p class="text-neutral-500 text-mono text-xs uppercase tracking-wider">
-            {projects.length} {projects.length === 1 ? 'Project' : 'Projects'}
+            {projects.length}
+            {projects.length === 1 ? "Project" : "Projects"}
           </p>
         </div>
-        
+
         <p class="text-neutral-400 text-sm sm:text-base max-w-2xl leading-relaxed">
           A curated selection of projects spanning full-stack development, products, and open-source contributions.
         </p>
       </div>
     </div>
-    
+
     <!-- Modern grid - no seamless borders, individual cards for depth -->
     <div class="lg:ml-12 lg:pl-12">
-      {projects.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-          {projects.map((project) => (
-            <div class="animate-fade-in">
-              <ProjectCard
-                id={project.id}
-                type={project.type}
-                title={project.title}
-                description={project.description}
-                url={project.url}
-                technologies={project.technologies}
-                featured={project.featured}
-                status={project.status}
-                metrics={project.metrics}
-              />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div class="border border-neutral-800 p-12 sm:p-20 text-center bg-neutral-950">
-          <p class="text-neutral-400 mb-2 uppercase tracking-wide text-sm font-bold">No Projects Yet</p>
-          <p class="text-mono text-xs text-neutral-600">
-            Edit <code class="px-2 py-1 bg-black border border-neutral-900 text-neutral-500">src/data/projects.json</code>
-          </p>
-        </div>
-      )}
+      {
+        projects.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            {projects.map((project) => (
+              <div class="animate-fade-in">
+                <ProjectCard
+                  id={project.id}
+                  type={project.type}
+                  title={project.title}
+                  description={project.description}
+                  url={project.url}
+                  technologies={project.technologies}
+                  featured={project.featured}
+                  status={project.status}
+                  hasCaseStudy={project.hasCaseStudy}
+                  caseStudyId={project.caseStudyId}
+                  metrics={project.metrics}
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div class="border border-neutral-800 p-12 sm:p-20 text-center bg-neutral-950">
+            <p class="text-neutral-400 mb-2 uppercase tracking-wide text-sm font-bold">No Projects Yet</p>
+            <p class="text-mono text-xs text-neutral-600">
+              Edit{" "}
+              <code class="px-2 py-1 bg-black border border-neutral-900 text-neutral-500">src/data/projects.json</code>
+            </p>
+          </div>
+        )
+      }
     </div>
   </div>
 </section>

@@ -1,13 +1,15 @@
 ---
 interface Props {
   id: string;
-  type: 'github' | 'product' | 'project';
+  type: "github" | "product" | "project";
   title: string;
   description: string;
   url: string;
   technologies: string[];
   featured?: boolean;
   status?: string;
+  hasCaseStudy?: boolean;
+  caseStudyId?: string;
   metrics?: {
     users?: string;
     rating?: string;
@@ -15,96 +17,137 @@ interface Props {
   };
 }
 
-const { id, type, title, description, url, technologies, featured, status, metrics } = Astro.props;
+const { id, type, title, description, url, technologies, featured, status, hasCaseStudy, caseStudyId, metrics } =
+  Astro.props;
 ---
 
-<a 
-  href={url} 
-  target="_blank" 
-  rel="noopener noreferrer"
-  class="group block h-full gpu-accelerated hover-lift"
->
-  <article class="h-full bg-neutral-950 border border-neutral-900 hover:border-neutral-700 transition-all duration-300 p-6 sm:p-8 flex flex-col min-h-[280px] sm:min-h-[320px] relative overflow-hidden">
-    <!-- Subtle hover background effect -->
-    <div class="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-    
-    <div class="relative z-10 flex flex-col h-full">
-      <!-- Header with featured badge -->
-      <div class="flex items-start justify-between mb-4 gap-4">
-        <h3 class="text-lg sm:text-xl font-black text-white group-hover:text-neutral-100 transition-colors uppercase tracking-tight leading-tight">
-          {title}
-        </h3>
-        
-        {featured && (
-          <span class="text-mono text-[9px] text-neutral-500 uppercase tracking-widest border border-neutral-800 px-2 py-1 flex-shrink-0 whitespace-nowrap">
-            ★ Featured
-          </span>
-        )}
+<div class="group/card block h-full gpu-accelerated hover-lift relative">
+  <a href={url} target="_blank" rel="noopener noreferrer" class="block h-full">
+    <article
+      class="h-full bg-neutral-950 border border-neutral-900 hover:border-neutral-700 transition-all duration-300 p-6 sm:p-8 flex flex-col min-h-[280px] sm:min-h-[320px] relative overflow-hidden"
+    >
+      <!-- Subtle hover background effect -->
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
+      >
       </div>
-      
-      <!-- Description with better readability -->
-      <p class="text-sm sm:text-base text-neutral-300 mb-auto line-clamp-3 leading-relaxed">
-        {description}
-      </p>
-      
-      <!-- Tech stack pills -->
-      <div class="flex flex-wrap gap-2 mt-6 mb-4">
-        {technologies.slice(0, 3).map((tech) => (
-          <span class="text-[10px] sm:text-[11px] text-mono text-neutral-400 uppercase tracking-wider bg-black border border-neutral-800 px-3 py-1.5">
-            {tech}
-          </span>
-        ))}
-      </div>
-      
-      <!-- Metrics section (if available) -->
-      {metrics && (metrics.users || metrics.rating || (metrics.stars && metrics.stars > 0)) && (
-        <div class="flex flex-wrap items-center gap-2 mb-4">
-          {metrics.users && (
-            <span class="text-[10px] sm:text-[11px] text-mono text-neutral-500 uppercase tracking-wider bg-neutral-950 border border-neutral-800 px-2.5 py-1">
-              👥 {metrics.users}
-            </span>
-          )}
-          {metrics.rating && (
-            <span class="text-[10px] sm:text-[11px] text-mono text-neutral-500 uppercase tracking-wider bg-neutral-950 border border-neutral-800 px-2.5 py-1">
-              ⭐ {metrics.rating}
-            </span>
-          )}
-          {metrics.stars && metrics.stars > 0 && (
-            <span class="text-[10px] sm:text-[11px] text-mono text-neutral-500 uppercase tracking-wider bg-neutral-950 border border-neutral-800 px-2.5 py-1">
-              ⭐ {metrics.stars}
-            </span>
-          )}
+
+      <div class="relative z-10 flex flex-col h-full">
+        <!-- Header with featured badge -->
+        <div class="flex items-start justify-between mb-4 gap-4">
+          <h3
+            class="text-lg sm:text-xl font-black text-white group-hover/card:text-neutral-100 transition-colors uppercase tracking-tight leading-tight"
+          >
+            {title}
+          </h3>
+
+          <div class="flex items-center gap-2 flex-shrink-0">
+            {
+              hasCaseStudy && (
+                <span class="text-mono text-[9px] text-blue-400 uppercase tracking-widest border border-blue-900/50 bg-blue-950/30 px-2 py-1 whitespace-nowrap">
+                  📖 Case Study
+                </span>
+              )
+            }
+            {
+              featured && (
+                <span class="text-mono text-[9px] text-neutral-500 uppercase tracking-widest border border-neutral-800 px-2 py-1 whitespace-nowrap">
+                  ★ Featured
+                </span>
+              )
+            }
+          </div>
         </div>
-      )}
-      
-      <!-- Footer with visual separator -->
-      <div class="flex items-center justify-between text-[10px] sm:text-[11px] text-neutral-500 uppercase tracking-widest pt-5 border-t border-neutral-900">
-        <div class="flex items-center gap-2 sm:gap-3 text-mono font-medium flex-wrap">
-          <span class="text-neutral-600 font-bold">{type}</span>
-          
-          {status && (
-            <span 
-              class:list={[
-                "px-2 py-0.5 border rounded-sm text-[9px] sm:text-[10px] font-bold tracking-wide",
-                {
-                  "border-green-900/50 bg-green-950/30 text-green-400": status === "active" || status === "live",
-                  "border-red-900/50 bg-red-950/30 text-red-400": status === "deprecated",
-                  "border-neutral-800 bg-neutral-900/30 text-neutral-400": status !== "active" && status !== "live" && status !== "deprecated"
-                }
-              ]}
-            >
-              {status}
-            </span>
-          )}
+
+        <!-- Description with better readability -->
+        <p class="text-sm sm:text-base text-neutral-300 mb-auto line-clamp-3 leading-relaxed">
+          {description}
+        </p>
+
+        <!-- Tech stack pills -->
+        <div class="flex flex-wrap gap-2 mt-6 mb-4">
+          {
+            technologies
+              .slice(0, 3)
+              .map((tech) => (
+                <span class="text-[10px] sm:text-[11px] text-mono text-neutral-400 uppercase tracking-wider bg-black border border-neutral-800 px-3 py-1.5">
+                  {tech}
+                </span>
+              ))
+          }
         </div>
-        
-        <span class="text-mono text-white opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">
-          →
-        </span>
+
+        <!-- Metrics section (if available) -->
+        {
+          metrics && (metrics.users || metrics.rating || (metrics.stars && metrics.stars > 0)) && (
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+              {metrics.users && (
+                <span class="text-[10px] sm:text-[11px] text-mono text-neutral-500 uppercase tracking-wider bg-neutral-950 border border-neutral-800 px-2.5 py-1">
+                  👥 {metrics.users}
+                </span>
+              )}
+              {metrics.rating && (
+                <span class="text-[10px] sm:text-[11px] text-mono text-neutral-500 uppercase tracking-wider bg-neutral-950 border border-neutral-800 px-2.5 py-1">
+                  ⭐ {metrics.rating}
+                </span>
+              )}
+              {metrics.stars && metrics.stars > 0 && (
+                <span class="text-[10px] sm:text-[11px] text-mono text-neutral-500 uppercase tracking-wider bg-neutral-950 border border-neutral-800 px-2.5 py-1">
+                  ⭐ {metrics.stars}
+                </span>
+              )}
+            </div>
+          )
+        }
+
+        <!-- Footer with visual separator -->
+        <div
+          class="flex items-center justify-between text-[10px] sm:text-[11px] text-neutral-500 uppercase tracking-widest pt-5 border-t border-neutral-900"
+        >
+          <div class="flex items-center gap-2 sm:gap-3 text-mono font-medium flex-wrap">
+            <span class="text-neutral-600 font-bold">{type}</span>
+
+            {
+              status && (
+                <span
+                  class:list={[
+                    "px-2 py-0.5 border rounded-sm text-[9px] sm:text-[10px] font-bold tracking-wide",
+                    {
+                      "border-green-900/50 bg-green-950/30 text-green-400": status === "active" || status === "live",
+                      "border-red-900/50 bg-red-950/30 text-red-400": status === "deprecated",
+                      "border-neutral-800 bg-neutral-900/30 text-neutral-400":
+                        status !== "active" && status !== "live" && status !== "deprecated",
+                    },
+                  ]}
+                >
+                  {status}
+                </span>
+              )
+            }
+          </div>
+
+          <span
+            class="text-mono text-white opacity-0 group-hover/card:opacity-100 group-hover/card:translate-x-1 transition-all duration-300"
+          >
+            →
+          </span>
+        </div>
       </div>
-    </div>
-  </article>
-</a>
+    </article>
+  </a>
+
+  <!-- Case Study Link Overlay -->
+  {
+    hasCaseStudy && caseStudyId && (
+      <a
+        href={`/case-study/${caseStudyId}`}
+        class="absolute bottom-4 right-4 z-20 text-mono text-[10px] uppercase tracking-wider text-white bg-neutral-900 hover:bg-white hover:text-black border border-neutral-700 hover:border-white px-3 py-1.5 transition-all opacity-0 group-hover/card:opacity-100"
+      >
+        Read Case Study →
+      </a>
+    )
+  }
+</div>
 
 <style>
   .line-clamp-3 {

@@ -3,7 +3,7 @@
     "id": "project-1",
     "type": "product",
     "title": "AskSHU - University RAG Chatbot",
-    "description": "Scalable serverless RAG chatbot for universities, powered by Cloudflare Workers, Vectorize, D1, and modern Next.js UI. Handles ingestion, semantic search, and real-time chat with persistent history.",
+    "description": "Built a RAG chatbot for my university that answers student questions using vector search and Llama 3.3. Runs on Cloudflare Workers at zero cost.",
     "url": "https://askshu.vercel.app",
     "technologies": [
       "Cloudflare Workers",
@@ -11,13 +11,12 @@
       "TypeScript",
       "Vector Search",
       "Python",
-      "Hono.js",
-      "D1",
-      "Langchain",
-      "OpenAI"
+      "Langchain"
     ],
     "featured": true,
     "status": "live",
+    "hasCaseStudy": true,
+    "caseStudyId": "askshu",
     "metrics": {
       "users": "Internal SHU"
     }
@@ -26,19 +25,19 @@
     "id": "project-2",
     "type": "product",
     "title": "AhsanAutos.pk",
-    "description": "Production-grade automotive e-commerce storefront built with Next.js and BigCommerce. Fully featured with SEO, analytics, dynamic pricing, cart operations, and brand/category browsing.",
+    "description": "Automotive e-commerce for a Pakistani retailer. Currently rebuilding as headless Shopify after the BigCommerce version ran into PKR pricing issues. Dual payment modes: cash and installment.",
     "url": "https://ahsanautos.pk",
     "technologies": [
-      "Next.js",
+      "Next.js 16",
       "TypeScript",
-      "Tailwind",
-      "BigCommerce",
-      "GraphQL",
-      "SWR",
+      "Tailwind CSS 4",
+      "Shopify Storefront API",
       "Jotai"
     ],
     "featured": true,
-    "status": "active",
+    "status": "building",
+    "hasCaseStudy": true,
+    "caseStudyId": "ahsanautos-pk",
     "metrics": {
       "users": "Established"
     }
@@ -46,12 +45,12 @@
   {
     "id": "project-3",
     "type": "product",
-    "title": "ZenMall.pk E-Commerce Platform",
-    "description": "High-performance Shopify-powered e-commerce platform with App Router, custom UI system, real-time search, analytics, and advanced cart experience.",
+    "title": "ZenMall.pk",
+    "description": "Headless Shopify storefront for a Pakistani electronics retailer. Built solo over 3 months while juggling university. Optimistic cart updates, mobile-first, Vercel paid tier.",
     "url": "https://zenmall.pk",
     "technologies": [
-      "Next.js",
-      "TypeScript",
+      "Next.js 16",
+      "React 19",
       "Tailwind CSS 4",
       "Shopify Storefront API",
       "ShadCN UI",
@@ -59,6 +58,8 @@
     ],
     "featured": true,
     "status": "live",
+    "hasCaseStudy": true,
+    "caseStudyId": "zenmall-pk",
     "metrics": {
       "users": "Growing"
     }
@@ -66,8 +67,8 @@
   {
     "id": "project-8",
     "type": "product",
-    "title": "SHUFF - SHU Film Festival Website",
-    "description": "Cinematic, animation-rich Next.js 15 website for the SHU Film Festival. Features 3D hero scenes, festival schedules, submission categories, jury details, gallery pages, and smooth motion design built for filmmakers and attendees.",
+    "title": "SHUFF - SHU Film Festival",
+    "description": "Cinematic website for my university's film festival. 3D hero scenes, festival schedules, submission system. Built with Three.js and Framer Motion for filmmakers and attendees.",
     "url": "https://filmfest.shu.edu.pk",
     "technologies": [
       "Next.js",
@@ -80,34 +81,17 @@
     "status": "live"
   },
   {
-    "id": "project-4",
-    "type": "github",
-    "title": "DSA Sorting Visualizer",
-    "description": "Interactive sorting algorithm visualizer built with React, TypeScript, Vite, and Tailwind. Supports Bubble, Insertion, Merge, Quick, Heap, and Selection sort with adjustable speed and array size.",
-    "url": "https://github.com/mmaaaaz/sorting-visualizer",
-    "technologies": [
-      "React",
-      "TypeScript",
-      "Vite",
-      "Tailwind CSS"
-    ],
-    "featured": false,
-    "status": "live"
-  },
-  {
     "id": "project-5",
     "type": "product",
-    "title": "Encore — EncoreMND Website",
-    "description": "Production-grade marketing website for Encore Marketing & Developers. Built with Next.js, TypeScript, Tailwind, Sass, Framer Motion, and optimized with strong SEO, image optimization, and strict security headers.",
+    "title": "Encore — EncoreMND",
+    "description": "Marketing website for a real estate marketing firm. Clean design, strong SEO, smooth animations. The kind of corporate site that actually loads fast.",
     "url": "https://encoremnd.com",
     "technologies": [
       "Next.js",
       "TypeScript",
       "Tailwind",
       "Sass",
-      "Framer Motion",
-      "Swiper",
-      "Headless UI"
+      "Framer Motion"
     ],
     "featured": false,
     "status": "live",
@@ -119,16 +103,14 @@
     "id": "project-6",
     "type": "product",
     "title": "SmartInsure",
-    "description": "Insurance comparison and purchasing frontend for the Pakistani market. Features provider listings, bike/car insurance forms, validation helpers, theme support, and Firebase-backed data storage.",
+    "description": "Insurance comparison platform for the Pakistani market. Bike and car insurance forms, provider listings, Firebase backend. Client pivoted, project deprecated.",
     "url": "https://smartinsure.pk",
     "technologies": [
       "Next.js",
       "React",
       "Tailwind CSS",
-      "Sass",
       "Firebase",
-      "SWR",
-      "Axios"
+      "SWR"
     ],
     "featured": false,
     "status": "deprecated"
@@ -136,16 +118,14 @@
   {
     "id": "project-7",
     "type": "product",
-    "title": "Cozmik Engineering Website",
-    "description": "Corporate informational site built with Next.js and TypeScript. Includes responsive multi-page layout, reusable components, analytics hooks, strong SEO through next-sitemap, and Tailwind + Sass styling.",
+    "title": "Cozmik Engineering",
+    "description": "Corporate site for an engineering firm. Multi-page layout, SEO optimization, responsive design. Standard client work, nothing fancy.",
     "url": "https://cozmikengineering.com",
     "technologies": [
       "Next.js",
       "TypeScript",
       "Tailwind CSS",
-      "Sass",
-      "next-sitemap",
-      "NProgress"
+      "Sass"
     ],
     "featured": false,
     "status": "deprecated"

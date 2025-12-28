@@ -1,0 +1,49 @@
+---
+interface Props {
+    images: string[];
+    title: string;
+}
+
+const { images, title } = Astro.props;
+
+// Handle different gallery layouts based on image count
+const imageCount = images.length;
+const layoutClass =
+    imageCount === 1
+        ? "grid-cols-1"
+        : imageCount === 2
+          ? "grid-cols-1 sm:grid-cols-2"
+          : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+---
+
+{
+    images.length > 0 && (
+        <section class="mb-12 sm:mb-16">
+            <h2 class="text-mono text-xs uppercase tracking-wider text-neutral-500 mb-6 font-bold">Gallery</h2>
+
+            <div class={`grid ${layoutClass} gap-4`}>
+                {images.map((image, index) => (
+                    <figure
+                        class={`relative overflow-hidden bg-neutral-950 border border-neutral-800 group ${
+                            imageCount === 1
+                                ? "aspect-video"
+                                : imageCount === 2
+                                  ? "aspect-[4/3]"
+                                  : index === 0 && imageCount > 3
+                                    ? "sm:col-span-2 sm:row-span-2 aspect-video"
+                                    : "aspect-square"
+                        }`}
+                    >
+                        <img
+                            src={image}
+                            alt={`${title} - Image ${index + 1}`}
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading={index === 0 ? "eager" : "lazy"}
+                        />
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+                    </figure>
+                ))}
+            </div>
+        </section>
+    )
+}

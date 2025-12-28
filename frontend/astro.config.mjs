@@ -7,11 +7,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: process.env.SITE_URL || "https://maazu.dev", // Can be overridden with SITE_URL env var
   output: "static",
-  image: {
-    service: {
-      entrypoint: "astro/assets/services/no-op",
-    },
-  },
+
   integrations: [sitemap()],
   compressHTML: true,
   prefetch: { defaultStrategy: "hover" },
