@@ -53,16 +53,16 @@ const profile = (await import("../data/profile.json")).default;
         </div>
 
         <!-- Modern link grid -->
-        <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 sm:gap-4 pt-8 border-t border-zinc-800/60">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-8 border-t border-zinc-800/60">
           <a
             href={profile.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="group border border-zinc-800/80 bg-zinc-900/30 hover:border-zinc-400 hover:bg-zinc-800/50 px-5 py-3.5 text-mono text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between gap-3"
+            class="group border border-zinc-800/80 bg-zinc-900/30 hover:border-zinc-400 hover:bg-zinc-800/50 px-5 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between gap-3 min-h-[44px]"
           >
             <span>GitHub</span>
             <span
-              class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300"
+              class="opacity-100 sm:opacity-0 group-hover:opacity-100 translate-x-0 sm:-translate-x-2 group-hover:translate-x-0 transition-all duration-300"
               >→</span
             >
           </a>
@@ -71,11 +71,11 @@ const profile = (await import("../data/profile.json")).default;
             href="https://linkedin.com/in/mmaaaaz"
             target="_blank"
             rel="noopener noreferrer"
-            class="group border border-zinc-800/80 bg-zinc-900/30 hover:border-zinc-400 hover:bg-zinc-800/50 px-5 py-3.5 text-mono text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between gap-3"
+            class="group border border-zinc-800/80 bg-zinc-900/30 hover:border-zinc-400 hover:bg-zinc-800/50 px-5 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between gap-3 min-h-[44px]"
           >
             <span>LinkedIn</span>
             <span
-              class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300"
+              class="opacity-100 sm:opacity-0 group-hover:opacity-100 translate-x-0 sm:-translate-x-2 group-hover:translate-x-0 transition-all duration-300"
               >→</span
             >
           </a>
@@ -84,21 +84,21 @@ const profile = (await import("../data/profile.json")).default;
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            class="group border border-zinc-800/80 bg-zinc-900/30 hover:border-zinc-400 hover:bg-zinc-800/50 px-5 py-3.5 text-mono text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between gap-3"
+            class="group border border-zinc-800/80 bg-zinc-900/30 hover:border-zinc-400 hover:bg-zinc-800/50 px-5 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between gap-3 min-h-[44px]"
           >
             <span>Resume</span>
             <span
-              class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300"
+              class="opacity-100 sm:opacity-0 group-hover:opacity-100 translate-x-0 sm:-translate-x-2 group-hover:translate-x-0 transition-all duration-300"
               >→</span
             >
           </a>
 
           <a
             href={`mailto:${profile.email || "contact@" + profile.website}`}
-            class="group sm:col-span-3 border border-zinc-50 bg-zinc-50 hover:bg-accent hover:border-accent text-zinc-950 px-6 py-3.5 text-mono text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 font-bold shadow-[4px_4px_0px_#27272a] hover:shadow-[0px_0px_0px_transparent] hover:translate-x-[4px] hover:translate-y-[4px]"
+            class="group w-full md:col-span-1 border border-zinc-50 bg-zinc-50 hover:bg-accent hover:border-accent text-zinc-950 px-6 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 font-bold shadow-[4px_4px_0px_#27272a] hover:shadow-[0px_0px_0px_transparent] sm:hover:translate-x-[4px] sm:hover:translate-y-[4px] min-h-[44px]"
           >
             <span>Get in Touch</span>
-            <span class="group-hover:rotate-45 transition-transform duration-300">↗</span>
+            <span class="rotate-45 sm:rotate-0 group-hover:rotate-45 transition-transform duration-300">↗</span>
           </a>
         </div>
       </div>

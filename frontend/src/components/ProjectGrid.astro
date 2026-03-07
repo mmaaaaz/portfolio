@@ -55,19 +55,19 @@ try {
     <div class="lg:ml-12 lg:pl-12">
       {
         projects.length > 0 ? (
-          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-12 md:grid-cols-12 gap-5 sm:gap-6">
             {projects.map((project, index) => {
               // Create an asymmetric, curated editorial feel
               const isFirst = index === 0;
               const isFeatured = project.featured;
 
-              let spanClass = "md:col-span-6 lg:col-span-4"; // Default compact card
+              let spanClass = "sm:col-span-12 md:col-span-6 lg:col-span-4"; // Default compact card
               if (isFirst && isFeatured) {
-                spanClass = "md:col-span-12 lg:col-span-8"; // Hero project
+                spanClass = "sm:col-span-12 md:col-span-12 lg:col-span-8"; // Hero project
               } else if (isFeatured) {
-                spanClass = "md:col-span-12 lg:col-span-6"; // Feature project
+                spanClass = "sm:col-span-12 md:col-span-12 lg:col-span-6"; // Feature project
               } else if (index % 5 === 0) {
-                spanClass = "md:col-span-6 lg:col-span-8"; // Occasional wide card for rhythm
+                spanClass = "sm:col-span-12 md:col-span-6 lg:col-span-8"; // Occasional wide card for rhythm
               }
 
               return (

@@ -19,18 +19,18 @@ const profile = (await import("../data/profile.json")).default;
     </a>
 
     <!-- Mobile: Minimal -->
-    <div class="flex md:hidden gap-2">
+    <div class="flex md:hidden gap-3">
       <a
         href="/resume.pdf"
         target="_blank"
         rel="noopener noreferrer"
-        class="border border-zinc-800 hover:border-zinc-400 px-3 py-1.5 text-[10px] text-mono uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300"
+        class="border border-zinc-800 hover:border-accent-subtle px-4 py-2.5 text-[11px] font-bold text-mono uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300 min-w-[70px] text-center"
       >
         Resume
       </a>
       <a
         href={`mailto:${profile.email || "contact@" + profile.website}`}
-        class="border border-zinc-800 hover:border-zinc-400 px-3 py-1.5 text-[10px] text-mono uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300"
+        class="border border-zinc-800 hover:border-accent-subtle px-4 py-2.5 text-[11px] font-bold text-mono uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300 min-w-[70px] text-center"
       >
         Contact
       </a>
