@@ -22,11 +22,11 @@ const profile = (await import("../data/profile.json")).default;
                 href={profile.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group border border-zinc-800/60 bg-zinc-900/20 hover:border-zinc-500 hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between"
+                class="group border border-zinc-800/60 bg-zinc-900/20 hover:border-accent-subtle hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between"
               >
                 <span class="text-sm font-medium">GitHub</span>
                 <span
-                  class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xs text-zinc-400"
+                  class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xs text-accent"
                   >→</span
                 >
               </a>
@@ -35,11 +35,11 @@ const profile = (await import("../data/profile.json")).default;
                 href="https://linkedin.com/in/mmaaaaz"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group border border-zinc-800/60 bg-zinc-900/20 hover:border-zinc-500 hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between"
+                class="group border border-zinc-800/60 bg-zinc-900/20 hover:border-accent-subtle hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between"
               >
                 <span class="text-sm font-medium">LinkedIn</span>
                 <span
-                  class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xs text-zinc-400"
+                  class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xs text-accent"
                   >→</span
                 >
               </a>
@@ -48,22 +48,22 @@ const profile = (await import("../data/profile.json")).default;
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group border border-zinc-800/60 bg-zinc-900/20 hover:border-zinc-500 hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between"
+                class="group border border-zinc-800/60 bg-zinc-900/20 hover:border-accent-subtle hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between"
               >
                 <span class="text-sm font-medium">Resume</span>
                 <span
-                  class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xs text-zinc-400"
+                  class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xs text-accent"
                   >→</span
                 >
               </a>
 
               <a
                 href={`mailto:${profile.email || "contact@" + profile.website}`}
-                class="group md:col-span-2 border border-zinc-800/60 bg-zinc-900/20 hover:border-zinc-500 hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between"
+                class="group md:col-span-2 border border-zinc-800/60 bg-zinc-900/20 hover:border-accent-subtle hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between"
               >
                 <span class="text-sm font-bold tracking-wide">Email</span>
                 <span
-                  class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xs text-zinc-400"
+                  class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xs text-accent"
                   >→</span
                 >
               </a>

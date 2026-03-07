@@ -46,7 +46,7 @@ const profile = (await import("../data/profile.json")).default;
           }
           <span class="flex items-center gap-2 group cursor-none">
             <span
-              class="w-1.5 h-1.5 bg-green-500 group-hover:scale-150 transition-transform shadow-[0_0_10px_rgba(34,197,94,0.5)]"
+              class="w-1.5 h-1.5 bg-accent group-hover:scale-150 transition-transform shadow-[0_0_10px_var(--color-accent)]"
             ></span>
             Available for work
           </span>
@@ -95,7 +95,7 @@ const profile = (await import("../data/profile.json")).default;
 
           <a
             href={`mailto:${profile.email || "contact@" + profile.website}`}
-            class="group sm:col-span-3 border border-zinc-50 bg-zinc-50 hover:bg-transparent text-zinc-950 hover:text-zinc-50 px-6 py-3.5 text-mono text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 font-bold shadow-[4px_4px_0px_#27272a] hover:shadow-[0px_0px_0px_transparent] hover:translate-x-[4px] hover:translate-y-[4px]"
+            class="group sm:col-span-3 border border-zinc-50 bg-zinc-50 hover:bg-accent hover:border-accent text-zinc-950 px-6 py-3.5 text-mono text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 font-bold shadow-[4px_4px_0px_#27272a] hover:shadow-[0px_0px_0px_transparent] hover:translate-x-[4px] hover:translate-y-[4px]"
           >
             <span>Get in Touch</span>
             <span class="group-hover:rotate-45 transition-transform duration-300">↗</span>

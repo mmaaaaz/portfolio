@@ -25,6 +25,11 @@
   --color-text-muted: #52525b;
   /* zinc-600 */
 
+  /* Amber / Terracotta Accent for strategic interaction highlights */
+  --color-accent: oklch(0.70 0.14 45);
+  --color-accent-hover: oklch(0.60 0.14 45);
+  --color-accent-subtle: oklch(0.25 0.05 45);
+
   /* Micro-animation timings */
   --transition-fast: 150ms;
   --transition-base: 250ms;

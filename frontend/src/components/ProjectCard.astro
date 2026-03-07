@@ -28,7 +28,7 @@ const { id, type, title, description, url, technologies, featured, status, hasCa
     >
       <!-- Subtle top accent line -->
       <div
-        class="absolute top-0 left-0 w-full h-[2px] bg-transparent group-hover/card:bg-zinc-50 transition-colors duration-500"
+        class="absolute top-0 left-0 w-full h-[2px] bg-transparent group-hover/card:bg-accent transition-colors duration-500"
       >
       </div>
 
@@ -87,7 +87,7 @@ const { id, type, title, description, url, technologies, featured, status, hasCa
           </div>
 
           <span
-            class="text-mono text-zinc-50 opacity-0 group-hover/card:opacity-100 group-hover/card:-rotate-45 transition-all duration-300 transform origin-center"
+            class="text-mono text-accent opacity-0 group-hover/card:opacity-100 group-hover/card:-rotate-45 transition-all duration-300 transform origin-center"
           >
             →
           </span>
@@ -101,7 +101,7 @@ const { id, type, title, description, url, technologies, featured, status, hasCa
     hasCaseStudy && caseStudyId && (
       <a
         href={`/case-study/${caseStudyId}`}
-        class="absolute top-6 right-6 z-20 text-mono text-[10px] uppercase tracking-widest text-zinc-950 bg-zinc-50 hover:bg-zinc-300 px-3 py-1.5 transition-all opacity-0 group-hover/card:opacity-100 shadow-[2px_2px_0px_#27272a] hover:shadow-[0px_0px_0px_transparent] hover:translate-x-[2px] hover:translate-y-[2px]"
+        class="absolute top-6 right-6 z-20 text-mono text-[10px] uppercase tracking-widest text-zinc-950 bg-zinc-50 hover:bg-accent px-3 py-1.5 transition-all opacity-0 group-hover/card:opacity-100 shadow-[2px_2px_0px_#27272a] hover:shadow-[0px_0px_0px_transparent] hover:translate-x-[2px] hover:translate-y-[2px]"
       >
         Read Case Study
       </a>
