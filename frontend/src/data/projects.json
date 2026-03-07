@@ -46,7 +46,7 @@
     "id": "project-3",
     "type": "product",
     "title": "ZenMall.pk",
-    "description": "Headless Shopify storefront for a Pakistani electronics retailer. Built solo over 3 months while juggling university. Optimistic cart updates, mobile-first, Vercel paid tier.",
+    "description": "Headless Shopify storefront for a Pakistani electronics retailer. Solo build over 3 months. Features optimistic cart updates, mobile-first design, and runs on Vercel's paid tier.",
     "url": "https://zenmall.pk",
     "technologies": [
       "Next.js 16",
@@ -84,7 +84,7 @@
     "id": "project-5",
     "type": "product",
     "title": "Encore — EncoreMND",
-    "description": "Marketing website for a real estate marketing firm. Clean design, strong SEO, smooth animations. The kind of corporate site that actually loads fast.",
+    "description": "Marketing website for a digital agency. Clean layout, strong SEO foundations, and smooth scroll-driven animations.",
     "url": "https://encoremnd.com",
     "technologies": [
       "Next.js",
@@ -119,7 +119,7 @@
     "id": "project-7",
     "type": "product",
     "title": "Cozmik Engineering",
-    "description": "Corporate site for an engineering firm. Multi-page layout, SEO optimization, responsive design. Standard client work, nothing fancy.",
+    "description": "Corporate site for an engineering firm. Multi-page layout with SEO optimization and fully responsive design.",
     "url": "https://cozmikengineering.com",
     "technologies": [
       "Next.js",
