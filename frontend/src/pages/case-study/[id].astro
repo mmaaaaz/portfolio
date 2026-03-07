@@ -30,7 +30,7 @@ try {
             <!-- Back navigation -->
             <a
                 href="/#work"
-                class="inline-flex items-center gap-2 text-mono text-xs uppercase tracking-wider text-neutral-500 hover:text-white transition-colors mb-12 group"
+                class="inline-flex items-center gap-2 text-mono text-xs uppercase tracking-wider text-zinc-500 hover:text-white transition-colors mb-12 group"
             >
                 <span class="group-hover:-translate-x-1 transition-transform">←</span>
                 Back to Projects
@@ -41,14 +41,14 @@ try {
                 <div class="flex flex-wrap items-center gap-3 mb-4">
                     {
                         study.data.role && (
-                            <span class="text-mono text-[10px] sm:text-xs text-neutral-500 uppercase tracking-wider border border-neutral-800 px-3 py-1.5">
+                            <span class="text-mono text-[10px] sm:text-xs text-zinc-500 uppercase tracking-wider border border-zinc-800 px-3 py-1.5">
                                 {study.data.role}
                             </span>
                         )
                     }
                     {
                         study.data.timeline && (
-                            <span class="text-mono text-[10px] sm:text-xs text-neutral-500 uppercase tracking-wider border border-neutral-800 px-3 py-1.5">
+                            <span class="text-mono text-[10px] sm:text-xs text-zinc-500 uppercase tracking-wider border border-zinc-800 px-3 py-1.5">
                                 {study.data.timeline}
                             </span>
                         )
@@ -61,7 +61,7 @@ try {
                     {study.data.title}
                 </h1>
 
-                <p class="text-lg sm:text-xl text-neutral-300 leading-relaxed max-w-3xl">
+                <p class="text-lg sm:text-xl text-zinc-300 leading-relaxed max-w-3xl">
                     {study.data.summary}
                 </p>
 
@@ -71,7 +71,7 @@ try {
                             href={study.data.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="inline-flex items-center gap-2 mt-6 text-mono text-sm uppercase tracking-wider text-white hover:text-neutral-300 transition-colors group"
+                            class="inline-flex items-center gap-2 mt-6 text-mono text-sm uppercase tracking-wider text-white hover:text-zinc-300 transition-colors group"
                         >
                             View Live →
                         </a>
@@ -90,12 +90,12 @@ try {
             {
                 study.data.stack && (
                     <div class="mb-12 sm:mb-16">
-                        <h2 class="text-mono text-xs uppercase tracking-wider text-neutral-500 mb-4 font-bold">
+                        <h2 class="text-mono text-xs uppercase tracking-wider text-zinc-500 mb-4 font-bold">
                             Tech Stack
                         </h2>
                         <div class="flex flex-wrap gap-2">
                             {study.data.stack.split(",").map((tech: string) => (
-                                <span class="text-[10px] sm:text-xs text-mono text-neutral-400 uppercase tracking-wider bg-black border border-neutral-800 px-3 py-1.5">
+                                <span class="text-[10px] sm:text-xs text-mono text-zinc-400 uppercase tracking-wider bg-zinc-950 border border-zinc-800 px-3 py-1.5">
                                     {tech.trim()}
                                 </span>
                             ))}
@@ -110,15 +110,15 @@ try {
             </div>
 
             <!-- Footer CTA -->
-            <footer class="mt-16 sm:mt-24 pt-12 border-t border-neutral-900">
+            <footer class="mt-16 sm:mt-24 pt-12 border-t border-zinc-900">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                     <div>
-                        <p class="text-mono text-xs uppercase tracking-wider text-neutral-500 mb-2">
+                        <p class="text-mono text-xs uppercase tracking-wider text-zinc-500 mb-2">
                             Interested in similar work?
                         </p>
                         <a
                             href={`mailto:${project?.url ? "devmaaaaz@gmail.com" : "devmaaaaz@gmail.com"}`}
-                            class="text-white hover:text-neutral-300 transition-colors text-lg font-bold"
+                            class="text-white hover:text-zinc-300 transition-colors text-lg font-bold"
                         >
                             Let's talk →
                         </a>
@@ -130,7 +130,7 @@ try {
                                 href={project.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="border-2 border-white bg-white hover:bg-black text-black hover:text-white px-6 py-3 text-mono text-sm uppercase tracking-wider transition-all font-bold"
+                                class="border-2 border-white bg-white hover:bg-zinc-950 text-black hover:text-white px-6 py-3 text-mono text-sm uppercase tracking-wider transition-all font-bold"
                             >
                                 View Project
                             </a>

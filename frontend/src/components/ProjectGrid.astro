@@ -36,47 +36,62 @@ try {
           <h2 class="text-display text-4xl sm:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter">
             Work
           </h2>
-          <p class="text-neutral-500 text-mono text-xs uppercase tracking-wider">
+          <p class="text-zinc-500 text-mono text-xs uppercase tracking-wider">
             {projects.length}
             {projects.length === 1 ? "Project" : "Projects"}
           </p>
         </div>
 
-        <p class="text-neutral-400 text-sm sm:text-base max-w-2xl leading-relaxed">
+        <p class="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
           A curated selection of projects spanning full-stack development, products, and open-source contributions.
         </p>
       </div>
     </div>
 
-    <!-- Modern grid - no seamless borders, individual cards for depth -->
+    <!-- Editorial Bento Layout - breaking the algorithmic grid -->
     <div class="lg:ml-12 lg:pl-12">
       {
         projects.length > 0 ? (
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-            {projects.map((project) => (
-              <div class="animate-fade-in">
-                <ProjectCard
-                  id={project.id}
-                  type={project.type}
-                  title={project.title}
-                  description={project.description}
-                  url={project.url}
-                  technologies={project.technologies}
-                  featured={project.featured}
-                  status={project.status}
-                  hasCaseStudy={project.hasCaseStudy}
-                  caseStudyId={project.caseStudyId}
-                  metrics={project.metrics}
-                />
-              </div>
-            ))}
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6">
+            {projects.map((project, index) => {
+              // Create an asymmetric, curated editorial feel
+              const isFirst = index === 0;
+              const isFeatured = project.featured;
+
+              let spanClass = "md:col-span-6 lg:col-span-4"; // Default compact card
+              if (isFirst && isFeatured) {
+                spanClass = "md:col-span-12 lg:col-span-8"; // Hero project
+              } else if (isFeatured) {
+                spanClass = "md:col-span-12 lg:col-span-6"; // Feature project
+              } else if (index % 5 === 0) {
+                spanClass = "md:col-span-6 lg:col-span-8"; // Occasional wide card for rhythm
+              }
+
+              return (
+                <div class={`animate-fade-in ${spanClass}`}>
+                  <ProjectCard
+                    id={project.id}
+                    type={project.type}
+                    title={project.title}
+                    description={project.description}
+                    url={project.url}
+                    technologies={project.technologies}
+                    featured={project.featured}
+                    status={project.status}
+                    hasCaseStudy={project.hasCaseStudy}
+                    caseStudyId={project.caseStudyId}
+                    metrics={project.metrics}
+                  />
+                </div>
+              );
+            })}
           </div>
         ) : (
-          <div class="border border-neutral-800 p-12 sm:p-20 text-center bg-neutral-950">
-            <p class="text-neutral-400 mb-2 uppercase tracking-wide text-sm font-bold">No Projects Yet</p>
-            <p class="text-mono text-xs text-neutral-600">
+          <div class="border border-zinc-800 p-12 sm:p-20 text-center bg-zinc-950/50">
+            <p class="text-zinc-400 mb-2 uppercase tracking-widest text-sm font-bold">No Projects Yet</p>
+            <p class="text-mono text-xs text-zinc-500">
               Edit{" "}
-              <code class="px-2 py-1 bg-black border border-neutral-900 text-neutral-500">src/data/projects.json</code>
+              <code class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400">src/data/projects.json</code>
             </p>
           </div>
         )

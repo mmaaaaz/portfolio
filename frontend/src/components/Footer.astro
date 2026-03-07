@@ -3,57 +3,69 @@ const currentYear = new Date().getFullYear();
 const profile = (await import("../data/profile.json")).default;
 ---
 
-<footer class="bg-black mt-24 sm:mt-32 gpu-accelerated relative">
+<footer class="bg-zinc-950 mt-24 sm:mt-32 gpu-accelerated relative">
   <!-- Subtle top divider -->
   <div
-    class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-neutral-800 to-transparent"
+    class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-linear-to-b from-transparent via-zinc-800/50 to-transparent"
   >
   </div>
 
-  <div class="border-t border-neutral-900 pt-16 pb-12">
+  <div class="border-t border-zinc-800/40 pt-16 pb-12">
     <div class="container mx-auto px-6 lg:px-8">
       <div class="max-w-6xl mx-auto">
         <div class="grid md:grid-cols-2 gap-12 lg:gap-20">
           <!-- Left: Links -->
           <div>
-            <h3 class="text-mono text-xs uppercase tracking-widest text-neutral-600 mb-6 font-bold">Connect</h3>
+            <h3 class="text-mono text-xs uppercase tracking-widest text-zinc-600 mb-6 font-bold">Connect</h3>
             <div class="grid grid-cols-2 gap-3">
               <a
                 href={profile.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group border border-neutral-900 hover:border-neutral-700 px-6 py-4 text-center text-neutral-400 hover:text-white transition-all flex items-center justify-between"
+                class="group border border-zinc-800/60 bg-zinc-900/20 hover:border-zinc-500 hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between"
               >
                 <span class="text-sm font-medium">GitHub</span>
-                <span class="opacity-0 group-hover:opacity-100 transition-opacity text-xs">→</span>
+                <span
+                  class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xs text-zinc-400"
+                  >→</span
+                >
               </a>
 
               <a
                 href="https://linkedin.com/in/mmaaaaz"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group border border-neutral-900 hover:border-neutral-700 px-6 py-4 text-center text-neutral-400 hover:text-white transition-all flex items-center justify-between"
+                class="group border border-zinc-800/60 bg-zinc-900/20 hover:border-zinc-500 hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between"
               >
                 <span class="text-sm font-medium">LinkedIn</span>
-                <span class="opacity-0 group-hover:opacity-100 transition-opacity text-xs">→</span>
+                <span
+                  class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xs text-zinc-400"
+                  >→</span
+                >
               </a>
 
               <a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group border border-neutral-900 hover:border-neutral-700 px-6 py-4 text-center text-neutral-400 hover:text-white transition-all flex items-center justify-between"
+                class="group border border-zinc-800/60 bg-zinc-900/20 hover:border-zinc-500 hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between"
               >
                 <span class="text-sm font-medium">Resume</span>
-                <span class="opacity-0 group-hover:opacity-100 transition-opacity text-xs">→</span>
+                <span
+                  class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xs text-zinc-400"
+                  >→</span
+                >
               </a>
 
               <a
                 href={`mailto:${profile.email || "contact@" + profile.website}`}
-                class="group md:col-span-2 border border-neutral-900 hover:border-neutral-700 px-6 py-4 text-center text-neutral-400 hover:text-white transition-all flex items-center justify-between"
+                class="group md:col-span-2 border border-zinc-800/60 bg-zinc-900/20 hover:border-zinc-500 hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between"
               >
-                <span class="text-sm font-medium">Email</span>
-                <span class="opacity-0 group-hover:opacity-100 transition-opacity text-xs">→</span>
+                <span class="text-sm font-bold tracking-wide">Email</span>
+                <span
+                  class="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xs text-zinc-400"
+                  >→</span
+                >
               </a>
             </div>
           </div>
@@ -61,20 +73,20 @@ const profile = (await import("../data/profile.json")).default;
           <!-- Right: Info -->
           <div class="flex flex-col justify-between">
             <div>
-              <p class="text-neutral-500 text-mono text-xs uppercase tracking-widest mb-3">
+              <p class="text-zinc-500 text-mono text-xs uppercase tracking-widest mb-3">
                 © {currentYear} M. Maaz Uddin
               </p>
-              <p class="text-neutral-700 text-sm mb-4">
-                Designed and developed with focus on performance and modern web standards.
+              <p class="text-zinc-400 text-sm mb-6 leading-relaxed max-w-sm">
+                Designed and developed with strong focus on meticulous typography, structural rhythm, and visual craft.
               </p>
               <a
                 href="https://github.com/mmaaaaz/portfolio"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 text-xs text-neutral-600 hover:text-neutral-400 transition-colors font-mono"
+                class="inline-flex items-center gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors duration-300 font-mono tracking-widest uppercase"
               >
-                <span>View Source</span>
-                <span>→</span>
+                <span class="border-b border-zinc-700/50 pb-0.5">View Source</span>
+                <span class="text-zinc-600">↗</span>
               </a>
             </div>
           </div>
