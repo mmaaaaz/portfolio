@@ -1,29 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  /* Enhanced high contrast grayscale */
-  --color-bg-primary: #000000;
-  --color-bg-secondary: #0a0a0a;
-  --color-bg-card: #0f0f0f;
+  /* Natural Dark Palette (Obsidian & Bone) */
+  --color-bg-primary: #09090b;
+  /* zinc-950 */
+  --color-bg-secondary: #121214;
+  --color-bg-card: #18181b;
+  /* zinc-900 */
 
-  --color-border-subtle: #1a1a1a;
-  --color-border-primary: #333333;
-  --color-border-accent: #ffffff;
+  --color-border-subtle: #27272a;
+  /* zinc-800 */
+  --color-border-primary: #3f3f46;
+  /* zinc-700 */
+  --color-border-accent: #f4f4f5;
+  /* zinc-100 */
 
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #cccccc;
-  --color-text-tertiary: #999999;
-  --color-text-muted: #666666;
+  --color-text-primary: #f4f4f5;
+  /* zinc-100 (Bone) */
+  --color-text-secondary: #a1a1aa;
+  /* zinc-400 */
+  --color-text-tertiary: #71717a;
+  /* zinc-500 */
+  --color-text-muted: #52525b;
+  /* zinc-600 */
+
+  /* Amber / Terracotta Accent for strategic interaction highlights */
+  --color-accent: oklch(0.70 0.14 45);
+  --color-accent-hover: oklch(0.60 0.14 45);
+  --color-accent-subtle: oklch(0.25 0.05 45);
 
   /* Micro-animation timings */
   --transition-fast: 150ms;
   --transition-base: 250ms;
   --transition-slow: 400ms;
+  --transition-smooth: 600ms;
 
   /* Typography */
   --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-family-mono: 'Space Mono', 'SF Mono', 'Monaco', monospace;
+  --font-family-mono: 'Space Mono', monospace;
 }
 
 /* Skip to main content link (accessibility) */
@@ -31,13 +46,13 @@
   position: absolute;
   top: -40px;
   left: 0;
-  background: #fff;
-  color: #000;
+  background: var(--color-text-primary);
+  color: var(--color-bg-primary);
   padding: 0.75rem 1rem;
   z-index: 10000;
   text-decoration: none;
   font-weight: 600;
-  border: 2px solid #000;
+  border: 2px solid var(--color-text-primary);
 }
 
 .skip-link:focus {
@@ -70,16 +85,16 @@
   }
 
   * {
-    border-color: #333333;
+    border-color: var(--color-border-subtle);
   }
 
   html {
-    background-color: #000000;
+    background-color: var(--color-bg-primary);
   }
 
   body {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
     font-family: var(--font-family-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -93,7 +108,7 @@
     position: fixed;
     width: 8px;
     height: 8px;
-    background: #ffffff;
+    background: var(--color-text-primary);
     pointer-events: none;
     z-index: 9999;
     mix-blend-mode: difference;
@@ -104,7 +119,7 @@
     position: fixed;
     width: 40px;
     height: 40px;
-    border: 1px solid #ffffff;
+    border: 1px solid var(--color-text-primary);
     pointer-events: none;
     z-index: 9998;
     mix-blend-mode: difference;
@@ -112,12 +127,12 @@
   }
 
   ::selection {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
   }
 
   :focus-visible {
-    outline: 2px solid #ffffff;
+    outline: 2px solid var(--color-text-primary);
     outline-offset: 4px;
   }
 
@@ -174,5 +189,17 @@
   .gpu-accelerated {
     will-change: transform;
     transform: translateZ(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -8,84 +8,101 @@ const profile = (await import("../data/profile.json")).default;
 >
   <!-- Subtle grid background -->
   <div
-    class="absolute inset-0 opacity-[0.02]"
-    style="background-image: linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px); background-size: 50px 50px;"
+    class="absolute inset-0 opacity-[0.015]"
+    style="background-image: linear-gradient(var(--color-text-primary) 1px, transparent 1px), linear-gradient(90deg, var(--color-text-primary) 1px, transparent 1px); background-size: 40px 40px;"
   >
   </div>
 
   <div class="container mx-auto max-w-6xl relative z-10">
     <!-- Asymmetric layout with offset border -->
     <div class="lg:ml-12">
-      <div class="border-l-[3px] border-white pl-6 sm:pl-8 lg:pl-12 space-y-8 sm:space-y-10 animate-fade-in">
+      <div
+        class="border-l-[3px] border-text-primary pl-6 sm:pl-8 lg:pl-12 space-y-8 sm:space-y-10 animate-fade-in mx-1"
+      >
         <!-- Expressive name treatment -->
         <div class="space-y-6">
-          <div class="inline-block">
+          <div class="inline-block relative">
             <h1
-              class="text-display text-[clamp(3.5rem,12vw,7rem)] font-black text-white uppercase leading-none tracking-tighter"
+              class="text-display text-[clamp(4rem,12vw,7.5rem)] font-extrabold text-text-primary uppercase leading-none tracking-tight"
             >
-              mz<span class="text-neutral-600">__</span>
+              mz<span class="text-text-muted">__</span>
             </h1>
           </div>
 
-          <p class="text-lg sm:text-xl lg:text-2xl text-neutral-200 font-medium max-w-xl leading-snug">
+          <p
+            class="text-lg sm:text-xl lg:text-2xl text-text-secondary font-medium max-w-xl leading-snug tracking-tight break-words"
+          >
             {profile.bio}
           </p>
         </div>
 
         <!-- Compact meta info -->
-        <div class="flex flex-wrap items-center gap-6 text-sm text-neutral-500 font-mono">
+        <div class="flex flex-wrap items-center gap-6 text-sm text-text-secondary font-mono tracking-wide">
           {
             profile.location && (
               <span class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-neutral-500 rounded-full animate-pulse" />
+                <span class="w-1.5 h-1.5 bg-text-tertiary animate-pulse" />
                 {profile.location}
               </span>
             )
           }
-          <span class="flex items-center gap-2">
-            <span class="w-2 h-2 bg-white"></span>
+          <span class="flex items-center gap-2 group cursor-none">
+            <span
+              class="w-1.5 h-1.5 bg-accent group-hover:scale-150 transition-transform shadow-[0_0_10px_var(--color-accent)]"
+            ></span>
             Available for work
           </span>
         </div>
 
         <!-- Modern link grid -->
-        <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 sm:gap-4 pt-6 border-t border-neutral-900">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-8 border-t border-border-subtle/60"
+        >
           <a
             href={profile.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="group border border-neutral-800 hover:border-white px-5 py-3 text-mono text-xs uppercase tracking-wider text-neutral-400 hover:text-white transition-all flex items-center justify-between gap-2"
+            class="group border border-border-subtle/80 bg-bg-card/30 hover:border-text-secondary hover:bg-border-subtle/50 px-5 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary transition-all duration-300 flex items-center justify-between gap-3 min-h-[44px]"
           >
             <span>GitHub</span>
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+            <span
+              class="opacity-100 sm:opacity-0 group-hover:opacity-100 translate-x-0 sm:-translate-x-2 group-hover:translate-x-0 transition-all duration-300"
+              >→</span
+            >
           </a>
 
           <a
             href="https://linkedin.com/in/mmaaaaz"
             target="_blank"
             rel="noopener noreferrer"
-            class="group border border-neutral-800 hover:border-white px-5 py-3 text-mono text-xs uppercase tracking-wider text-neutral-400 hover:text-white transition-all flex items-center justify-between gap-2"
+            class="group border border-border-subtle/80 bg-bg-card/30 hover:border-text-secondary hover:bg-border-subtle/50 px-5 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary transition-all duration-300 flex items-center justify-between gap-3 min-h-[44px]"
           >
             <span>LinkedIn</span>
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+            <span
+              class="opacity-100 sm:opacity-0 group-hover:opacity-100 translate-x-0 sm:-translate-x-2 group-hover:translate-x-0 transition-all duration-300"
+              >→</span
+            >
           </a>
 
           <a
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            class="group border border-neutral-800 hover:border-white px-5 py-3 text-mono text-xs uppercase tracking-wider text-neutral-400 hover:text-white transition-all flex items-center justify-between gap-2"
+            class="group border border-border-subtle/80 bg-bg-card/30 hover:border-text-secondary hover:bg-border-subtle/50 px-5 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary transition-all duration-300 flex items-center justify-between gap-3 min-h-[44px]"
           >
             <span>Resume</span>
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+            <span
+              class="opacity-100 sm:opacity-0 group-hover:opacity-100 translate-x-0 sm:-translate-x-2 group-hover:translate-x-0 transition-all duration-300"
+              >→</span
+            >
           </a>
 
           <a
             href={`mailto:${profile.email || "contact@" + profile.website}`}
-            class="group sm:col-span-3 border border-white bg-white hover:bg-black text-black hover:text-white px-5 py-3 text-mono text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 font-bold"
+            class="group w-full md:col-span-1 border border-text-primary bg-text-primary hover:bg-accent hover:border-accent text-bg-primary px-6 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 font-bold shadow-[4px_4px_0px_var(--color-border-subtle)] hover:shadow-[0px_0px_0px_transparent] sm:hover:translate-x-[4px] sm:hover:translate-y-[4px] min-h-[44px]"
           >
             <span>Get in Touch</span>
-            <span class="group-hover:translate-x-1 transition-transform">→</span>
+            <span class="rotate-45 sm:rotate-0 group-hover:rotate-45 transition-transform duration-300">↗</span>
           </a>
         </div>
       </div>

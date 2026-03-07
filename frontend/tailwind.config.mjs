@@ -4,8 +4,8 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-				mono: ['SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'monospace'],
+				sans: ['Manrope', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+				mono: ['JetBrains Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'monospace'],
 			},
 		},
 	},

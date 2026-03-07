@@ -3,122 +3,130 @@
 ---
 
 <div class="visit-counter fixed bottom-6 right-6 z-40">
-    <div class="border border-neutral-800 bg-black/90 backdrop-blur-sm px-4 py-3 font-mono text-xs">
-        <div class="flex items-center gap-3 text-neutral-500 uppercase tracking-wider">
-            <span class="w-2 h-2 bg-neutral-600 animate-pulse"></span>
-            <span id="visit-count" class="text-neutral-400 loading" aria-live="polite" aria-label="Total site visits">
-                <span class="alien-text">Loading...</span>
-            </span>
-        </div>
+  <div
+    class="border border-border-subtle/80 bg-bg-primary/80 backdrop-blur-md px-4 py-3 font-mono text-xs shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
+  >
+    <div class="flex items-center gap-3 text-text-tertiary uppercase tracking-widest">
+      <span class="w-1.5 h-1.5 bg-accent opacity-80 animate-pulse shadow-[0_0_8px_var(--color-accent-subtle)]"></span>
+      <span id="visit-count" class="text-text-secondary loading" aria-live="polite" aria-label="Total site visits">
+        <span class="alien-text">Loading...</span>
+      </span>
     </div>
+  </div>
 </div>
 
 <script>
-    const alienChars = "▓▒░█▄▀■□▪▫◘◙○●►◄↕‼¶§▬↨↑↓→←∟↔▲▼";
+  const alienChars = "▓▒░█▄▀■□▪▫◘◙○●►◄↕‼¶§▬↨↑↓→←∟↔▲▼";
 
-    function scrambleText(element: HTMLElement, finalText: string, duration = 350): void {
-        const start = performance.now();
+  function scrambleText(element: HTMLElement, finalText: string, duration = 350): void {
+    const start = performance.now();
 
-        const animate = (time: number) => {
-            const progress = Math.min((time - start) / duration, 1);
-            const reveal = Math.floor(progress * finalText.length);
+    const animate = (time: number) => {
+      const progress = Math.min((time - start) / duration, 1);
+      const reveal = Math.floor(progress * finalText.length);
 
-            element.textContent = finalText
-                .split("")
-                .map((c, i) => (i < reveal ? c : alienChars[Math.floor(Math.random() * alienChars.length)]))
-                .join("");
+      element.textContent = finalText
+        .split("")
+        .map((c, i) => (i < reveal ? c : alienChars[Math.floor(Math.random() * alienChars.length)]))
+        .join("");
 
-            if (progress < 1) requestAnimationFrame(animate);
-            else element.textContent = finalText;
-        };
-
-        requestAnimationFrame(animate);
-    }
-
-    interface VisitData {
-        success: boolean;
-        totalViews: number;
-        uniqueViews: number;
-        todayUnique: number;
-    }
-
-    async function updateVisitCount(): Promise<void> {
-        const countEl = document.getElementById("visit-count") as HTMLSpanElement | null;
-        const alienEl = countEl?.querySelector(".alien-text") as HTMLSpanElement | null;
-        if (!alienEl || !countEl) return;
-
-        try {
-            const apiUrl: string = import.meta.env.PUBLIC_API_URL || "https://portfolio-api.devmaaaaz.workers.dev";
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-            const response = await fetch(apiUrl, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                signal: controller.signal,
-            });
-
-            clearTimeout(timeoutId);
-
-            if (!response.ok) throw new Error("Failed to fetch visit count");
-
-            const data: VisitData = await response.json();
-
-            if (data.success) {
-                const formatted = `${data.totalViews.toLocaleString()} visits`;
-                scrambleText(alienEl, formatted, 350);
-                countEl.title = `${data.uniqueViews.toLocaleString()} unique · ${data.todayUnique} today`;
-                countEl.classList.remove("loading");
-            }
-        } catch {
-            scrambleText(alienEl, "— visits", 250);
-            countEl.title = "Counter unavailable";
-            countEl.classList.remove("loading");
-        }
-    }
-
-    const scheduleUpdate = (): void => {
-        "requestIdleCallback" in window
-            ? (window as any).requestIdleCallback(updateVisitCount, { timeout: 2000 })
-            : setTimeout(updateVisitCount, 100);
+      if (progress < 1) requestAnimationFrame(animate);
+      else element.textContent = finalText;
     };
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", scheduleUpdate);
-    } else {
-        scheduleUpdate();
+    requestAnimationFrame(animate);
+  }
+
+  interface VisitData {
+    success: boolean;
+    totalViews: number;
+    uniqueViews: number;
+    todayUnique: number;
+  }
+
+  async function updateVisitCount(): Promise<void> {
+    const countEl = document.getElementById("visit-count") as HTMLSpanElement | null;
+    const alienEl = countEl?.querySelector(".alien-text") as HTMLSpanElement | null;
+    if (!alienEl || !countEl) return;
+
+    try {
+      const apiUrl: string = import.meta.env.PUBLIC_API_URL || "https://portfolio-api.devmaaaaz.workers.dev";
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) throw new Error("Failed to fetch visit count");
+
+      const data = (await response.json()) as unknown;
+
+      if (!data || typeof data !== "object") throw new Error("Invalid response format");
+
+      const visitData = data as Partial<VisitData>;
+
+      if (visitData.success && typeof visitData.totalViews === "number") {
+        const formatted = `${visitData.totalViews.toLocaleString()} visits`;
+        scrambleText(alienEl, formatted, 350);
+        countEl.title = `${(visitData.uniqueViews || 0).toLocaleString()} unique · ${visitData.todayUnique || 0} today`;
+        countEl.classList.remove("loading");
+      } else {
+        throw new Error("Invalid visit count data");
+      }
+    } catch {
+      scrambleText(alienEl, "∞ visits", 250);
+      countEl.title = "Counter unavailable";
+      countEl.classList.remove("loading");
     }
+  }
+
+  const scheduleUpdate = (): void => {
+    "requestIdleCallback" in window
+      ? (window as any).requestIdleCallback(updateVisitCount, { timeout: 2000 })
+      : setTimeout(updateVisitCount, 100);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", scheduleUpdate);
+  } else {
+    scheduleUpdate();
+  }
 </script>
 
 <style>
+  .visit-counter {
+    animation: fade-in 0.4s ease-out 0.5s both;
+  }
+
+  .loading .alien-text {
+    color: var(--color-text-muted);
+    text-shadow: 0 0 8px color-mix(in srgb, var(--color-text-muted) 50%, transparent);
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
     .visit-counter {
-        animation: fade-in 0.4s ease-out 0.5s both;
+      bottom: 1rem;
+      right: 1rem;
+      font-size: 0.65rem;
     }
-
-    .loading .alien-text {
-        color: #52525b;
-        text-shadow: 0 0 8px rgba(82, 82, 91, 0.5);
+    .visit-counter > div {
+      padding: 0.5rem 0.75rem;
     }
-
-    @keyframes fade-in {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @media (max-width: 768px) {
-        .visit-counter {
-            bottom: 1rem;
-            right: 1rem;
-            font-size: 0.65rem;
-        }
-        .visit-counter > div {
-            padding: 0.5rem 0.75rem;
-        }
-    }
+  }
 </style>

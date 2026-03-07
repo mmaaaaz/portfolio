@@ -21,37 +21,30 @@ const { id, type, title, description, url, technologies, featured, status, hasCa
   Astro.props;
 ---
 
-<div class="group/card block h-full gpu-accelerated hover-lift relative">
-  <a href={url} target="_blank" rel="noopener noreferrer" class="block h-full">
+<div class="group/card block h-full gpu-accelerated relative">
+  <a href={url} target="_blank" rel="noopener noreferrer" class="block h-full outline-hidden ring-0">
     <article
-      class="h-full bg-neutral-950 border border-neutral-900 hover:border-neutral-700 transition-all duration-300 p-6 sm:p-8 flex flex-col min-h-[280px] sm:min-h-[320px] relative overflow-hidden"
+      class="h-full bg-bg-primary border border-border-subtle/60 hover:border-text-tertiary transition-all duration-500 p-7 sm:p-8 flex flex-col min-h-[300px] sm:min-h-[320px] relative overflow-hidden group-hover/card:bg-bg-card/40"
     >
-      <!-- Subtle hover background effect -->
+      <!-- Subtle top accent line -->
       <div
-        class="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
+        class="absolute top-0 left-0 w-full h-[2px] bg-transparent group-hover/card:bg-accent transition-colors duration-500"
       >
       </div>
 
       <div class="relative z-10 flex flex-col h-full">
-        <!-- Header with featured badge -->
+        <!-- Header -->
         <div class="flex items-start justify-between mb-4 gap-4">
           <h3
-            class="text-lg sm:text-xl font-black text-white group-hover/card:text-neutral-100 transition-colors uppercase tracking-tight leading-tight"
+            class="text-xl sm:text-2xl font-bold text-text-primary group-hover/card:text-text-primary transition-colors tracking-tight leading-tight min-w-0 break-words"
           >
             {title}
           </h3>
 
-          <div class="flex items-center gap-2 flex-shrink-0">
-            {
-              hasCaseStudy && (
-                <span class="text-mono text-[9px] text-blue-400 uppercase tracking-widest border border-blue-900/50 bg-blue-950/30 px-2 py-1 whitespace-nowrap">
-                  📖 Case Study
-                </span>
-              )
-            }
+          <div class="flex flex-col items-end gap-1 shrink-0">
             {
               featured && (
-                <span class="text-mono text-[9px] text-neutral-500 uppercase tracking-widest border border-neutral-800 px-2 py-1 whitespace-nowrap">
+                <span class="text-mono text-[9px] text-text-tertiary uppercase tracking-widest whitespace-nowrap">
                   ★ Featured
                 </span>
               )
@@ -59,75 +52,44 @@ const { id, type, title, description, url, technologies, featured, status, hasCa
           </div>
         </div>
 
-        <!-- Description with better readability -->
-        <p class="text-sm sm:text-base text-neutral-300 mb-auto line-clamp-3 leading-relaxed">
+        <!-- Description (distilled) -->
+        <p
+          class="text-sm sm:text-base text-text-secondary mb-auto line-clamp-3 leading-relaxed font-medium break-words"
+        >
           {description}
         </p>
 
-        <!-- Tech stack pills -->
-        <div class="flex flex-wrap gap-2 mt-6 mb-4">
-          {
-            technologies
-              .slice(0, 3)
-              .map((tech) => (
-                <span class="text-[10px] sm:text-[11px] text-mono text-neutral-400 uppercase tracking-wider bg-black border border-neutral-800 px-3 py-1.5">
-                  {tech}
-                </span>
-              ))
-          }
+        <!-- Tech stack text (no pills, craft over clutter) -->
+        <div class="mt-8 mb-6 overflow-hidden">
+          <p
+            class="text-[11px] text-mono text-text-tertiary uppercase tracking-widest leading-relaxed truncate"
+            title={technologies.join(" · ")}
+          >
+            {
+              technologies.length > 0 ? (
+                <>
+                  {technologies.slice(0, 4).join(" · ")}
+                  {technologies.length > 4 && ` · +${technologies.length - 4}`}
+                </>
+              ) : (
+                "—"
+              )
+            }
+          </p>
         </div>
-
-        <!-- Metrics section (if available) -->
-        {
-          metrics && (metrics.users || metrics.rating || (metrics.stars && metrics.stars > 0)) && (
-            <div class="flex flex-wrap items-center gap-2 mb-4">
-              {metrics.users && (
-                <span class="text-[10px] sm:text-[11px] text-mono text-neutral-500 uppercase tracking-wider bg-neutral-950 border border-neutral-800 px-2.5 py-1">
-                  👥 {metrics.users}
-                </span>
-              )}
-              {metrics.rating && (
-                <span class="text-[10px] sm:text-[11px] text-mono text-neutral-500 uppercase tracking-wider bg-neutral-950 border border-neutral-800 px-2.5 py-1">
-                  ⭐ {metrics.rating}
-                </span>
-              )}
-              {metrics.stars && metrics.stars > 0 && (
-                <span class="text-[10px] sm:text-[11px] text-mono text-neutral-500 uppercase tracking-wider bg-neutral-950 border border-neutral-800 px-2.5 py-1">
-                  ⭐ {metrics.stars}
-                </span>
-              )}
-            </div>
-          )
-        }
 
         <!-- Footer with visual separator -->
         <div
-          class="flex items-center justify-between text-[10px] sm:text-[11px] text-neutral-500 uppercase tracking-widest pt-5 border-t border-neutral-900"
+          class="flex items-center justify-between text-[11px] uppercase tracking-widest pt-5 border-t border-border-subtle/60 group-hover/card:border-border-primary transition-colors duration-500"
         >
-          <div class="flex items-center gap-2 sm:gap-3 text-mono font-medium flex-wrap">
-            <span class="text-neutral-600 font-bold">{type}</span>
+          <div class="flex items-center gap-3 text-mono font-medium flex-wrap">
+            <span class="text-text-secondary font-bold">{type}</span>
 
-            {
-              status && (
-                <span
-                  class:list={[
-                    "px-2 py-0.5 border rounded-sm text-[9px] sm:text-[10px] font-bold tracking-wide",
-                    {
-                      "border-green-900/50 bg-green-950/30 text-green-400": status === "active" || status === "live",
-                      "border-red-900/50 bg-red-950/30 text-red-400": status === "deprecated",
-                      "border-neutral-800 bg-neutral-900/30 text-neutral-400":
-                        status !== "active" && status !== "live" && status !== "deprecated",
-                    },
-                  ]}
-                >
-                  {status}
-                </span>
-              )
-            }
+            {status && <span class="text-text-muted">// {status}</span>}
           </div>
 
           <span
-            class="text-mono text-white opacity-0 group-hover/card:opacity-100 group-hover/card:translate-x-1 transition-all duration-300"
+            class="text-mono text-accent opacity-0 group-hover/card:opacity-100 group-hover/card:-rotate-45 transition-all duration-300 transform origin-center"
           >
             →
           </span>
@@ -136,14 +98,14 @@ const { id, type, title, description, url, technologies, featured, status, hasCa
     </article>
   </a>
 
-  <!-- Case Study Link Overlay -->
+  <!-- Case Study Link Overlay (Cleaned up) -->
   {
     hasCaseStudy && caseStudyId && (
       <a
         href={`/case-study/${caseStudyId}`}
-        class="absolute bottom-4 right-4 z-20 text-mono text-[10px] uppercase tracking-wider text-white bg-neutral-900 hover:bg-white hover:text-black border border-neutral-700 hover:border-white px-3 py-1.5 transition-all opacity-0 group-hover/card:opacity-100"
+        class="absolute top-6 right-6 z-20 text-mono text-[10px] uppercase tracking-widest text-bg-primary bg-text-primary hover:bg-accent px-3 py-1.5 transition-all opacity-0 group-hover/card:opacity-100 shadow-[2px_2px_0px_var(--color-border-subtle)] hover:shadow-[0px_0px_0px_transparent] hover:translate-x-[2px] hover:translate-y-[2px]"
       >
-        Read Case Study →
+        Read Case Study
       </a>
     )
   }

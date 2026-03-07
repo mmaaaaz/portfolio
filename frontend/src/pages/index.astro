@@ -17,15 +17,15 @@ const profile = (await import("../data/profile.json")).default;
   <section id="about" class="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 gpu-accelerated relative">
     <!-- Subtle divider -->
     <div
-      class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-neutral-800 to-transparent"
+      class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-border-subtle to-transparent"
     >
     </div>
 
     <div class="container mx-auto max-w-6xl">
       <div class="lg:ml-12">
-        <div class="border-l-[3px] border-white pl-6 sm:pl-8 lg:pl-12 animate-fade-in">
+        <div class="border-l-[3px] border-text-primary pl-6 sm:pl-8 lg:pl-12 animate-fade-in">
           <h2
-            class="text-display text-4xl sm:text-5xl lg:text-6xl font-black mb-10 sm:mb-14 text-white uppercase tracking-tighter"
+            class="text-display text-4xl sm:text-5xl lg:text-6xl font-black mb-10 sm:mb-14 text-text-primary uppercase tracking-tighter"
           >
             About
           </h2>
@@ -33,39 +33,38 @@ const profile = (await import("../data/profile.json")).default;
           <!-- Story grid -->
           <div class="grid lg:grid-cols-3 gap-8 sm:gap-12 max-w-4xl">
             <!-- Main story -->
-            <div class="lg:col-span-2 space-y-5 text-neutral-200 text-base sm:text-lg leading-relaxed">
-              <p class="text-xl sm:text-2xl font-medium text-white">
-                I build digital products that prioritize speed, accessibility, and user experience.
+            <div class="lg:col-span-2 space-y-5 text-text-primary text-base sm:text-lg leading-relaxed">
+              <p class="text-xl sm:text-2xl font-medium text-text-primary">
+                I design and ship web products people actually enjoy using.
               </p>
 
               <p>
-                Currently pursuing CS at Salim Habib University in Karachi with {new Date().getFullYear() - 2021}+ years
-                of hands-on development experience. My work spans web applications, e-commerce platforms, and
-                interactive interfaces.
+                CS senior at Salim Habib University, Karachi, with {new Date().getFullYear() - 2021}+ years of freelance
+                development. I've built e-commerce storefronts, AI-powered tools, and marketing sites for clients across
+                Pakistan.
               </p>
 
-              <p class="text-neutral-300">
-                I approach development with a focus on clean architecture, performance optimization, and thoughtful
-                design. Every project is an opportunity to learn something new and push the boundaries of what's
-                possible on the web.
+              <p class="text-text-secondary">
+                I care about the details — fast load times, clean component architecture, and interfaces that feel
+                considered rather than just functional.
               </p>
             </div>
 
             <!-- Quick facts -->
             <div class="space-y-6">
               <div>
-                <h3 class="text-mono text-xs uppercase tracking-wider text-neutral-500 mb-3 font-bold">Status</h3>
-                <div class="space-y-2 text-sm text-neutral-300">
+                <h3 class="text-mono text-xs uppercase tracking-wider text-text-tertiary mb-3 font-bold">Status</h3>
+                <div class="space-y-2 text-sm text-text-secondary">
                   <div class="flex items-center gap-2">
-                    <span class="w-1 h-1 bg-white rounded-full"></span>
+                    <span class="w-1.5 h-1.5 bg-accent shadow-[0_0_8px_var(--color-accent-subtle)]"></span>
                     <span>Open to opportunities</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <span class="w-1 h-1 bg-neutral-600 rounded-full"></span>
+                    <span class="w-1 h-1 bg-text-muted"></span>
                     <span>Based in Karachi</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <span class="w-1 h-1 bg-neutral-600 rounded-full"></span>
+                    <span class="w-1 h-1 bg-text-muted"></span>
                     <span>Remote-friendly</span>
                   </div>
                 </div>
@@ -74,8 +73,8 @@ const profile = (await import("../data/profile.json")).default;
           </div>
 
           <!-- Tech stack with better grouping -->
-          <div class="mt-12 sm:mt-16 pt-12 sm:pt-16 border-t border-neutral-900 max-w-4xl">
-            <h3 class="text-mono text-xs sm:text-sm font-bold mb-6 sm:mb-8 text-white uppercase tracking-wider">
+          <div class="mt-12 sm:mt-16 pt-12 sm:pt-16 border-t border-border-subtle max-w-4xl">
+            <h3 class="text-mono text-xs sm:text-sm font-bold mb-6 sm:mb-8 text-text-primary uppercase tracking-wider">
               Core Technologies
             </h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
@@ -83,10 +82,10 @@ const profile = (await import("../data/profile.json")).default;
                 ["JavaScript", "TypeScript", "React", "Next.js", "Node.js", "PostgreSQL", "TailwindCSS", "Git"].map(
                   (tech, index) => (
                     <div
-                      class="border border-neutral-900 bg-neutral-950 px-4 py-3 hover:border-neutral-700 transition-colors group"
+                      class="border border-border-subtle bg-bg-primary px-4 py-3 hover:border-accent hover:bg-bg-card/50 transition-colors group cursor-default"
                       style={`animation-delay: ${index * 50}ms;`}
                     >
-                      <span class="text-mono text-xs text-neutral-400 group-hover:text-neutral-200 uppercase tracking-wide transition-colors">
+                      <span class="text-mono text-xs text-text-secondary group-hover:text-accent uppercase tracking-wide transition-colors">
                         {tech}
                       </span>
                     </div>
@@ -97,26 +96,34 @@ const profile = (await import("../data/profile.json")).default;
           </div>
 
           <!-- Currently working on -->
-          <div class="mt-12 sm:mt-16 pt-12 sm:pt-16 border-t border-neutral-900 max-w-4xl">
-            <h3 class="text-mono text-xs sm:text-sm font-bold mb-6 sm:mb-8 text-white uppercase tracking-wider">
+          <div class="mt-12 sm:mt-16 pt-12 sm:pt-16 border-t border-border-subtle max-w-4xl">
+            <h3 class="text-mono text-xs sm:text-sm font-bold mb-6 sm:mb-8 text-text-primary uppercase tracking-wider">
               Current Focus
             </h3>
-            <div class="grid sm:grid-cols-2 gap-4 sm:gap-6 text-sm sm:text-base text-neutral-300">
-              <div class="flex items-start gap-3 group">
-                <span class="text-white mt-1 group-hover:translate-x-1 transition-transform">→</span>
+            <div class="grid sm:grid-cols-2 gap-4 sm:gap-6 text-sm sm:text-base text-text-secondary">
+              <div class="flex items-start gap-3 group cursor-default">
+                <span class="text-text-tertiary mt-1 group-hover:translate-x-1 group-hover:text-accent transition-all"
+                  >→</span
+                >
                 <span>Building performant full-stack applications</span>
               </div>
-              <div class="flex items-start gap-3 group">
-                <span class="text-white mt-1 group-hover:translate-x-1 transition-transform">→</span>
+              <div class="flex items-start gap-3 group cursor-default">
+                <span class="text-text-tertiary mt-1 group-hover:translate-x-1 group-hover:text-accent transition-all"
+                  >→</span
+                >
                 <span>Exploring AI integration in web apps</span>
               </div>
-              <div class="flex items-start gap-3 group">
-                <span class="text-white mt-1 group-hover:translate-x-1 transition-transform">→</span>
-                <span>Finishing my final year project</span>
+              <div class="flex items-start gap-3 group cursor-default">
+                <span class="text-text-tertiary mt-1 group-hover:translate-x-1 group-hover:text-accent transition-all"
+                  >→</span
+                >
+                <span>Wrapping up my final-year capstone</span>
               </div>
-              <div class="flex items-start gap-3 group">
-                <span class="text-white mt-1 group-hover:translate-x-1 transition-transform">→</span>
-                <span>Learning advanced system design</span>
+              <div class="flex items-start gap-3 group cursor-default">
+                <span class="text-text-tertiary mt-1 group-hover:translate-x-1 group-hover:text-accent transition-all"
+                  >→</span
+                >
+                <span>Studying distributed systems and caching</span>
               </div>
             </div>
           </div>
@@ -129,29 +136,29 @@ const profile = (await import("../data/profile.json")).default;
   <section class="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 gpu-accelerated relative">
     <!-- Subtle divider -->
     <div
-      class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-neutral-800 to-transparent"
+      class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-border-subtle to-transparent"
     >
     </div>
 
     <div class="container mx-auto max-w-6xl">
       <div class="lg:ml-12">
-        <div class="border-l-[3px] border-white pl-6 sm:pl-8 lg:pl-12 max-w-4xl">
+        <div class="border-l-[3px] border-text-primary pl-6 sm:pl-8 lg:pl-12 max-w-4xl">
           <h2
-            class="text-display text-4xl sm:text-5xl lg:text-6xl font-black mb-8 sm:mb-10 text-white uppercase tracking-tighter"
+            class="text-display text-4xl sm:text-5xl lg:text-6xl font-black mb-8 sm:mb-10 text-text-primary uppercase tracking-tighter"
           >
             Let's Talk
           </h2>
 
-          <p class="text-lg sm:text-xl text-neutral-200 mb-10 sm:mb-12 max-w-2xl leading-relaxed">
-            I'm currently available for freelance work, full-time opportunities, and interesting collaborations. Let's
-            build something great together.
+          <p class="text-lg sm:text-xl text-text-primary mb-10 sm:mb-12 max-w-2xl leading-relaxed">
+            Open to freelance projects, full-time roles, and collaborations worth caring about. If you have an idea or a
+            problem, I'd like to hear about it.
           </p>
 
           <!-- Modern CTA grid -->
           <div class="grid sm:grid-cols-2 gap-4 max-w-2xl">
             <a
               href={`mailto:${profile.email || "contact@" + profile.website}`}
-              class="group border-2 border-white bg-white hover:bg-black text-black hover:text-white px-8 py-5 text-mono text-sm uppercase tracking-wider transition-all flex items-center justify-between font-bold"
+              class="group border-2 border-text-primary bg-text-primary hover:bg-accent hover:border-accent text-bg-primary hover:text-bg-primary px-8 py-5 text-mono text-sm uppercase tracking-wider transition-all flex items-center justify-between font-bold"
             >
               <span>Send Email</span>
               <span class="group-hover:translate-x-2 transition-transform">→</span>
@@ -161,38 +168,42 @@ const profile = (await import("../data/profile.json")).default;
               href={profile.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="group border-2 border-neutral-800 hover:border-white px-8 py-5 text-mono text-sm uppercase tracking-wider text-neutral-400 hover:text-white transition-all flex items-center justify-between"
+              class="group border-2 border-border-subtle hover:border-accent-hover hover:bg-bg-card/30 px-8 py-5 text-mono text-sm uppercase tracking-wider text-text-secondary hover:text-text-primary transition-all flex items-center justify-between"
             >
               <span>View GitHub</span>
-              <span class="opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all">→</span>
+              <span class="opacity-0 group-hover:opacity-100 group-hover:translate-x-2 text-accent transition-all"
+                >→</span
+              >
             </a>
 
             <a
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              class="group sm:col-span-2 border-2 border-neutral-800 hover:border-white px-8 py-5 text-mono text-sm uppercase tracking-wider text-neutral-400 hover:text-white transition-all flex items-center justify-between"
+              class="group sm:col-span-2 border-2 border-border-subtle hover:border-accent-hover hover:bg-bg-card/30 px-8 py-5 text-mono text-sm uppercase tracking-wider text-text-secondary hover:text-text-primary transition-all flex items-center justify-between"
             >
               <span>Download Resume</span>
-              <span class="opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all">→</span>
+              <span class="opacity-0 group-hover:opacity-100 group-hover:translate-x-2 text-accent transition-all"
+                >→</span
+              >
             </a>
           </div>
 
           <!-- Social links -->
-          <div class="mt-10 pt-10 border-t border-neutral-900 max-w-2xl">
-            <p class="text-mono text-xs uppercase tracking-wider text-neutral-500 mb-4">Connect Elsewhere</p>
+          <div class="mt-10 pt-10 border-t border-border-subtle max-w-2xl">
+            <p class="text-mono text-xs uppercase tracking-wider text-text-tertiary mb-4">Connect Elsewhere</p>
             <div class="flex flex-wrap gap-6 text-sm">
               <a
                 href="https://linkedin.com/in/mmaaaaz"
                 target="_blank"
-                class="text-neutral-400 hover:text-white transition-colors"
+                class="text-text-secondary hover:text-text-primary transition-colors"
               >
                 LinkedIn →
               </a>
               <a
                 href="https://wa.me/923353393916"
                 target="_blank"
-                class="text-neutral-400 hover:text-white transition-colors"
+                class="text-text-secondary hover:text-text-primary transition-colors"
               >
                 WhatsApp →
               </a>
