@@ -36,26 +36,43 @@ const { id, type, title, description, url, technologies, featured, status, hasCa
         <!-- Header -->
         <div class="flex items-start justify-between mb-4 gap-4">
           <h3
-            class="text-xl sm:text-2xl font-bold text-zinc-100 group-hover/card:text-white transition-colors tracking-tight leading-tight"
+            class="text-xl sm:text-2xl font-bold text-zinc-100 group-hover/card:text-white transition-colors tracking-tight leading-tight min-w-0 break-words"
           >
             {title}
           </h3>
 
           <div class="flex flex-col items-end gap-1 shrink-0">
-            {featured && <span class="text-mono text-[9px] text-zinc-500 uppercase tracking-widest">★ Featured</span>}
+            {
+              featured && (
+                <span class="text-mono text-[9px] text-zinc-500 uppercase tracking-widest whitespace-nowrap">
+                  ★ Featured
+                </span>
+              )
+            }
           </div>
         </div>
 
         <!-- Description (distilled) -->
-        <p class="text-sm sm:text-base text-zinc-400 mb-auto line-clamp-3 leading-relaxed font-medium">
+        <p class="text-sm sm:text-base text-zinc-400 mb-auto line-clamp-3 leading-relaxed font-medium break-words">
           {description}
         </p>
 
         <!-- Tech stack text (no pills, craft over clutter) -->
-        <div class="mt-8 mb-6">
-          <p class="text-[11px] text-mono text-zinc-500 uppercase tracking-widest leading-relaxed">
-            {technologies.slice(0, 4).join(" · ")}
-            {technologies.length > 4 && " · +"}
+        <div class="mt-8 mb-6 overflow-hidden">
+          <p
+            class="text-[11px] text-mono text-zinc-500 uppercase tracking-widest leading-relaxed truncate"
+            title={technologies.join(" · ")}
+          >
+            {
+              technologies.length > 0 ? (
+                <>
+                  {technologies.slice(0, 4).join(" · ")}
+                  {technologies.length > 4 && ` · +${technologies.length - 4}`}
+                </>
+              ) : (
+                "—"
+              )
+            }
           </p>
         </div>
 

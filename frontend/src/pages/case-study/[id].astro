@@ -4,11 +4,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import CaseStudyGallery from "../../components/CaseStudyGallery.astro";
 
 export async function getStaticPaths() {
-    const caseStudies = await getCollection("case-studies");
-    return caseStudies.map((study) => ({
-        params: { id: study.id },
-        props: { study },
-    }));
+  const caseStudies = await getCollection("case-studies");
+  return caseStudies.map((study) => ({
+    params: { id: study.id },
+    props: { study },
+  }));
 }
 
 const { study } = Astro.props;
@@ -17,254 +17,261 @@ const { Content } = await render(study);
 // Get project data for additional metadata
 let project = null;
 try {
-    const projects = (await import("../../data/projects.json")).default;
-    project = projects.find((p: any) => p.id === study.data.projectId);
+  const projects = (await import("../../data/projects.json")).default;
+  project = projects.find((p: any) => p.id === study.data.projectId);
 } catch (e) {
-    console.warn("Could not load project data");
+  console.warn("Could not load project data");
 }
 ---
 
-<BaseLayout title={`${study.data.title} | Case Study`} description={study.data.summary}>
-    <article class="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 gpu-accelerated">
-        <div class="container mx-auto max-w-4xl">
-            <!-- Back navigation -->
-            <a
-                href="/#work"
-                class="inline-flex items-center gap-2 text-mono text-xs uppercase tracking-wider text-zinc-500 hover:text-white transition-colors mb-12 group"
-            >
-                <span class="group-hover:-translate-x-1 transition-transform">←</span>
-                Back to Projects
-            </a>
+<BaseLayout
+  title={`${study?.data?.title || "Case Study"} | Project`}
+  description={study?.data?.summary || "Case study details"}
+>
+  <article class="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 gpu-accelerated">
+    <div class="container mx-auto max-w-4xl">
+      <!-- Back navigation -->
+      <a
+        href="/#work"
+        class="inline-flex items-center gap-2 text-mono text-xs uppercase tracking-wider text-zinc-500 hover:text-white transition-colors mb-12 group"
+      >
+        <span class="group-hover:-translate-x-1 transition-transform">←</span>
+        Back to Projects
+      </a>
 
-            <!-- Header -->
-            <header class="mb-12 sm:mb-16 border-l-[3px] border-white pl-6 sm:pl-8 lg:pl-12 animate-fade-in">
-                <div class="flex flex-wrap items-center gap-3 mb-4">
-                    {
-                        study.data.role && (
-                            <span class="text-mono text-[10px] sm:text-xs text-zinc-500 uppercase tracking-wider border border-zinc-800 px-3 py-1.5">
-                                {study.data.role}
-                            </span>
-                        )
-                    }
-                    {
-                        study.data.timeline && (
-                            <span class="text-mono text-[10px] sm:text-xs text-zinc-500 uppercase tracking-wider border border-zinc-800 px-3 py-1.5">
-                                {study.data.timeline}
-                            </span>
-                        )
-                    }
-                </div>
-
-                <h1
-                    class="text-display text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase tracking-tighter mb-6 leading-tight"
-                >
-                    {study.data.title}
-                </h1>
-
-                <p class="text-lg sm:text-xl text-zinc-300 leading-relaxed max-w-3xl">
-                    {study.data.summary}
-                </p>
-
-                {
-                    study.data.liveUrl && (
-                        <a
-                            href={study.data.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="inline-flex items-center gap-2 mt-6 text-mono text-sm uppercase tracking-wider text-white hover:text-zinc-300 transition-colors group"
-                        >
-                            View Live →
-                        </a>
-                    )
-                }
-            </header>
-
-            <!-- Image Gallery (if images exist) -->
-            {
-                study.data.images && study.data.images.length > 0 && (
-                    <CaseStudyGallery images={study.data.images} title={study.data.title} />
-                )
-            }
-
-            <!-- Tech Stack Pills -->
-            {
-                study.data.stack && (
-                    <div class="mb-12 sm:mb-16">
-                        <h2 class="text-mono text-xs uppercase tracking-wider text-zinc-500 mb-4 font-bold">
-                            Tech Stack
-                        </h2>
-                        <div class="flex flex-wrap gap-2">
-                            {study.data.stack.split(",").map((tech: string) => (
-                                <span class="text-[10px] sm:text-xs text-mono text-zinc-400 uppercase tracking-wider bg-zinc-950 border border-zinc-800 px-3 py-1.5">
-                                    {tech.trim()}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                )
-            }
-
-            <!-- Main Content -->
-            <div class="prose prose-invert prose-neutral max-w-none case-study-content">
-                <Content />
-            </div>
-
-            <!-- Footer CTA -->
-            <footer class="mt-16 sm:mt-24 pt-12 border-t border-zinc-900">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-                    <div>
-                        <p class="text-mono text-xs uppercase tracking-wider text-zinc-500 mb-2">
-                            Interested in similar work?
-                        </p>
-                        <a
-                            href={`mailto:${project?.url ? "devmaaaaz@gmail.com" : "devmaaaaz@gmail.com"}`}
-                            class="text-white hover:text-zinc-300 transition-colors text-lg font-bold"
-                        >
-                            Let's talk →
-                        </a>
-                    </div>
-
-                    {
-                        project && (
-                            <a
-                                href={project.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="border-2 border-white bg-white hover:bg-zinc-950 text-black hover:text-white px-6 py-3 text-mono text-sm uppercase tracking-wider transition-all font-bold"
-                            >
-                                View Project
-                            </a>
-                        )
-                    }
-                </div>
-            </footer>
+      <!-- Header -->
+      <header class="mb-12 sm:mb-16 border-l-[3px] border-white pl-6 sm:pl-8 lg:pl-12 animate-fade-in">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          {
+            study?.data?.role && typeof study.data.role === "string" && (
+              <span class="text-mono text-[10px] sm:text-xs text-zinc-500 uppercase tracking-wider border border-zinc-800 px-3 py-1.5">
+                {study.data.role}
+              </span>
+            )
+          }
+          {
+            study?.data?.timeline && typeof study.data.timeline === "string" && (
+              <span class="text-mono text-[10px] sm:text-xs text-zinc-500 uppercase tracking-wider border border-zinc-800 px-3 py-1.5">
+                {study.data.timeline}
+              </span>
+            )
+          }
         </div>
-    </article>
+
+        {
+          study?.data?.title && (
+            <h1 class="text-display text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase tracking-tighter mb-6 leading-tight break-words">
+              {study.data.title}
+            </h1>
+          )
+        }
+
+        {
+          study?.data?.summary && (
+            <p class="text-lg sm:text-xl text-zinc-300 leading-relaxed max-w-3xl break-words">{study.data.summary}</p>
+          )
+        }
+
+        {
+          study?.data?.liveUrl && typeof study.data.liveUrl === "string" && (
+            <a
+              href={study.data.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 mt-6 text-mono text-sm uppercase tracking-wider text-white hover:text-zinc-300 transition-colors group break-words min-w-0"
+            >
+              View Live →
+            </a>
+          )
+        }
+      </header>
+
+      <!-- Image Gallery (if images exist) -->
+      {
+        study?.data?.images && Array.isArray(study.data.images) && study.data.images.length > 0 && (
+          <CaseStudyGallery images={study.data.images} title={study.data.title || "Case Study"} />
+        )
+      }
+
+      <!-- Tech Stack Pills -->
+      {
+        study?.data?.stack && typeof study.data.stack === "string" && study.data.stack.trim().length > 0 && (
+          <div class="mb-12 sm:mb-16">
+            <h2 class="text-mono text-xs uppercase tracking-wider text-zinc-500 mb-4 font-bold">Tech Stack</h2>
+            <div class="flex flex-wrap gap-2">
+              {study.data.stack
+                .split(",")
+                .map((tech: string) => tech.trim())
+                .filter((tech: string) => tech.length > 0)
+                .map((tech: string) => (
+                  <span class="text-[10px] sm:text-xs text-mono text-zinc-400 uppercase tracking-wider bg-zinc-950 border border-zinc-800 px-3 py-1.5">
+                    {tech}
+                  </span>
+                ))}
+            </div>
+          </div>
+        )
+      }
+
+      <!-- Main Content -->
+      <div class="prose prose-invert prose-neutral max-w-none case-study-content">
+        <Content />
+      </div>
+
+      <!-- Footer CTA -->
+      <footer class="mt-16 sm:mt-24 pt-12 border-t border-zinc-900">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div>
+            <p class="text-mono text-xs uppercase tracking-wider text-zinc-500 mb-2">Interested in similar work?</p>
+            <a
+              href={`mailto:${project?.url ? "devmaaaaz@gmail.com" : "devmaaaaz@gmail.com"}`}
+              class="text-white hover:text-zinc-300 transition-colors text-lg font-bold"
+            >
+              Let's talk →
+            </a>
+          </div>
+
+          {
+            project && (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="border-2 border-white bg-white hover:bg-zinc-950 text-black hover:text-white px-6 py-3 text-mono text-sm uppercase tracking-wider transition-all font-bold"
+              >
+                View Project
+              </a>
+            )
+          }
+        </div>
+      </footer>
+    </div>
+  </article>
 </BaseLayout>
 
 <style is:global>
+  .case-study-content h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
     .case-study-content h2 {
-        font-size: 1.5rem;
-        font-weight: 900;
-        color: white;
-        text-transform: uppercase;
-        letter-spacing: -0.025em;
-        margin-top: 3rem;
-        margin-bottom: 1.5rem;
+      font-size: 1.875rem;
     }
+  }
 
-    @media (min-width: 640px) {
-        .case-study-content h2 {
-            font-size: 1.875rem;
-        }
-    }
+  .case-study-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
 
+  @media (min-width: 640px) {
     .case-study-content h3 {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: white;
-        margin-top: 2.5rem;
-        margin-bottom: 1rem;
+      font-size: 1.5rem;
     }
+  }
 
-    @media (min-width: 640px) {
-        .case-study-content h3 {
-            font-size: 1.5rem;
-        }
-    }
+  .case-study-content p {
+    color: #d4d4d4;
+    line-height: 1.625;
+    margin-bottom: 1.5rem;
+  }
 
-    .case-study-content p {
-        color: #d4d4d4;
-        line-height: 1.625;
-        margin-bottom: 1.5rem;
-    }
+  .case-study-content strong {
+    color: white;
+    font-weight: 600;
+  }
 
-    .case-study-content strong {
-        color: white;
-        font-weight: 600;
-    }
+  .case-study-content ul,
+  .case-study-content ol {
+    color: #d4d4d4;
+    margin-bottom: 1.5rem;
+    margin-left: 1rem;
+  }
 
-    .case-study-content ul,
-    .case-study-content ol {
-        color: #d4d4d4;
-        margin-bottom: 1.5rem;
-        margin-left: 1rem;
-    }
+  .case-study-content li {
+    margin-bottom: 0.5rem;
+  }
 
-    .case-study-content li {
-        margin-bottom: 0.5rem;
-    }
+  .case-study-content a {
+    color: white;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: color 0.2s;
+  }
 
-    .case-study-content a {
-        color: white;
-        text-decoration: underline;
-        text-underline-offset: 4px;
-        transition: color 0.2s;
-    }
+  .case-study-content a:hover {
+    color: #a3a3a3;
+  }
 
-    .case-study-content a:hover {
-        color: #a3a3a3;
-    }
+  .case-study-content code {
+    color: #a3a3a3;
+    background-color: #171717;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
 
-    .case-study-content code {
-        color: #a3a3a3;
-        background-color: #171717;
-        padding: 0.125rem 0.375rem;
-        border-radius: 0.25rem;
-        font-size: 0.875rem;
-    }
+  .case-study-content pre {
+    background-color: #0a0a0a;
+    border: 1px solid #262626;
+    padding: 1rem;
+    border-radius: 0;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+  }
 
-    .case-study-content pre {
-        background-color: #0a0a0a;
-        border: 1px solid #262626;
-        padding: 1rem;
-        border-radius: 0;
-        overflow-x: auto;
-        margin-bottom: 1.5rem;
-    }
+  .case-study-content pre code {
+    background-color: transparent;
+    padding: 0;
+  }
 
-    .case-study-content pre code {
-        background-color: transparent;
-        padding: 0;
-    }
+  .case-study-content blockquote {
+    border-left: 2px solid #404040;
+    padding-left: 1rem;
+    font-style: italic;
+    color: #a3a3a3;
+    margin: 1.5rem 0;
+  }
 
-    .case-study-content blockquote {
-        border-left: 2px solid #404040;
-        padding-left: 1rem;
-        font-style: italic;
-        color: #a3a3a3;
-        margin: 1.5rem 0;
-    }
+  .case-study-content hr {
+    border-color: #262626;
+    margin: 2.5rem 0;
+  }
 
-    .case-study-content hr {
-        border-color: #262626;
-        margin: 2.5rem 0;
-    }
+  .case-study-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+  }
 
-    .case-study-content table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 1.5rem;
-    }
+  .case-study-content th,
+  .case-study-content td {
+    border: 1px solid #262626;
+    padding: 0.5rem 1rem;
+    text-align: left;
+    font-size: 0.875rem;
+  }
 
-    .case-study-content th,
-    .case-study-content td {
-        border: 1px solid #262626;
-        padding: 0.5rem 1rem;
-        text-align: left;
-        font-size: 0.875rem;
-    }
+  .case-study-content th {
+    background-color: #0a0a0a;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+  }
 
-    .case-study-content th {
-        background-color: #0a0a0a;
-        color: white;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        font-size: 0.75rem;
-    }
-
-    .case-study-content td {
-        color: #d4d4d4;
-    }
+  .case-study-content td {
+    color: #d4d4d4;
+  }
 </style>

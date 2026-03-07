@@ -21,9 +21,12 @@ interface Project {
 
 let projects: Project[] = [];
 try {
-  projects = (await import("../data/projects.json")).default as Project[];
+  const loaded = (await import("../data/projects.json")).default as unknown;
+  if (Array.isArray(loaded)) {
+    projects = loaded.filter((p) => p && typeof p === "object" && p.id && p.title) as Project[];
+  }
 } catch (error) {
-  console.warn("No projects found.");
+  console.warn("Could not load projects.json", error);
 }
 ---
 

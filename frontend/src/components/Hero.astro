@@ -27,7 +27,9 @@ const profile = (await import("../data/profile.json")).default;
             </h1>
           </div>
 
-          <p class="text-lg sm:text-xl lg:text-2xl text-zinc-300 font-medium max-w-xl leading-snug tracking-tight">
+          <p
+            class="text-lg sm:text-xl lg:text-2xl text-zinc-300 font-medium max-w-xl leading-snug tracking-tight break-words"
+          >
             {profile.bio}
           </p>
         </div>
