@@ -34,18 +34,20 @@ try {
   <div class="container mx-auto max-w-6xl">
     <!-- Asymmetric section header -->
     <div class="lg:ml-12">
-      <div class="mb-12 sm:mb-16 border-l-[3px] border-white pl-6 sm:pl-8 lg:pl-12 animate-fade-in">
+      <div class="mb-12 sm:mb-16 border-l-[3px] border-text-primary pl-6 sm:pl-8 lg:pl-12 animate-fade-in">
         <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-3">
-          <h2 class="text-display text-4xl sm:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter">
+          <h2
+            class="text-display text-4xl sm:text-5xl lg:text-6xl font-black text-text-primary uppercase tracking-tighter"
+          >
             Work
           </h2>
-          <p class="text-zinc-500 text-mono text-xs uppercase tracking-wider">
+          <p class="text-text-tertiary text-mono text-xs uppercase tracking-wider">
             {projects.length}
             {projects.length === 1 ? "Project" : "Projects"}
           </p>
         </div>
 
-        <p class="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
+        <p class="text-text-secondary text-sm sm:text-base max-w-2xl leading-relaxed">
           A curated selection of projects spanning full-stack development, products, and open-source contributions.
         </p>
       </div>
@@ -90,11 +92,13 @@ try {
             })}
           </div>
         ) : (
-          <div class="border border-zinc-800 p-12 sm:p-20 text-center bg-zinc-950/50">
-            <p class="text-zinc-400 mb-2 uppercase tracking-widest text-sm font-bold">No Projects Yet</p>
-            <p class="text-mono text-xs text-zinc-500">
+          <div class="border border-border-subtle p-12 sm:p-20 text-center bg-bg-primary/50">
+            <p class="text-text-secondary mb-2 uppercase tracking-widest text-sm font-bold">No Projects Yet</p>
+            <p class="text-mono text-xs text-text-tertiary">
               Edit{" "}
-              <code class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400">src/data/projects.json</code>
+              <code class="px-2 py-1 bg-bg-card border border-border-subtle text-text-secondary">
+                src/data/projects.json
+              </code>
             </p>
           </div>
         )

@@ -4,11 +4,11 @@
 
 <div class="visit-counter fixed bottom-6 right-6 z-40">
   <div
-    class="border border-zinc-800/80 bg-zinc-950/80 backdrop-blur-md px-4 py-3 font-mono text-xs shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
+    class="border border-border-subtle/80 bg-bg-primary/80 backdrop-blur-md px-4 py-3 font-mono text-xs shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
   >
-    <div class="flex items-center gap-3 text-zinc-500 uppercase tracking-widest">
+    <div class="flex items-center gap-3 text-text-tertiary uppercase tracking-widest">
       <span class="w-1.5 h-1.5 bg-accent opacity-80 animate-pulse shadow-[0_0_8px_var(--color-accent-subtle)]"></span>
-      <span id="visit-count" class="text-zinc-300 loading" aria-live="polite" aria-label="Total site visits">
+      <span id="visit-count" class="text-text-secondary loading" aria-live="polite" aria-label="Total site visits">
         <span class="alien-text">Loading...</span>
       </span>
     </div>
@@ -104,8 +104,8 @@
   }
 
   .loading .alien-text {
-    color: #52525b;
-    text-shadow: 0 0 8px rgba(82, 82, 91, 0.5);
+    color: var(--color-text-muted);
+    text-shadow: 0 0 8px color-mix(in srgb, var(--color-text-muted) 50%, transparent);
   }
 
   @keyframes fade-in {

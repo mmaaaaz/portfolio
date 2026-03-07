@@ -24,7 +24,7 @@ const { id, type, title, description, url, technologies, featured, status, hasCa
 <div class="group/card block h-full gpu-accelerated relative">
   <a href={url} target="_blank" rel="noopener noreferrer" class="block h-full outline-hidden ring-0">
     <article
-      class="h-full bg-zinc-950 border border-zinc-800/60 hover:border-zinc-500 transition-all duration-500 p-7 sm:p-8 flex flex-col min-h-[300px] sm:min-h-[320px] relative overflow-hidden group-hover/card:bg-zinc-900/40"
+      class="h-full bg-bg-primary border border-border-subtle/60 hover:border-text-tertiary transition-all duration-500 p-7 sm:p-8 flex flex-col min-h-[300px] sm:min-h-[320px] relative overflow-hidden group-hover/card:bg-bg-card/40"
     >
       <!-- Subtle top accent line -->
       <div
@@ -36,7 +36,7 @@ const { id, type, title, description, url, technologies, featured, status, hasCa
         <!-- Header -->
         <div class="flex items-start justify-between mb-4 gap-4">
           <h3
-            class="text-xl sm:text-2xl font-bold text-zinc-100 group-hover/card:text-white transition-colors tracking-tight leading-tight min-w-0 break-words"
+            class="text-xl sm:text-2xl font-bold text-text-primary group-hover/card:text-text-primary transition-colors tracking-tight leading-tight min-w-0 break-words"
           >
             {title}
           </h3>
@@ -44,7 +44,7 @@ const { id, type, title, description, url, technologies, featured, status, hasCa
           <div class="flex flex-col items-end gap-1 shrink-0">
             {
               featured && (
-                <span class="text-mono text-[9px] text-zinc-500 uppercase tracking-widest whitespace-nowrap">
+                <span class="text-mono text-[9px] text-text-tertiary uppercase tracking-widest whitespace-nowrap">
                   ★ Featured
                 </span>
               )
@@ -53,14 +53,16 @@ const { id, type, title, description, url, technologies, featured, status, hasCa
         </div>
 
         <!-- Description (distilled) -->
-        <p class="text-sm sm:text-base text-zinc-400 mb-auto line-clamp-3 leading-relaxed font-medium break-words">
+        <p
+          class="text-sm sm:text-base text-text-secondary mb-auto line-clamp-3 leading-relaxed font-medium break-words"
+        >
           {description}
         </p>
 
         <!-- Tech stack text (no pills, craft over clutter) -->
         <div class="mt-8 mb-6 overflow-hidden">
           <p
-            class="text-[11px] text-mono text-zinc-500 uppercase tracking-widest leading-relaxed truncate"
+            class="text-[11px] text-mono text-text-tertiary uppercase tracking-widest leading-relaxed truncate"
             title={technologies.join(" · ")}
           >
             {
@@ -78,12 +80,12 @@ const { id, type, title, description, url, technologies, featured, status, hasCa
 
         <!-- Footer with visual separator -->
         <div
-          class="flex items-center justify-between text-[11px] uppercase tracking-widest pt-5 border-t border-zinc-800/60 group-hover/card:border-zinc-700 transition-colors duration-500"
+          class="flex items-center justify-between text-[11px] uppercase tracking-widest pt-5 border-t border-border-subtle/60 group-hover/card:border-border-primary transition-colors duration-500"
         >
           <div class="flex items-center gap-3 text-mono font-medium flex-wrap">
-            <span class="text-zinc-300 font-bold">{type}</span>
+            <span class="text-text-secondary font-bold">{type}</span>
 
-            {status && <span class="text-zinc-600">// {status}</span>}
+            {status && <span class="text-text-muted">// {status}</span>}
           </div>
 
           <span
@@ -101,7 +103,7 @@ const { id, type, title, description, url, technologies, featured, status, hasCa
     hasCaseStudy && caseStudyId && (
       <a
         href={`/case-study/${caseStudyId}`}
-        class="absolute top-6 right-6 z-20 text-mono text-[10px] uppercase tracking-widest text-zinc-950 bg-zinc-50 hover:bg-accent px-3 py-1.5 transition-all opacity-0 group-hover/card:opacity-100 shadow-[2px_2px_0px_#27272a] hover:shadow-[0px_0px_0px_transparent] hover:translate-x-[2px] hover:translate-y-[2px]"
+        class="absolute top-6 right-6 z-20 text-mono text-[10px] uppercase tracking-widest text-bg-primary bg-text-primary hover:bg-accent px-3 py-1.5 transition-all opacity-0 group-hover/card:opacity-100 shadow-[2px_2px_0px_var(--color-border-subtle)] hover:shadow-[0px_0px_0px_transparent] hover:translate-x-[2px] hover:translate-y-[2px]"
       >
         Read Case Study
       </a>

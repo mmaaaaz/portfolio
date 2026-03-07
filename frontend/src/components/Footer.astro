@@ -3,26 +3,26 @@ const currentYear = new Date().getFullYear();
 const profile = (await import("../data/profile.json")).default;
 ---
 
-<footer class="bg-zinc-950 mt-24 sm:mt-32 gpu-accelerated relative">
+<footer class="bg-bg-primary mt-24 sm:mt-32 gpu-accelerated relative">
   <!-- Subtle top divider -->
   <div
-    class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-linear-to-b from-transparent via-zinc-800/50 to-transparent"
+    class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-linear-to-b from-transparent via-border-subtle/50 to-transparent"
   >
   </div>
 
-  <div class="border-t border-zinc-800/40 pt-16 pb-12">
+  <div class="border-t border-border-subtle/40 pt-16 pb-12">
     <div class="container mx-auto px-6 lg:px-8">
       <div class="max-w-6xl mx-auto">
         <div class="grid md:grid-cols-2 gap-12 lg:gap-20">
           <!-- Left: Links -->
           <div>
-            <h3 class="text-mono text-xs uppercase tracking-widest text-zinc-600 mb-6 font-bold">Connect</h3>
+            <h3 class="text-mono text-xs uppercase tracking-widest text-text-muted mb-6 font-bold">Connect</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-3">
               <a
                 href={profile.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group border border-zinc-800/60 bg-zinc-900/20 hover:border-accent-subtle hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between min-h-[44px]"
+                class="group border border-border-subtle/60 bg-bg-card/20 hover:border-accent-subtle hover:bg-bg-card/60 px-6 py-4 text-center text-text-secondary hover:text-text-primary transition-all duration-300 flex items-center justify-between min-h-[44px]"
               >
                 <span class="text-sm font-medium">GitHub</span>
                 <span
@@ -35,7 +35,7 @@ const profile = (await import("../data/profile.json")).default;
                 href="https://linkedin.com/in/mmaaaaz"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group border border-zinc-800/60 bg-zinc-900/20 hover:border-accent-subtle hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between min-h-[44px]"
+                class="group border border-border-subtle/60 bg-bg-card/20 hover:border-accent-subtle hover:bg-bg-card/60 px-6 py-4 text-center text-text-secondary hover:text-text-primary transition-all duration-300 flex items-center justify-between min-h-[44px]"
               >
                 <span class="text-sm font-medium">LinkedIn</span>
                 <span
@@ -48,7 +48,7 @@ const profile = (await import("../data/profile.json")).default;
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group border border-zinc-800/60 bg-zinc-900/20 hover:border-accent-subtle hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between min-h-[44px]"
+                class="group border border-border-subtle/60 bg-bg-card/20 hover:border-accent-subtle hover:bg-bg-card/60 px-6 py-4 text-center text-text-secondary hover:text-text-primary transition-all duration-300 flex items-center justify-between min-h-[44px]"
               >
                 <span class="text-sm font-medium">Resume</span>
                 <span
@@ -59,7 +59,7 @@ const profile = (await import("../data/profile.json")).default;
 
               <a
                 href={`mailto:${profile.email || "contact@" + profile.website}`}
-                class="group sm:col-span-2 border border-zinc-800/60 bg-zinc-900/20 hover:border-accent-subtle hover:bg-zinc-900/60 px-6 py-4 text-center text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between min-h-[44px]"
+                class="group sm:col-span-2 border border-border-subtle/60 bg-bg-card/20 hover:border-accent-subtle hover:bg-bg-card/60 px-6 py-4 text-center text-text-secondary hover:text-text-primary transition-all duration-300 flex items-center justify-between min-h-[44px]"
               >
                 <span class="text-sm font-bold tracking-wide">Email</span>
                 <span
@@ -73,20 +73,20 @@ const profile = (await import("../data/profile.json")).default;
           <!-- Right: Info -->
           <div class="flex flex-col justify-between">
             <div>
-              <p class="text-zinc-500 text-mono text-xs uppercase tracking-widest mb-3">
+              <p class="text-text-tertiary text-mono text-xs uppercase tracking-widest mb-3">
                 © {currentYear} M. Maaz Uddin
               </p>
-              <p class="text-zinc-400 text-sm mb-6 leading-relaxed max-w-sm">
+              <p class="text-text-secondary text-sm mb-6 leading-relaxed max-w-sm">
                 Designed and built from scratch. Code is open source.
               </p>
               <a
                 href="https://github.com/mmaaaaz/portfolio"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors duration-300 font-mono tracking-widest uppercase"
+                class="inline-flex items-center gap-2 text-xs text-text-tertiary hover:text-text-secondary transition-colors duration-300 font-mono tracking-widest uppercase"
               >
-                <span class="border-b border-zinc-700/50 pb-0.5">View Source</span>
-                <span class="text-zinc-600">↗</span>
+                <span class="border-b border-border-primary/50 pb-0.5">View Source</span>
+                <span class="text-text-muted">↗</span>
               </a>
             </div>
           </div>

@@ -16,30 +16,32 @@ const profile = (await import("../data/profile.json")).default;
   <div class="container mx-auto max-w-6xl relative z-10">
     <!-- Asymmetric layout with offset border -->
     <div class="lg:ml-12">
-      <div class="border-l-[3px] border-zinc-50 pl-6 sm:pl-8 lg:pl-12 space-y-8 sm:space-y-10 animate-fade-in mx-1">
+      <div
+        class="border-l-[3px] border-text-primary pl-6 sm:pl-8 lg:pl-12 space-y-8 sm:space-y-10 animate-fade-in mx-1"
+      >
         <!-- Expressive name treatment -->
         <div class="space-y-6">
           <div class="inline-block relative">
             <h1
-              class="text-display text-[clamp(4rem,12vw,7.5rem)] font-extrabold text-zinc-50 uppercase leading-none tracking-tight"
+              class="text-display text-[clamp(4rem,12vw,7.5rem)] font-extrabold text-text-primary uppercase leading-none tracking-tight"
             >
-              mz<span class="text-zinc-600">__</span>
+              mz<span class="text-text-muted">__</span>
             </h1>
           </div>
 
           <p
-            class="text-lg sm:text-xl lg:text-2xl text-zinc-300 font-medium max-w-xl leading-snug tracking-tight break-words"
+            class="text-lg sm:text-xl lg:text-2xl text-text-secondary font-medium max-w-xl leading-snug tracking-tight break-words"
           >
             {profile.bio}
           </p>
         </div>
 
         <!-- Compact meta info -->
-        <div class="flex flex-wrap items-center gap-6 text-sm text-zinc-400 font-mono tracking-wide">
+        <div class="flex flex-wrap items-center gap-6 text-sm text-text-secondary font-mono tracking-wide">
           {
             profile.location && (
               <span class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 bg-zinc-500 animate-pulse" />
+                <span class="w-1.5 h-1.5 bg-text-tertiary animate-pulse" />
                 {profile.location}
               </span>
             )
@@ -53,12 +55,14 @@ const profile = (await import("../data/profile.json")).default;
         </div>
 
         <!-- Modern link grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-8 border-t border-zinc-800/60">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-8 border-t border-border-subtle/60"
+        >
           <a
             href={profile.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="group border border-zinc-800/80 bg-zinc-900/30 hover:border-zinc-400 hover:bg-zinc-800/50 px-5 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between gap-3 min-h-[44px]"
+            class="group border border-border-subtle/80 bg-bg-card/30 hover:border-text-secondary hover:bg-border-subtle/50 px-5 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary transition-all duration-300 flex items-center justify-between gap-3 min-h-[44px]"
           >
             <span>GitHub</span>
             <span
@@ -71,7 +75,7 @@ const profile = (await import("../data/profile.json")).default;
             href="https://linkedin.com/in/mmaaaaz"
             target="_blank"
             rel="noopener noreferrer"
-            class="group border border-zinc-800/80 bg-zinc-900/30 hover:border-zinc-400 hover:bg-zinc-800/50 px-5 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between gap-3 min-h-[44px]"
+            class="group border border-border-subtle/80 bg-bg-card/30 hover:border-text-secondary hover:bg-border-subtle/50 px-5 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary transition-all duration-300 flex items-center justify-between gap-3 min-h-[44px]"
           >
             <span>LinkedIn</span>
             <span
@@ -84,7 +88,7 @@ const profile = (await import("../data/profile.json")).default;
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            class="group border border-zinc-800/80 bg-zinc-900/30 hover:border-zinc-400 hover:bg-zinc-800/50 px-5 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300 flex items-center justify-between gap-3 min-h-[44px]"
+            class="group border border-border-subtle/80 bg-bg-card/30 hover:border-text-secondary hover:bg-border-subtle/50 px-5 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary transition-all duration-300 flex items-center justify-between gap-3 min-h-[44px]"
           >
             <span>Resume</span>
             <span
@@ -95,7 +99,7 @@ const profile = (await import("../data/profile.json")).default;
 
           <a
             href={`mailto:${profile.email || "contact@" + profile.website}`}
-            class="group w-full md:col-span-1 border border-zinc-50 bg-zinc-50 hover:bg-accent hover:border-accent text-zinc-950 px-6 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 font-bold shadow-[4px_4px_0px_#27272a] hover:shadow-[0px_0px_0px_transparent] sm:hover:translate-x-[4px] sm:hover:translate-y-[4px] min-h-[44px]"
+            class="group w-full md:col-span-1 border border-text-primary bg-text-primary hover:bg-accent hover:border-accent text-bg-primary px-6 py-4 sm:py-3.5 text-mono text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 font-bold shadow-[4px_4px_0px_var(--color-border-subtle)] hover:shadow-[0px_0px_0px_transparent] sm:hover:translate-x-[4px] sm:hover:translate-y-[4px] min-h-[44px]"
           >
             <span>Get in Touch</span>
             <span class="rotate-45 sm:rotate-0 group-hover:rotate-45 transition-transform duration-300">↗</span>

@@ -3,7 +3,7 @@ const profile = (await import("../data/profile.json")).default;
 ---
 
 <header
-  class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800/50 gpu-accelerated"
+  class="fixed top-0 left-0 right-0 z-50 bg-bg-primary/80 backdrop-blur-md border-b border-border-subtle/50 gpu-accelerated"
 >
   <nav
     class="container mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between"
@@ -12,10 +12,12 @@ const profile = (await import("../data/profile.json")).default;
     <!-- Logo with accent -->
     <a
       href="/"
-      class="group text-zinc-50 font-black text-base sm:text-lg tracking-tighter hover:text-zinc-300 transition-colors flex items-center gap-2"
+      class="group text-text-primary font-black text-base sm:text-lg tracking-tighter hover:text-text-secondary transition-colors flex items-center gap-2"
     >
-      <span class="w-2 h-2 bg-zinc-50 group-hover:bg-accent group-hover:rotate-45 transition-all duration-300 shadow-[0_0_0_transparent] group-hover:shadow-[0_0_8px_var(--color-accent-subtle)]"></span>
-      mz<span class="text-zinc-600">__</span>
+      <span
+        class="w-2 h-2 bg-text-primary group-hover:bg-accent group-hover:rotate-45 transition-all duration-300 shadow-[0_0_0_transparent] group-hover:shadow-[0_0_8px_var(--color-accent-subtle)]"
+      ></span>
+      mz<span class="text-text-muted">__</span>
     </a>
 
     <!-- Mobile: Minimal -->
@@ -24,13 +26,13 @@ const profile = (await import("../data/profile.json")).default;
         href="/resume.pdf"
         target="_blank"
         rel="noopener noreferrer"
-        class="border border-zinc-800 hover:border-accent-subtle px-4 py-2.5 text-[11px] font-bold text-mono uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300 min-w-[70px] text-center"
+        class="border border-border-subtle hover:border-accent-subtle px-4 py-2.5 text-[11px] font-bold text-mono uppercase tracking-widest text-text-secondary hover:text-text-primary transition-all duration-300 min-w-[70px] text-center"
       >
         Resume
       </a>
       <a
         href={`mailto:${profile.email || "contact@" + profile.website}`}
-        class="border border-zinc-800 hover:border-accent-subtle px-4 py-2.5 text-[11px] font-bold text-mono uppercase tracking-widest text-zinc-400 hover:text-zinc-50 transition-all duration-300 min-w-[70px] text-center"
+        class="border border-border-subtle hover:border-accent-subtle px-4 py-2.5 text-[11px] font-bold text-mono uppercase tracking-widest text-text-secondary hover:text-text-primary transition-all duration-300 min-w-[70px] text-center"
       >
         Contact
       </a>
@@ -40,7 +42,7 @@ const profile = (await import("../data/profile.json")).default;
     <div class="hidden md:flex items-center gap-8 lg:gap-10">
       <a
         href="/#work"
-        class="text-zinc-400 hover:text-zinc-50 transition-colors duration-300 text-mono text-xs uppercase tracking-widest relative group"
+        class="text-text-secondary hover:text-text-primary transition-colors duration-300 text-mono text-xs uppercase tracking-widest relative group"
       >
         <span>Work</span>
         <span
@@ -49,7 +51,7 @@ const profile = (await import("../data/profile.json")).default;
       </a>
       <a
         href="/#about"
-        class="text-zinc-400 hover:text-zinc-50 transition-colors duration-300 text-mono text-xs uppercase tracking-widest relative group"
+        class="text-text-secondary hover:text-text-primary transition-colors duration-300 text-mono text-xs uppercase tracking-widest relative group"
       >
         <span>About</span>
         <span
@@ -60,7 +62,7 @@ const profile = (await import("../data/profile.json")).default;
         href="/resume.pdf"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-zinc-400 hover:text-zinc-50 transition-colors duration-300 text-mono text-xs uppercase tracking-widest relative group"
+        class="text-text-secondary hover:text-text-primary transition-colors duration-300 text-mono text-xs uppercase tracking-widest relative group"
       >
         <span>Resume</span>
         <span
@@ -69,7 +71,7 @@ const profile = (await import("../data/profile.json")).default;
       </a>
       <a
         href={`mailto:${profile.email || "contact@" + profile.website}`}
-        class="border border-zinc-700 hover:border-accent hover:bg-accent hover:text-zinc-950 px-5 py-2.5 text-xs text-mono uppercase tracking-widest text-zinc-300 transition-all duration-300"
+        class="border border-border-primary hover:border-accent hover:bg-accent hover:text-bg-primary px-5 py-2.5 text-xs text-mono uppercase tracking-widest text-text-secondary transition-all duration-300"
       >
         Contact
       </a>
