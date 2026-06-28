@@ -5,14 +5,7 @@
     "title": "AskSHU - University RAG Chatbot",
     "description": "Built a RAG chatbot for my university that answers student questions using vector search and Llama 3.3. Runs on Cloudflare Workers at zero cost.",
     "url": "https://askshu.vercel.app",
-    "technologies": [
-      "Cloudflare Workers",
-      "Next.js 15",
-      "TypeScript",
-      "Vector Search",
-      "Python",
-      "Langchain"
-    ],
+    "technologies": ["Cloudflare Workers", "Next.js 15", "TypeScript", "Vector Search", "Python", "Langchain"],
     "featured": true,
     "status": "live",
     "hasCaseStudy": true,
@@ -27,13 +20,7 @@
     "title": "AhsanAutos.pk",
     "description": "Automotive e-commerce for a Pakistani retailer. Currently rebuilding as headless Shopify after the BigCommerce version ran into PKR pricing issues. Dual payment modes: cash and installment.",
     "url": "https://ahsanautos.pk",
-    "technologies": [
-      "Next.js 16",
-      "TypeScript",
-      "Tailwind CSS 4",
-      "Shopify Storefront API",
-      "Jotai"
-    ],
+    "technologies": ["Next.js 16", "TypeScript", "Tailwind CSS 4", "Shopify Storefront API", "Jotai"],
     "featured": true,
     "status": "building",
     "hasCaseStudy": true,
@@ -70,48 +57,18 @@
     "title": "SHUFF - SHU Film Festival",
     "description": "Cinematic website for my university's film festival. 3D hero scenes, festival schedules, submission system. Built with Three.js and Framer Motion for filmmakers and attendees.",
     "url": "https://filmfest.shu.edu.pk",
-    "technologies": [
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS 4",
-      "Framer Motion",
-      "Three.js"
-    ],
+    "technologies": ["Next.js", "TypeScript", "Tailwind CSS 4", "Framer Motion", "Three.js"],
     "featured": true,
     "status": "live"
   },
-  {
-    "id": "project-5",
-    "type": "product",
-    "title": "Encore — EncoreMND",
-    "description": "Marketing website for a digital agency. Clean layout, strong SEO foundations, and smooth scroll-driven animations.",
-    "url": "https://encoremnd.com",
-    "technologies": [
-      "Next.js",
-      "TypeScript",
-      "Tailwind",
-      "Sass",
-      "Framer Motion"
-    ],
-    "featured": false,
-    "status": "live",
-    "metrics": {
-      "users": "Growing"
-    }
-  },
+
   {
     "id": "project-6",
     "type": "product",
     "title": "SmartInsure",
     "description": "Insurance comparison platform for the Pakistani market. Bike and car insurance forms, provider listings, Firebase backend. Client pivoted, project deprecated.",
     "url": "https://smartinsure.pk",
-    "technologies": [
-      "Next.js",
-      "React",
-      "Tailwind CSS",
-      "Firebase",
-      "SWR"
-    ],
+    "technologies": ["Next.js", "React", "Tailwind CSS", "Firebase", "SWR"],
     "featured": false,
     "status": "deprecated"
   },
@@ -121,12 +78,7 @@
     "title": "Cozmik Engineering",
     "description": "Corporate site for an engineering firm. Multi-page layout with SEO optimization and fully responsive design.",
     "url": "https://cozmikengineering.com",
-    "technologies": [
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Sass"
-    ],
+    "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "Sass"],
     "featured": false,
     "status": "deprecated"
   }
