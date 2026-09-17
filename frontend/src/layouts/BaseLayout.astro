@@ -4,32 +4,38 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Developer Portfolio" } = Astro.props;
-
-import Header from "../components/Header.astro";
+import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import VisitCounter from "../components/VisitCounter.astro";
+import Cursor from "../components/Cursor.astro";
 import "../styles/global.css";
+
+const { title, description = "Developer portfolio" } = Astro.props;
 
 const profile = (await import("../data/profile.json")).default;
 
-// Domain-agnostic URLs
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = profile.avatarUrl;
 
-// Structured data for SEO
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: profile.name,
   url: Astro.site?.toString(),
-  jobTitle: "Full Stack Web Developer",
+  alternateName: profile.displayName,
+  jobTitle: "Full-stack Engineer",
   description: profile.bio,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Karachi",
     addressCountry: "Pakistan",
   },
+  knowsAbout: [
+    "Full-stack development",
+    "Retrieval-augmented generation",
+    "Cloudflare Workers",
+    "Headless commerce",
+    "Web performance",
+  ],
   sameAs: [profile.githubUrl, "https://linkedin.com/in/mmaaaaz"],
 };
 ---
@@ -38,123 +44,114 @@ const structuredData = {
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
 
-    <!-- Resource Hints: Eliminate render-blocking -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    {/* Fonts are self-hosted, so the only thing on the critical path is our own
+        origin. These two are the latin subsets the first paint actually needs;
+        latin-ext stays lazy behind its unicode-range. */}
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/inter-tight-latin.woff2"
+      crossorigin
+    />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/geist-mono-latin.woff2" crossorigin />
 
-    <!-- Security headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
-    <meta http-equiv="Permissions-Policy" content="interest-cohort=()" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="author" content={profile.name} />
     <meta
       name="keywords"
-      content="Full Stack Developer, Web Developer, React, Next.js, TypeScript, JavaScript, Node.js, Karachi, Pakistan"
+      content="full-stack engineer, AI engineer, retrieval augmented generation, React, Next.js, TypeScript, Cloudflare Workers, Shopify headless, Karachi, Pakistan"
     />
-    <meta name="theme-color" content="#09090b" />
+    <meta name="theme-color" content="#0a0a0b" />
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
-    <meta property="og:site_name" content="{profile.name} - Portfolio" />
+    <meta property="og:site_name" content={`${profile.displayName} — Portfolio`} />
     <meta property="og:locale" content="en_US" />
 
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
-    <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
     <title>{title}</title>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
-    <!-- Skip to main content for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Simplified custom cursor (desktop only) - no snapping -->
-    <div id="custom-cursor" class="hidden md:block"></div>
-    <div id="custom-cursor-dot" class="hidden md:block"></div>
+    <Cursor />
+    <Nav />
 
-    <Header />
-    <main id="main-content">
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
+
     <Footer />
-    <VisitCounter />
 
-    <!-- Lenis Smooth Scroll (desktop only) -->
     <script>
-      import Lenis from "lenis";
+      /* Reveal on scroll — progressive enhancement only. */
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const targets = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
 
-      if (window.innerWidth >= 768) {
-        const lenis = new Lenis({
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smooth: true,
-          smoothTouch: false,
-        });
-
-        function raf(time: number) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-
-        requestAnimationFrame(raf);
-      }
-    </script>
-
-    <!-- Simple follow cursor - no snapping -->
-    <script>
-      if (window.innerWidth >= 768) {
-        const cursor = document.getElementById("custom-cursor");
-        const cursorDot = document.getElementById("custom-cursor-dot");
-
-        let mouseX = 0;
-        let mouseY = 0;
-        let dotX = 0;
-        let dotY = 0;
-
-        document.addEventListener(
-          "mousemove",
-          (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-
-            // Immediate small cursor
-            if (cursor) {
-              cursor.style.transform = `translate3d(${mouseX - 4}px, ${mouseY - 4}px, 0)`;
-            }
+      if (reduced || !("IntersectionObserver" in window)) {
+        targets.forEach((target) => target.classList.add("is-in"));
+      } else {
+        const observer = new IntersectionObserver(
+          (entries, self) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("is-in");
+              self.unobserve(entry.target);
+            });
           },
-          { passive: true },
+          { rootMargin: "0px 0px -10% 0px", threshold: 0.06 },
         );
+        targets.forEach((target) => observer.observe(target));
+      }
 
-        // Smooth follow for outer cursor
-        function animateCursor() {
-          dotX += (mouseX - dotX) * 0.15;
-          dotY += (mouseY - dotY) * 0.15;
+      /* Smooth scroll — desktop only, and never for reduced-motion users. */
+      if (window.innerWidth >= 768 && !reduced) {
+        import("lenis").then(({ default: Lenis }) => {
+          const lenis = new Lenis({
+            duration: 1.15,
+            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            touchMultiplier: 1.6,
+          });
 
-          if (cursorDot) {
-            cursorDot.style.transform = `translate3d(${dotX - 20}px, ${dotY - 20}px, 0)`;
-          }
+          let frame = 0;
+          const raf = (time: number) => {
+            lenis.raf(time);
+            frame = requestAnimationFrame(raf);
+          };
+          const sync = () => {
+            if (document.hidden) {
+              if (frame) {
+                cancelAnimationFrame(frame);
+                frame = 0;
+              }
+            } else if (!frame) {
+              frame = requestAnimationFrame(raf);
+            }
+          };
 
-          requestAnimationFrame(animateCursor);
-        }
-
-        animateCursor();
+          document.addEventListener("visibilitychange", sync);
+          sync();
+        });
       }
     </script>
   </body>

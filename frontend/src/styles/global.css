@@ -1,205 +1,1476 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
 
+/* ==========================================================================
+   Typefaces — self-hosted.
+
+   Served from /fonts with the latin and latin-ext subsets only; nothing in the
+   site uses cyrillic, greek or vietnamese, and unused subsets are never fetched
+   because each face is scoped by unicode-range. Self-hosting removes two
+   third-party connections from the critical path and lets the CSP say
+   font-src 'self' and style-src 'self'.
+
+   Regenerate with: bun run fonts
+   ========================================================================== */
+
+/* Inter Tight — latin-ext */
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter-tight-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Inter Tight — latin */
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter-tight-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Geist Mono — latin-ext */
+@font-face {
+  font-family: "Geist Mono";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/geist-mono-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Geist Mono — latin */
+@font-face {
+  font-family: "Geist Mono";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/geist-mono-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ==========================================================================
+   THE LEDGER — design tokens
+   Natural darks (never #000), warm bone ink (never #fff), one ember signal.
+   ========================================================================== */
+
 @theme {
-  /* Natural Dark Palette (Obsidian & Bone) */
-  --color-bg-primary: #09090b;
-  /* zinc-950 */
-  --color-bg-secondary: #121214;
-  --color-bg-card: #18181b;
-  /* zinc-900 */
+  --color-paper: #0a0a0b;
+  --color-paper-2: #0e0e11;
+  --color-paper-3: #15151a;
+  --color-rule: #212128;
+  --color-rule-strong: #33333d;
 
-  --color-border-subtle: #27272a;
-  /* zinc-800 */
-  --color-border-primary: #3f3f46;
-  /* zinc-700 */
-  --color-border-accent: #f4f4f5;
-  /* zinc-100 */
+  --color-ink: #f0ebe4;
+  --color-ink-2: #a8a29b;
+  --color-ink-3: #75706a;
+  --color-ink-4: #4e4a46;
 
-  --color-text-primary: #f4f4f5;
-  /* zinc-100 (Bone) */
-  --color-text-secondary: #a1a1aa;
-  /* zinc-400 */
-  --color-text-tertiary: #71717a;
-  /* zinc-500 */
-  --color-text-muted: #52525b;
-  /* zinc-600 */
+  --color-ember: oklch(0.715 0.152 47);
+  --color-ember-deep: oklch(0.6 0.14 45);
+  --color-ember-veil: oklch(0.28 0.055 47);
 
-  /* Amber / Terracotta Accent for strategic interaction highlights */
-  --color-accent: oklch(0.70 0.14 45);
-  --color-accent-hover: oklch(0.60 0.14 45);
-  --color-accent-subtle: oklch(0.25 0.05 45);
+  --font-sans: "Inter Tight", "Inter", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Micro-animation timings */
-  --transition-fast: 150ms;
-  --transition-base: 250ms;
-  --transition-slow: 400ms;
-  --transition-smooth: 600ms;
-
-  /* Typography */
-  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-family-mono: 'Space Mono', monospace;
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* Skip to main content link (accessibility) */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--color-text-primary);
-  color: var(--color-bg-primary);
-  padding: 0.75rem 1rem;
-  z-index: 10000;
-  text-decoration: none;
-  font-weight: 600;
-  border: 2px solid var(--color-text-primary);
-}
-
-.skip-link:focus {
-  top: 0;
-}
+/* ==========================================================================
+   Base
+   ========================================================================== */
 
 @layer base {
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slide-in-right {
-    from {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  * {
-    border-color: var(--color-border-subtle);
+  *,
+  *::before,
+  *::after {
+    border-color: var(--color-rule);
+    border-radius: 0;
   }
 
   html {
-    background-color: var(--color-bg-primary);
+    background-color: var(--color-paper);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
   }
 
   body {
-    background-color: var(--color-bg-primary);
-    color: var(--color-text-primary);
-    font-family: var(--font-family-sans);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    font-synthesis-weight: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: 'kern' 1, 'liga' 1;
-    cursor: none;
-    /* Custom cursor on desktop */
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    overflow-x: clip;
   }
 
-  /* Custom cursor styles */
-  #custom-cursor {
+  /* Organic grain. Barely perceptible, and it kills the flat default-dark look. */
+  body::after {
+    content: "";
     position: fixed;
-    width: 8px;
-    height: 8px;
-    background: var(--color-text-primary);
+    inset: 0;
+    z-index: 70;
     pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: difference;
-    will-change: transform;
-  }
-
-  #custom-cursor-dot {
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--color-text-primary);
-    pointer-events: none;
-    z-index: 9998;
-    mix-blend-mode: difference;
-    will-change: transform;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
   }
 
   ::selection {
-    background-color: var(--color-text-primary);
-    color: var(--color-bg-primary);
+    background-color: var(--color-ember);
+    color: #0a0a0b;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-text-primary);
-    outline-offset: 4px;
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
   }
 
-  /* Remove all border radius globally */
-  * {
-    border-radius: 0 !important;
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 500;
+    letter-spacing: -0.03em;
   }
 
-  /* Smooth micro-animations */
-  a,
-  button {
-    transition: color var(--transition-base) ease,
-      border-color var(--transition-base) ease,
-      background-color var(--transition-base) ease;
+  p {
+    text-wrap: pretty;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-paper);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-rule-strong);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ink-4);
   }
 }
 
+/* ==========================================================================
+   Structure
+   ========================================================================== */
+
 @layer components {
-  .text-display {
-    font-weight: 900;
-    letter-spacing: -0.04em;
-    line-height: 0.9;
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 200;
+    padding: 0.7rem 1rem;
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transform: translateY(-180%);
+    transition: transform 0.3s var(--ease-out-quint);
   }
 
-  .text-mono {
-    font-family: var(--font-family-mono);
+  .skip-link:focus {
+    transform: none;
+  }
+
+  .shell {
+    position: relative;
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 3.5rem);
+  }
+
+  .section {
+    position: relative;
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-block: clamp(4.25rem, 6.5vw, 6.5rem);
+    padding-inline: clamp(1.25rem, 5vw, 3.5rem);
+  }
+
+  /*
+   * The visible grid. Two hairlines run the full height of the page at the
+   * content boundary, so every section shares one structural spine.
+   */
+  .ruled::before,
+  .ruled::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    width: 1px;
+    display: none;
+    pointer-events: none;
+    background-color: color-mix(in oklab, var(--color-rule-strong) 55%, transparent);
+  }
+  .ruled::before {
+    left: 0;
+  }
+  .ruled::after {
+    right: 0;
+  }
+  @media (min-width: 768px) {
+    .ruled::before,
+    .ruled::after {
+      display: block;
+    }
+  }
+
+  /* ======================================================================
+     Type
+     ====================================================================== */
+
+  .micro {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 450;
+    line-height: 1.5;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .micro-xs {
+    font-size: 0.625rem;
+    letter-spacing: 0.18em;
+  }
+
+  .tnum {
     font-variant-numeric: tabular-nums;
   }
 
-  /* Subtle hover micro-animation */
-  .hover-lift {
-    transition: transform var(--transition-base) ease;
-  }
-
-  .hover-lift:hover {
-    transform: translateY(-2px);
-  }
-
-  /* Fade in animation utility */
-  .animate-fade-in {
-    animation: fade-in var(--transition-slow) ease-out forwards;
-  }
-
-  .animate-slide-in {
-    animation: slide-in-right var(--transition-slow) ease-out forwards;
-  }
-}
-
-@layer utilities {
-  .text-balance {
+  .t-display {
+    font-size: clamp(2.3rem, 5.1vw, 4.4rem);
+    font-weight: 500;
+    line-height: 0.94;
+    letter-spacing: -0.042em;
     text-wrap: balance;
   }
 
-  .gpu-accelerated {
-    will-change: transform;
-    transform: translateZ(0);
+  .t-h2 {
+    font-size: clamp(1.7rem, 3.1vw, 2.7rem);
+    font-weight: 500;
+    line-height: 1.04;
+    letter-spacing: -0.034em;
+    text-wrap: balance;
+  }
+
+  .t-h3 {
+    font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+    font-weight: 550;
+    line-height: 1.16;
+    letter-spacing: -0.024em;
+  }
+
+  .t-lead {
+    font-size: clamp(1.03rem, 1.25vw, 1.22rem);
+    line-height: 1.55;
+    letter-spacing: -0.012em;
+    color: var(--color-ink-2);
+    text-wrap: pretty;
+  }
+
+  .t-body {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--color-ink-2);
+    text-wrap: pretty;
+  }
+
+  /* ======================================================================
+     Controls
+     ====================================================================== */
+
+  .btn {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 3.375rem;
+    padding-inline: 1.375rem;
+    border: 1px solid var(--color-rule-strong);
+    background-color: transparent;
+    color: var(--color-ink-2);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.45s var(--ease-out-quint), border-color 0.45s var(--ease-out-quint);
+  }
+
+  /*
+   * The fill sweeps in from the leading edge rather than fading in place, and
+   * passes under the label. A wipe reads as a machine moving; a fade does not.
+   */
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--color-ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-in-out-quart);
+  }
+
+  .btn:hover,
+  .btn:focus-visible {
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .btn:hover::before,
+  .btn:focus-visible::before {
+    transform: scaleX(1);
+  }
+
+  .btn__arrow {
+    transition: transform 0.45s var(--ease-out-quint);
+  }
+
+  .btn:hover .btn__arrow--diag,
+  .btn:focus-visible .btn__arrow--diag {
+    transform: translate(4px, -4px);
+  }
+  .btn:hover .btn__arrow--down,
+  .btn:focus-visible .btn__arrow--down {
+    transform: translateY(4px);
+  }
+  .btn:hover .btn__arrow--right,
+  .btn:focus-visible .btn__arrow--right {
+    transform: translateX(4px);
+  }
+
+  .btn--solid {
+    background-color: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .btn--solid::before {
+    background-color: var(--color-ember);
+  }
+
+  .btn--solid:hover,
+  .btn--solid:focus-visible {
+    border-color: var(--color-ember);
+    color: #0a0a0b;
+  }
+
+  .link-sweep {
+    position: relative;
+    display: inline-block;
+  }
+
+  .link-sweep::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.15em;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.55s var(--ease-in-out-quart);
+  }
+
+  .link-sweep:hover::after,
+  .link-sweep:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .link-sweep--ember::after {
+    background-color: var(--color-ember);
+  }
+
+  /* The research/in-progress marker on a ledger row. */
+  .ledger__m--active {
+    color: var(--color-ember);
+  }
+
+  .status-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    flex: none;
+    background-color: var(--color-ember);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-ember) 16%, transparent);
+    animation: status-pulse 2.8s var(--ease-in-out-quart) infinite;
+  }
+
+  @keyframes status-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
+  }
+
+  /* ======================================================================
+     Reveal — progressive enhancement. Visible without JS.
+     ====================================================================== */
+
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  .js [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.95s var(--ease-out-quint) var(--reveal-delay, 0ms),
+      transform 0.95s var(--ease-out-quint) var(--reveal-delay, 0ms);
+  }
+
+  /*
+   * Stagger utilities. Delay is expressed as a class rather than a style
+   * attribute so the Content-Security-Policy can forbid inline styles outright.
+   */
+  .stagger-1 {
+    --reveal-delay: 80ms;
+  }
+  .stagger-2 {
+    --reveal-delay: 160ms;
+  }
+  .stagger-3 {
+    --reveal-delay: 240ms;
+  }
+  .stagger-4 {
+    --reveal-delay: 320ms;
+  }
+
+  .tick-1 {
+    --plate-delay: 90ms;
+  }
+  .tick-2 {
+    --plate-delay: 180ms;
+  }
+  .tick-3 {
+    --plate-delay: 270ms;
+  }
+  .tick-4 {
+    --plate-delay: 360ms;
+  }
+  .tick-5 {
+    --plate-delay: 450ms;
   }
 }
 
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+
+@layer components {
+  .nav {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 80;
+    border-bottom: 1px solid transparent;
+    transition: background-color 0.5s var(--ease-out-quint), border-color 0.5s var(--ease-out-quint);
+  }
+
+  .nav[data-stuck="true"] {
+    background-color: color-mix(in oklab, var(--color-paper) 76%, transparent);
+    backdrop-filter: blur(16px) saturate(1.25);
+    border-bottom-color: var(--color-rule);
+  }
+
+  .nav__link {
+    position: relative;
+    color: var(--color-ink-3);
+    transition: color 0.4s var(--ease-out-quint);
+  }
+
+  .nav__link:hover {
+    color: var(--color-ink);
+  }
+
+  .nav__link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.45rem;
+    height: 1px;
+    background-color: var(--color-ember);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-out-quint);
+  }
+
+  .nav__link[aria-current="true"] {
+    color: var(--color-ink);
+  }
+
+  .nav__link[aria-current="true"]::after {
+    transform: scaleX(1);
+  }
+
+  .nav__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.25rem;
+    padding-inline: 0.85rem;
+    border: 1px solid var(--color-rule-strong);
+    color: var(--color-ink-2);
+    transition: background-color 0.4s var(--ease-out-quint), border-color 0.4s var(--ease-out-quint),
+      color 0.4s var(--ease-out-quint);
+  }
+
+  .nav__cta:hover {
+    background-color: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .nav__progress {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-ember);
+    transform-origin: left;
+    transform: scaleX(var(--progress, 0));
+  }
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+
+@layer components {
+  /*
+   * The hero must complete inside the first viewport. Four rows, one seam
+   * rhythm, and an explicit mobile order so the CTAs never fall below the fold.
+   */
+  .hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-content: space-between;
+    align-items: end;
+    /* Column gap only exists once the 12-column layout kicks in — a 64px
+       column gap on stacked children forces 704px of pure gutter. */
+    gap: 2.75rem 0;
+    /*
+     * Deliberately shorter than the viewport. Two reasons: it keeps the internal
+     * void from ballooning on tall screens, and it lets the work section's
+     * heading peek into the first fold — a portfolio should read as a document
+     * you scroll, not a full-screen landing page.
+     */
+    min-height: clamp(38rem, 72svh, 50rem);
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-block: 6.5rem 2.5rem;
+    padding-inline: clamp(1.25rem, 5vw, 3.5rem);
+  }
+
+  @supports not (height: 100svh) {
+    .hero {
+      min-height: clamp(38rem, 72vh, 50rem);
+    }
+  }
+
+  .hero-intro,
+  .hero-spec,
+  .hero-rail {
+    grid-column: 1 / -1;
+  }
+
+  .hero-intro {
+    order: 1;
+  }
+  .hero-rail {
+    order: 2;
+  }
+  .hero-spec {
+    order: 3;
+  }
+
+  @media (min-width: 1024px) {
+    .hero {
+      gap: 3.5rem 4rem;
+      padding-block: 8.5rem 3rem;
+    }
+
+    .hero-intro {
+      grid-column: 1 / span 7;
+    }
+    .hero-spec {
+      grid-column: 8 / span 5;
+    }
+
+    .hero-intro,
+    .hero-spec,
+    .hero-rail {
+      order: 0;
+    }
+  }
+
+  /*
+   * The spec sheet. A person read as a specimen record: mono keys, hairline
+   * rows, values in sentence case. Deliberately not a KPI strip.
+   */
+  .spec {
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .spec__row {
+    display: grid;
+    grid-template-columns: 5rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: 1rem;
+    padding-block: 0.8rem;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .spec__k {
+    color: var(--color-ink-4);
+    transition: color 0.45s var(--ease-out-quint);
+  }
+
+  .spec__row:hover .spec__k {
+    color: var(--color-ink-2);
+  }
+
+  .spec__v {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--color-ink-2);
+    text-wrap: pretty;
+  }
+
+  .spec__v--lead {
+    color: var(--color-ink);
+  }
+
+  /*
+   * The ledger. Mono ordinals, an ember bar that grows from the bottom edge on
+   * hover, and an arrow that travels in. Used for the archive of retired work.
+   */
+  .ledger {
+    border-top: 1px solid var(--color-rule);
+  }
+
+  /*
+   * One row shape for every entry, current or retired. Cells reveal themselves
+   * as room allows: ordinal · name · status · arrow on phones,
+   * ordinal · name · kind · status · arrow on tablets,
+   * ordinal · name · kind · stack · status · arrow on desktop.
+   */
+  .ledger__row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr) auto 1rem;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding-block: 0.9rem;
+    padding-inline: 0.75rem;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  @media (min-width: 768px) {
+    .ledger__row {
+      grid-template-columns: 2.25rem minmax(0, 1fr) minmax(0, 0.95fr) auto 1rem;
+      gap: 1rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .ledger__row {
+      grid-template-columns: 2.5rem minmax(0, 1.1fr) minmax(0, 0.9fr) minmax(0, 1.1fr) auto 1rem;
+    }
+  }
+
+  .ledger__row::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--color-ember);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.5s var(--ease-out-quint);
+  }
+
+  .ledger__row:hover::before,
+  .ledger__row:focus-visible::before {
+    transform: scaleY(1);
+  }
+
+  .ledger__n {
+    color: var(--color-ink-4);
+    transition: color 0.4s var(--ease-out-quint);
+  }
+  .ledger__t {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    letter-spacing: -0.022em;
+    color: var(--color-ink-2);
+    transition: color 0.4s var(--ease-out-quint);
+  }
+
+  .ledger__k {
+    color: var(--color-ink-3);
+    transition: color 0.4s var(--ease-out-quint);
+  }
+
+  .ledger__s {
+    overflow: hidden;
+    color: var(--color-ink-4);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: color 0.4s var(--ease-out-quint);
+  }
+  .ledger__m {
+    color: var(--color-ink-4);
+    transition: color 0.4s var(--ease-out-quint);
+  }
+  .ledger__a {
+    color: var(--color-ember);
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition: opacity 0.4s var(--ease-out-quint), transform 0.4s var(--ease-out-quint);
+  }
+
+  .ledger__row:hover .ledger__n,
+  .ledger__row:focus-visible .ledger__n {
+    color: var(--color-ember);
+  }
+  .ledger__row:hover .ledger__t,
+  .ledger__row:focus-visible .ledger__t {
+    color: var(--color-ink);
+  }
+  .ledger__row:hover .ledger__k,
+  .ledger__row:focus-visible .ledger__k {
+    color: var(--color-ink-2);
+  }
+  .ledger__row:hover .ledger__s {
+    color: var(--color-ink-3);
+  }
+  .ledger__row:hover .ledger__m {
+    color: var(--color-ink-3);
+  }
+  .ledger__row:hover .ledger__a,
+  .ledger__row:focus-visible .ledger__a {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Plates — architecture schematics (the signature artifact)
+   ========================================================================== */
+
+@layer components {
+  .plate {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .plate__nodes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+    background-color: var(--color-rule);
+    border: 1px solid var(--color-rule);
+  }
+
+  .plate__node {
+    position: relative;
+    flex: 1 1 8.5rem;
+    min-width: 0;
+    display: grid;
+    align-content: start;
+    gap: 0.3rem;
+    padding: 0.8rem 0.9rem 1.35rem;
+    background-color: var(--color-paper-2);
+  }
+
+  .plate__node--signal {
+    background-color: var(--color-paper-3);
+  }
+
+  .plate__k {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-3);
+    transition: color 0.5s var(--ease-out-quint);
+  }
+
+  .plate__node--signal .plate__k {
+    color: var(--color-ember);
+  }
+
+  .plate__v {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--color-ink-2);
+  }
+
+  .plate__node--signal .plate__v {
+    color: var(--color-ink);
+  }
+
+  /*
+   * Tick from each node down to the rail. Visible by default so the schematic is
+   * complete without JavaScript; the `.js` class is what hides it until reveal.
+   */
+  .plate__node::after {
+    content: "";
+    position: absolute;
+    left: 0.9rem;
+    bottom: 0;
+    width: 1px;
+    height: 0.7rem;
+    background-color: var(--color-rule-strong);
+    transform: scaleY(1);
+    transform-origin: bottom;
+    transition: transform 0.6s var(--ease-out-quint) var(--plate-delay, 0ms);
+  }
+
+  .js .plate__node::after {
+    transform: scaleY(0);
+  }
+
+  .js .is-in .plate__node::after {
+    transform: scaleY(1);
+  }
+
+  /* The signal node lands on the rail with an ember eye. */
+  .plate__node--signal::before {
+    content: "";
+    position: absolute;
+    left: calc(0.9rem - 2px);
+    bottom: -2px;
+    width: 5px;
+    height: 5px;
+    background-color: var(--color-ember);
+    opacity: 1;
+    transition: opacity 0.5s var(--ease-out-quint) calc(var(--plate-delay, 0ms) + 300ms);
+  }
+
+  .js .plate__node--signal::before {
+    opacity: 0;
+  }
+
+  .js .is-in .plate__node--signal::before {
+    opacity: 1;
+  }
+
+  .plate__caption {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-4);
+    transition: color 0.5s var(--ease-out-quint);
+  }
+
+  /*
+   * Hovering the schematic runs a signal through it: each node's tick pulses up
+   * in ember, staggered left to right, and the terminal node's eye flares. The
+   * diagram animates the thing it describes. CSS restarts the run on each hover.
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    .plate:hover .plate__node::after {
+      animation: plate-trace 1.15s var(--ease-in-out-quart) var(--plate-delay, 0ms) 1;
+    }
+
+    .plate:hover .plate__node--signal::before {
+      animation: plate-eye 1.15s var(--ease-in-out-quart) calc(var(--plate-delay, 0ms) + 260ms) 1;
+    }
+
+    .plate:hover .plate__caption {
+      color: var(--color-ink-3);
+    }
+  }
+
+  @keyframes plate-trace {
+    0%,
+    100% {
+      transform: scaleY(1);
+      background-color: var(--color-rule-strong);
+    }
+    35% {
+      transform: scaleY(2.1);
+      background-color: var(--color-ember);
+    }
+  }
+
+  @keyframes plate-eye {
+    0%,
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 transparent;
+    }
+    40% {
+      transform: scale(1.6);
+      box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-ember) 22%, transparent);
+    }
+  }
+
+  /* ======================================================================
+     Stat strip
+     ====================================================================== */
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 1px;
+    background-color: var(--color-rule);
+    border-block: 1px solid var(--color-rule);
+  }
+
+  .stats__item {
+    display: grid;
+    gap: 0.35rem;
+    padding: 0.85rem 1rem 0.95rem;
+    background-color: var(--color-paper);
+  }
+
+  .stats__k {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-4);
+  }
+
+  .stats__v {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.01em;
+    color: var(--color-ink);
+  }
+}
+
+/* ==========================================================================
+   Capability inventory
+   ========================================================================== */
+
+@layer components {
+  .cap-row {
+    display: grid;
+    gap: 0.75rem 4rem;
+    border-top: 1px solid var(--color-rule);
+    padding-block: 1.6rem;
+  }
+
+  @media (min-width: 900px) {
+    .cap-row {
+      grid-template-columns: 13rem minmax(0, 1fr);
+    }
+  }
+
+  .cap-row__label {
+    position: relative;
+    width: fit-content;
+    color: var(--color-ink-4);
+    transition: color 0.45s var(--ease-out-quint);
+  }
+
+  .cap-row__label::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.4rem;
+    height: 1px;
+    background-color: var(--color-ember);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-in-out-quart);
+  }
+
+  .cap-row:hover .cap-row__label::after,
+  .cap-row:focus-within .cap-row__label::after {
+    transform: scaleX(1);
+  }
+
+  .cap-row:hover .cap-row__label {
+    color: var(--color-ember);
+  }
+
+  .cap-row__items {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: var(--color-ink-2);
+    transition: color 0.45s var(--ease-out-quint);
+  }
+
+  .cap-row:hover .cap-row__items {
+    color: var(--color-ink);
+  }
+
+  .cap-sep {
+    color: var(--color-ink-4);
+    padding-inline: 0.55rem;
+  }
+}
+
+/* ==========================================================================
+   Contact — the one inverted block. Bone ground, paper ink.
+   ========================================================================== */
+
+@layer components {
+  .contact {
+    background-color: #f0ebe4;
+    color: #14140f;
+    width: 100%;
+  }
+
+  .contact__dim {
+    color: #6d6862;
+  }
+
+  .contact__max {
+    max-width: 52ch;
+  }
+
+  .contact__ink {
+    color: #14140f;
+  }
+
+  .contact__body {
+    color: #4a453f;
+  }
+
+  .contact__dim {
+    color: #6d6862;
+  }
+
+  .contact__faint {
+    color: #a9a199;
+  }
+
+  .contact__mail {
+    position: relative;
+    display: inline-block;
+    margin-top: 3rem;
+    font-size: clamp(1.35rem, 4vw, 3rem);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.036em;
+    color: #14140f;
+    word-break: break-word;
+  }
+
+  .contact__mail::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.14em;
+    height: 1px;
+    background-color: #14140f;
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 0.6s var(--ease-in-out-quart);
+  }
+
+  .contact__mail:hover {
+    color: var(--color-ember-deep);
+  }
+
+  .contact__mail:hover::after {
+    transform: scaleX(0);
+    transform-origin: right;
+    background-color: var(--color-ember-deep);
+  }
+
+  .contact__links {
+    display: grid;
+    gap: 1px;
+    background-color: #cfc7bc;
+    border-block: 1px solid #cfc7bc;
+  }
+
+  @media (min-width: 640px) {
+    .contact__links {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .contact__link {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 4.25rem;
+    padding-inline: 1.25rem;
+    background-color: #f0ebe4;
+    color: #14140f;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.45s var(--ease-out-quint);
+  }
+
+  .contact__link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: #14140f;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-in-out-quart);
+  }
+
+  .contact__link:hover,
+  .contact__link:focus-visible {
+    color: #f0ebe4;
+  }
+
+  .contact__link:hover::before,
+  .contact__link:focus-visible::before {
+    transform: scaleX(1);
+  }
+
+  .contact__link .btn__arrow {
+    transition: transform 0.45s var(--ease-out-quint);
+  }
+
+  .contact__link:hover .btn__arrow--diag,
+  .contact__link:focus-visible .btn__arrow--diag {
+    transform: translate(4px, -4px);
+  }
+
+  .contact__foot {
+    border-top: 1px solid #cfc7bc;
+  }
+
+  /* The bone ground needs a dark focus ring, or the global outline vanishes. */
+  .contact :focus-visible {
+    outline-color: #14140f;
+  }
+}
+
+/* ==========================================================================
+   Prose — case studies
+   ========================================================================== */
+
+@layer components {
+  .prose {
+    min-width: 0;
+    color: var(--color-ink-2);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .prose > * + * {
+    margin-top: 1.35rem;
+  }
+
+  .prose h2 {
+    margin-top: 3.5rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--color-rule);
+    font-size: clamp(1.3rem, 2.1vw, 1.75rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--color-ink);
+  }
+
+  .prose h3 {
+    margin-top: 2.5rem;
+    font-size: 1.0625rem;
+    font-weight: 550;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .prose strong {
+    font-weight: 550;
+    color: var(--color-ink);
+  }
+
+  .prose em {
+    color: var(--color-ink);
+  }
+
+  .prose a {
+    color: var(--color-ink);
+    border-bottom: 1px solid var(--color-rule-strong);
+    transition: color 0.35s var(--ease-out-quint), border-color 0.35s var(--ease-out-quint);
+  }
+
+  .prose a:hover {
+    color: var(--color-ember);
+    border-color: var(--color-ember);
+  }
+
+  .prose ul,
+  .prose ol {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .prose li {
+    position: relative;
+    padding-left: 1.6rem;
+  }
+
+  .prose ul > li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--color-ember);
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+  }
+
+  .prose ol {
+    counter-reset: prose-ol;
+  }
+
+  .prose ol > li {
+    counter-increment: prose-ol;
+  }
+
+  .prose ol > li::before {
+    content: counter(prose-ol, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.2em;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    color: var(--color-ember);
+  }
+
+  .prose code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--color-ink);
+    background-color: var(--color-paper-3);
+    padding: 0.15em 0.4em;
+  }
+
+  .prose pre {
+    overflow-x: auto;
+    padding: 1.25rem;
+    border: 1px solid var(--color-rule);
+    background-color: var(--color-paper-2);
+    font-size: 0.8125rem;
+    line-height: 1.75;
+  }
+
+  .prose pre code {
+    background: none;
+    padding: 0;
+    color: var(--color-ink-2);
+  }
+
+  .prose hr {
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+    margin-block: 3rem;
+  }
+
+  .prose blockquote {
+    border-left: 2px solid var(--color-ember);
+    padding-left: 1.25rem;
+    color: var(--color-ink);
+  }
+
+  .prose table {
+    display: block;
+    overflow-x: auto;
+    min-width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+  }
+
+  .prose thead {
+    border-bottom: 1px solid var(--color-rule-strong);
+  }
+
+  .prose th {
+    padding: 0.6rem 0.9rem 0.6rem 0;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 450;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-3);
+    white-space: nowrap;
+  }
+
+  .prose td {
+    padding: 0.7rem 0.9rem 0.7rem 0;
+    border-bottom: 1px solid var(--color-rule);
+    vertical-align: top;
+    color: var(--color-ink-2);
+  }
+
+  .prose td:first-child {
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+
+  .prose > :first-child {
+    margin-top: 0;
+  }
+}
+
+/* ==========================================================================
+   Custom cursor — a labelled chip over interactive things
+   ========================================================================== */
+
+@layer components {
+  body.has-cursor,
+  body.has-cursor * {
+    cursor: none !important;
+  }
+
+  #cur-dot,
+  #cur-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-out-quint);
+  }
+
+  #cur-dot {
+    z-index: 9999;
+    width: 5px;
+    height: 5px;
+    background-color: var(--color-ember);
+  }
+
+  #cur-ring {
+    z-index: 9998;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--color-ink-4);
+    transition: width 0.38s var(--ease-out-quint), height 0.38s var(--ease-out-quint),
+      background-color 0.38s var(--ease-out-quint), border-color 0.38s var(--ease-out-quint);
+  }
+
+  #cur-ring[data-state="hover"] {
+    width: 44px;
+    height: 44px;
+    border-color: var(--color-ink-2);
+  }
+
+  #cur-ring[data-state="label"] {
+    width: 86px;
+    height: 86px;
+    background-color: var(--color-ember);
+    border-color: var(--color-ember);
+  }
+
+  #cur-label {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #0a0a0b;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    white-space: nowrap;
+  }
+
+  #cur-ring[data-state="label"] #cur-label {
+    opacity: 1;
+  }
+
+  .cursor-ready #cur-dot,
+  .cursor-ready #cur-ring {
+    opacity: 1;
+  }
+
+  .cursor-ready #cur-dot[data-hidden="true"] {
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion — strip every non-essential movement
+   ========================================================================== */
+
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
   *,
-  ::before,
-  ::after {
-    animation-duration: 0.01ms !important;
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .js [data-reveal],
+  .js [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .plate__node::after {
+    transform: scaleY(1);
+  }
+
+  .plate__node--signal::before {
+    opacity: 1;
+  }
+
+  #cur-dot,
+  #cur-ring {
+    display: none;
+  }
+
+  body.has-cursor,
+  body.has-cursor * {
+    cursor: auto !important;
   }
 }

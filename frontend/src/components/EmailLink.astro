@@ -1,0 +1,52 @@
+---
+import profile from "../data/profile.json";
+
+interface Props {
+  class?: string;
+  /**
+   * Where the link goes when JavaScript is unavailable. The address is never
+   * rendered as text and never appears in the HTML — it is assembled at runtime
+   * from two base64 fragments.
+   */
+  fallback?: string;
+  arrow?: string;
+}
+
+const { class: className = "", fallback = "#contact", arrow = "↗" } = Astro.props;
+
+const [user, domain] = String(profile.email).split("@");
+const encode = (value: string) => Buffer.from(value, "utf8").toString("base64");
+---
+
+<a
+  class={className}
+  href={fallback}
+  data-mail
+  data-u={encode(user)}
+  data-d={encode(domain)}
+  data-cursor="EMAIL"
+>
+  <slot />
+  {arrow && <span class="text-ember" aria-hidden="true">{arrow}</span>}
+</a>
+
+<script>
+  /*
+   * Assembles the mailto: from fragments the markup never spells out, then drops
+   * the fragments. Without JavaScript the href keeps its fallback destination, so
+   * the control is never dead. This defeats address-harvesting regexes; it is not
+   * encryption, and the address still reaches anyone who reads the network tab.
+   */
+  for (const element of document.querySelectorAll<HTMLAnchorElement>("[data-mail]")) {
+    const user = element.dataset.u;
+    const domain = element.dataset.d;
+    if (!user || !domain) continue;
+    try {
+      element.setAttribute("href", `mailto:${atob(user)}@${atob(domain)}`);
+      delete element.dataset.u;
+      delete element.dataset.d;
+    } catch {
+      /* Keep the fallback href. */
+    }
+  }
+</script>

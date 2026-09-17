@@ -1,40 +1,36 @@
 ---
-
 ---
 
-<div class="visit-counter fixed bottom-6 right-6 z-40">
-  <div
-    class="border border-border-subtle/80 bg-bg-primary/80 backdrop-blur-md px-4 py-3 font-mono text-xs shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
-  >
-    <div class="flex items-center gap-3 text-text-tertiary uppercase tracking-widest">
-      <span class="w-1.5 h-1.5 bg-accent opacity-80 animate-pulse shadow-[0_0_8px_var(--color-accent-subtle)]"></span>
-      <span id="visit-count" class="text-text-secondary loading" aria-live="polite" aria-label="Total site visits">
-        <span class="alien-text">Loading...</span>
-      </span>
-    </div>
-  </div>
-</div>
+<span
+  class="inline-flex items-center gap-2 micro micro-xs tnum text-ink-4"
+  id="visit-counter"
+  title="Site visits"
+>
+  <span>Views</span>
+  <span id="visit-total" class="text-ink-2" aria-hidden="true">·····</span>
+  <span aria-hidden="true">·</span>
+  <span>Today</span>
+  <span id="visit-today" class="text-ink-2" aria-hidden="true">··</span>
+</span>
 
 <script>
-  const alienChars = "▓▒░█▄▀■□▪▫◘◙○●►◄↕‼¶§▬↨↑↓→←∟↔▲▼";
+  const DIGITS = "0123456789";
 
-  function scrambleText(element: HTMLElement, finalText: string, duration = 350): void {
+  function scramble(el: HTMLElement, finalText: string, duration = 420): void {
     const start = performance.now();
-
-    const animate = (time: number) => {
-      const progress = Math.min((time - start) / duration, 1);
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
       const reveal = Math.floor(progress * finalText.length);
-
-      element.textContent = finalText
+      el.textContent = finalText
         .split("")
-        .map((c, i) => (i < reveal ? c : alienChars[Math.floor(Math.random() * alienChars.length)]))
+        .map((char, index) =>
+          index < reveal || char === "," ? char : DIGITS[Math.floor(Math.random() * DIGITS.length)],
+        )
         .join("");
-
-      if (progress < 1) requestAnimationFrame(animate);
-      else element.textContent = finalText;
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = finalText;
     };
-
-    requestAnimationFrame(animate);
+    requestAnimationFrame(step);
   }
 
   interface VisitData {
@@ -45,88 +41,52 @@
   }
 
   async function updateVisitCount(): Promise<void> {
-    const countEl = document.getElementById("visit-count") as HTMLSpanElement | null;
-    const alienEl = countEl?.querySelector(".alien-text") as HTMLSpanElement | null;
-    if (!alienEl || !countEl) return;
+    const wrapper = document.getElementById("visit-counter");
+    const total = document.getElementById("visit-total");
+    const today = document.getElementById("visit-today");
+    if (!wrapper || !total || !today) return;
 
     try {
-      const apiUrl: string = import.meta.env.PUBLIC_API_URL || "https://portfolio-api.devmaaaaz.workers.dev";
+      const apiUrl = import.meta.env.PUBLIC_API_URL || "https://portfolio-api.devmaaaaz.workers.dev";
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
-
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         signal: controller.signal,
       });
-
       clearTimeout(timeoutId);
+      if (!response.ok) throw new Error("Counter unavailable");
 
-      if (!response.ok) throw new Error("Failed to fetch visit count");
+      const data = (await response.json()) as Partial<VisitData>;
+      if (!data || typeof data.totalViews !== "number") throw new Error("Bad payload");
 
-      const data = (await response.json()) as unknown;
-
-      if (!data || typeof data !== "object") throw new Error("Invalid response format");
-
-      const visitData = data as Partial<VisitData>;
-
-      if (visitData.success && typeof visitData.totalViews === "number") {
-        const formatted = `${visitData.totalViews.toLocaleString()} visits`;
-        scrambleText(alienEl, formatted, 350);
-        countEl.title = `${(visitData.uniqueViews || 0).toLocaleString()} unique · ${visitData.todayUnique || 0} today`;
-        countEl.classList.remove("loading");
-      } else {
-        throw new Error("Invalid visit count data");
-      }
+      scramble(total, data.totalViews.toLocaleString(), 480);
+      scramble(today, String(data.todayUnique ?? 0), 300);
+      wrapper.title = `${data.totalViews.toLocaleString()} views · ${(
+        data.uniqueViews ?? 0
+      ).toLocaleString()} unique · ${data.todayUnique ?? 0} today`;
     } catch {
-      scrambleText(alienEl, "∞ visits", 250);
-      countEl.title = "Counter unavailable";
-      countEl.classList.remove("loading");
+      total.textContent = "—";
+      today.textContent = "—";
+      wrapper.title = "Counter unavailable";
     }
   }
 
-  const scheduleUpdate = (): void => {
-    "requestIdleCallback" in window
-      ? (window as any).requestIdleCallback(updateVisitCount, { timeout: 2000 })
-      : setTimeout(updateVisitCount, 100);
+  const schedule = (): void => {
+    if ("requestIdleCallback" in window) {
+      (window as Window & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => void }).requestIdleCallback(
+        updateVisitCount,
+        { timeout: 2500 },
+      );
+    } else {
+      setTimeout(updateVisitCount, 150);
+    }
   };
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", scheduleUpdate);
+    document.addEventListener("DOMContentLoaded", schedule);
   } else {
-    scheduleUpdate();
+    schedule();
   }
 </script>
-
-<style>
-  .visit-counter {
-    animation: fade-in 0.4s ease-out 0.5s both;
-  }
-
-  .loading .alien-text {
-    color: var(--color-text-muted);
-    text-shadow: 0 0 8px color-mix(in srgb, var(--color-text-muted) 50%, transparent);
-  }
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .visit-counter {
-      bottom: 1rem;
-      right: 1rem;
-      font-size: 0.65rem;
-    }
-    .visit-counter > div {
-      padding: 0.5rem 0.75rem;
-    }
-  }
-</style>

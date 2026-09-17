@@ -1,9 +1,9 @@
 ---
 title: "AhsanAutos.pk: Headless E-commerce Rebuild"
 projectId: "project-2"
-summary: "Second time building this automotive e-commerce site headless. Here's what happened with BigCommerce and why we're on Shopify now."
+summary: "The second headless build of this automotive storefront. What BigCommerce's USD pricing did to a PKR retailer, and why it ended up on Shopify."
 role: "Solo Developer"
-timeline: "8 weeks (ongoing)"
+timeline: "8 weeks"
 stack: "Next.js 16, React 19, Shopify Storefront API, Tailwind CSS 4, Jotai"
 liveUrl: "https://ahsanautos.pk"
 images: []
@@ -11,7 +11,7 @@ images: []
 
 ## The History
 
-This is the second time I'm building this site headless. Understanding why requires some context.
+This was the second time I built this site headless. Understanding why needs some context.
 
 **Before 2022: WooCommerce**
 
@@ -35,11 +35,11 @@ The client moved back to WordPress/WooCommerce. Not because it was better, but b
 
 The client came back. This time they wanted Shopify as the backend—better PKR support, more payment gateway options, pricing that doesn't scale weirdly with high PKR values.
 
-So I'm building it headless again. Second time.
+So I built it headless again. Second time.
 
 ---
 
-## Current Architecture
+## Architecture
 
 ```
 Next.js 16 (React 19 Server Components)
@@ -104,11 +104,9 @@ Shopify's API responds in ~200ms, which is fine for page loads but feels sluggis
 
 ---
 
-## Status
+## Outcome
 
-Currently in development. The site is still running on WooCommerce while I build out the Shopify version. Once it's ready, we'll migrate.
-
-Hosting will be Vercel paid tier once live. After three versions of this project, I've learned that cutting corners on infrastructure costs more in debugging time than it saves in hosting bills.
+The Shopify storefront shipped and is live at ahsanautos.pk, with cash and installment buying running off one catalogue. After three versions of this project, I've learned that cutting corners on infrastructure costs more in debugging time than it saves in hosting bills.
 
 ---
 

@@ -1,0 +1,39 @@
+---
+import { entries, statusLabel } from "../data/work";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+{/*
+  The single row component for every entry — current, live or retired. Shared by
+  the home page and the 404 page so the index can never drift between them.
+*/}
+<ul class:list={["ledger", className]} data-reveal>
+  {
+    entries.map((entry) => (
+      <li>
+        <a class="ledger__row" href={`/work/${entry.slug}`} data-cursor="READ">
+          <span class="micro micro-xs ledger__n tnum">{entry.index}</span>
+          <span class="ledger__t">{entry.name}</span>
+          <span class="micro micro-xs ledger__k hidden md:block">{entry.kind}</span>
+          <span class="micro micro-xs ledger__s hidden lg:block">
+            {entry.stack.slice(0, 3).join(" · ")}
+          </span>
+          <span
+            class:list={[
+              "micro micro-xs ledger__m",
+              entry.status !== "archived" && "ledger__m--active",
+            ]}
+          >
+            {statusLabel(entry.status)}
+          </span>
+          <span class="ledger__a" aria-hidden="true">↗</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

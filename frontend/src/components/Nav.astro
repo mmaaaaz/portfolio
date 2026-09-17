@@ -1,0 +1,118 @@
+---
+import profile from "../data/profile.json";
+import EmailLink from "./EmailLink.astro";
+const links = [
+  { href: "#work", label: "Work" },
+  { href: "#capabilities", label: "Capabilities" },
+  { href: "#practice", label: "Practice" },
+];
+---
+
+<header class="nav" id="nav" data-stuck="false">
+  <div class="shell flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
+    <a href="/" class="group flex items-center gap-3" aria-label={`${profile.name} — home`}>
+      <span
+        class="block h-2.5 w-2.5 bg-ink transition duration-500 group-hover:rotate-45 group-hover:bg-ember"
+        aria-hidden="true"></span>
+      <span class="flex items-baseline gap-2">
+        <span class="text-[0.9375rem] font-medium tracking-[-0.02em] text-ink">{profile.displayName}</span>
+        <span class="micro micro-xs hidden text-ink-4 sm:inline">/ portfolio</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Sections">
+      {links.map((link) => (
+        <a href={link.href} class="nav__link micro" data-nav-link>{link.label}</a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-4 lg:gap-5">
+      <p class="micro micro-xs tnum hidden text-ink-4 lg:block" data-clock aria-hidden="true">
+        KHI --:--:--
+      </p>
+      <span class="hidden h-3 w-px bg-rule-strong lg:block" aria-hidden="true"></span>
+      <p class="micro micro-xs hidden items-center gap-2 text-ink-2 sm:flex">
+        <span class="status-dot" aria-hidden="true"></span>Open to work
+      </p>
+      <EmailLink class="nav__cta micro micro-xs">Email</EmailLink>
+    </div>
+  </div>
+  <div class="nav__progress" id="nav-progress" aria-hidden="true"></div>
+</header>
+
+<script>
+  const nav = document.getElementById("nav");
+  const progress = document.getElementById("nav-progress");
+  const clock = document.querySelector("[data-clock]");
+
+  /* Live Karachi clock — a working-desk detail, not decoration. */
+  const timeFormat = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Karachi",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+  const paintClock = () => {
+    if (clock) clock.textContent = "KHI " + timeFormat.format(new Date());
+  };
+  if (clock) {
+    paintClock();
+    window.setInterval(() => {
+      if (!document.hidden) paintClock();
+    }, 1000);
+    document.addEventListener("visibilitychange", paintClock);
+  }
+
+  /* Stuck state + scroll progress hairline. */
+  let frame = 0;
+  const paint = () => {
+    frame = 0;
+    const y = window.scrollY;
+    if (nav) nav.dataset.stuck = y > 24 ? "true" : "false";
+    if (progress) {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.setProperty("--progress", max > 0 ? Math.min(y / max, 1).toFixed(4) : "0");
+    }
+  };
+  const schedule = () => {
+    if (!frame) frame = requestAnimationFrame(paint);
+  };
+  paint();
+  window.addEventListener("scroll", schedule, { passive: true });
+  window.addEventListener("resize", schedule, { passive: true });
+
+  /* Section spy — one ember rule under the section you are reading. */
+  const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]"));
+  const pairs = navLinks
+    .map((link) => ({
+      link,
+      section: document.querySelector<HTMLElement>(link.getAttribute("href") || ""),
+    }))
+    .filter((pair): pair is { link: HTMLAnchorElement; section: HTMLElement } => pair.section !== null);
+
+  if ("IntersectionObserver" in window && pairs.length) {
+    const ratios = new Map();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          ratios.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0);
+        }
+        let best = null;
+        let bestRatio = 0;
+        ratios.forEach((ratio, el) => {
+          if (ratio > bestRatio) {
+            best = el;
+            bestRatio = ratio;
+          }
+        });
+        for (const pair of pairs) {
+          if (best && pair.section === best) pair.link.setAttribute("aria-current", "true");
+          else pair.link.removeAttribute("aria-current");
+        }
+      },
+      { rootMargin: "-20% 0px -55% 0px", threshold: [0, 0.15, 0.35, 0.6, 0.85, 1] },
+    );
+    for (const pair of pairs) observer.observe(pair.section);
+  }
+</script>

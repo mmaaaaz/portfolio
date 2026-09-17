@@ -1,0 +1,182 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CaseStudyGallery from "../../components/CaseStudyGallery.astro";
+import EmailLink from "../../components/EmailLink.astro";
+import Plate from "../../components/Plate.astro";
+import { entries, statusLabel } from "../../data/work";
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection("case-studies");
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: {
+      entry,
+      study: caseStudies.find((item) => item.id === entry.caseStudyId) ?? null,
+    },
+  }));
+}
+
+const { entry, study } = Astro.props;
+
+const rendered = study ? await render(study) : null;
+const Content = rendered?.Content ?? null;
+const images = study && Array.isArray(study.data.images) ? study.data.images : [];
+
+const live = entry.liveUrl;
+const alsoLinks = entry.links.filter((link) => link.href !== live);
+
+const meta = [
+  { k: "Role", v: entry.role },
+  entry.timeline ? { k: "Timeline", v: entry.timeline } : null,
+  { k: "Surface", v: entry.surface },
+  { k: "Status", v: statusLabel(entry.status) },
+].filter((item): item is { k: string; v: string } => Boolean(item));
+---
+
+<BaseLayout title={`${entry.name} — ${entry.kind}`} description={entry.thesis}>
+  <article class="section ruled pt-28 sm:pt-32">
+    <header>
+      <a
+        href="/#work"
+        class="group micro micro-xs inline-flex items-center gap-2 text-ink-4 transition-colors hover:text-ink"
+        data-cursor="BACK"
+      >
+        <span class="transition-transform duration-500 group-hover:-translate-x-1" aria-hidden="true"
+          >←</span
+        >
+        All work
+      </a>
+
+      <div class="mt-12 grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-12">
+        <div class="lg:col-span-8">
+          <p class="micro text-ink-4">
+            <span class="text-ink-3">{entry.index}</span> — {entry.kind} ·
+            <span class:list={[entry.status !== "archived" && "text-ember"]}>
+              {statusLabel(entry.status)}
+            </span>
+          </p>
+          <h1 class="t-h2 mt-6 text-ink">{entry.name}</h1>
+        </div>
+        <p class="t-lead lg:col-span-4 lg:pb-1">{entry.thesis}</p>
+      </div>
+
+      <dl class="stats mt-12">
+        {
+          meta.map((item) => (
+            <div class="stats__item">
+              <dt class="stats__k">{item.k}</dt>
+              <dd class="stats__v">{item.v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <div class="mt-6 flex flex-wrap gap-3">
+        {
+          live && (
+            <a
+              class="btn btn--solid"
+              href={live}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="OPEN"
+            >
+              Open {entry.host}
+              <span class="btn__arrow btn__arrow--diag" aria-hidden="true">↗</span>
+            </a>
+          )
+        }
+        {
+          alsoLinks.map((link) => (
+            <a
+              class="btn"
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="OPEN"
+            >
+              {link.label}
+              <span class="btn__arrow btn__arrow--diag" aria-hidden="true">↗</span>
+            </a>
+          ))
+        }
+        <EmailLink class="btn" fallback="https://linkedin.com/in/mmaaaaz">
+          Talk about similar work
+        </EmailLink>
+      </div>
+    </header>
+
+    <div class="mt-16 border-t border-rule pt-12" data-reveal>
+      <Plate plate={entry.plate} />
+    </div>
+
+    <div class="mt-16 border-t border-rule pt-12" data-reveal>
+      <div class="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <h2 class="micro text-ink-4">The problem</h2>
+          <p class="t-body mt-4">{entry.problem}</p>
+        </div>
+        <div class="lg:col-span-6 lg:col-start-7">
+          <h2 class="micro text-ink-4">What shipped</h2>
+          <ul class="mt-4 grid gap-3">
+            {
+              entry.shipped.map((item) => (
+                <li class="flex gap-3 text-[0.9375rem] leading-relaxed text-ink-2">
+                  <span class="mt-[0.5em] h-px w-3 shrink-0 bg-ember" aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16 border-t border-rule pt-12" data-reveal>
+      <dl class="stats">
+        {
+          entry.stats.map((stat) => (
+            <div class="stats__item">
+              <dt class="stats__k">{stat.k}</dt>
+              <dd class="stats__v tnum">{stat.v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="micro micro-xs mt-5 text-ink-4">
+        Stack — {entry.stack.join(" · ")}
+      </p>
+    </div>
+
+    {
+      Content && (
+        <div class="mt-16 border-t border-rule pt-12" data-reveal>
+          <div class="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-12">
+            <p class="micro text-ink-4 lg:col-span-3">The write-up</p>
+            <div class="prose min-w-0 lg:col-span-8 lg:col-start-5">
+              <Content />
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    {images.length > 0 && <CaseStudyGallery images={images} title={entry.name} />}
+
+    <div class="mt-16 border-t border-rule pt-12">
+      <div class="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+        <p class="t-h3 max-w-md text-ink">
+          If this is the kind of problem you have, it is worth a conversation.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <EmailLink class="btn btn--solid">Start a conversation</EmailLink>
+          <a class="btn" href="/#work" data-cursor="BACK">
+            All work
+            <span class="btn__arrow btn__arrow--right" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,70 @@
+---
+import profile from "../data/profile.json";
+import EmailLink from "./EmailLink.astro";
+
+const links = [
+  { label: "GitHub", href: profile.githubUrl },
+  { label: "LinkedIn", href: "https://linkedin.com/in/mmaaaaz" },
+  { label: "WhatsApp", href: "https://wa.me/923353393916" },
+  { label: "Résumé", href: "/resume.pdf" },
+];
+---
+
+<section id="contact" class="contact" aria-labelledby="contact-title">
+  <div class="section">
+    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-[#cfc7bc] pb-4">
+      <p class="micro contact__dim"><span class="contact__faint">04</span> — Contact</p>
+      <p class="micro micro-xs contact__dim">Replies within a day</p>
+    </div>
+
+    <div class="mt-12 grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-12">
+      <h2 id="contact-title" class="t-display lg:col-span-8">
+        Let&rsquo;s build something worth shipping.
+      </h2>
+      <p class="t-lead contact__max contact__body lg:col-span-4 lg:pb-3">
+        Full-time roles, freelance builds, and collaborations with real stakes. If you have
+        something specific in mind, say so — I answer everything.
+      </p>
+    </div>
+
+    <EmailLink class="contact__mail" fallback="https://linkedin.com/in/mmaaaaz">
+      Email me
+    </EmailLink>
+
+    <div class="mt-16 grid grid-cols-1 gap-x-16 gap-y-8 border-t border-[#cfc7bc] pt-8 sm:grid-cols-2 sm:gap-px sm:gap-y-8 lg:grid-cols-4">
+      <div>
+        <p class="micro micro-xs contact__dim">Based in</p>
+        <p class="mt-2 text-[0.9375rem]">{profile.location}</p>
+      </div>
+      <div class="mt-6 sm:mt-0">
+        <p class="micro micro-xs contact__dim">Working hours</p>
+        <p class="mt-2 text-[0.9375rem]">UTC+5 · overlaps EU &amp; US mornings</p>
+      </div>
+      <div class="mt-6 sm:mt-0">
+        <p class="micro micro-xs contact__dim">Availability</p>
+        <p class="mt-2 text-[0.9375rem]">Open to work</p>
+      </div>
+      <div class="mt-6 sm:mt-0">
+        <p class="micro micro-xs contact__dim">Languages</p>
+        <p class="mt-2 text-[0.9375rem]">English, Urdu</p>
+      </div>
+    </div>
+
+    <div class="contact__links mt-12">
+      {
+        links.map((link) => (
+          <a
+            class="contact__link"
+            href={link.href}
+            target={link.href.startsWith("http") ? "_blank" : undefined}
+            rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+            data-cursor="OPEN"
+          >
+            {link.label}
+            <span class="btn__arrow btn__arrow--diag" aria-hidden="true">↗</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

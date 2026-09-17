@@ -1,0 +1,90 @@
+---
+---
+
+<div id="cur-ring" data-state="default" aria-hidden="true"><span id="cur-label"></span></div>
+<div id="cur-dot" data-hidden="false" aria-hidden="true"></div>
+
+<script>
+  const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const ring = document.getElementById("cur-ring");
+  const dot = document.getElementById("cur-dot");
+  const label = document.getElementById("cur-label");
+
+  if (fine.matches && !reduced.matches && ring && dot) {
+    document.body.classList.add("has-cursor");
+
+    let x = -100;
+    let y = -100;
+    let rx = x;
+    let ry = y;
+    let seen = false;
+    let frame = 0;
+    let pressed = false;
+
+    const place = (el: HTMLElement, px: number, py: number, scale = 1): void => {
+      el.style.transform = `translate3d(${px}px, ${py}px, 0) translate(-50%, -50%) scale(${scale})`;
+    };
+    const placeRing = (): void => place(ring, rx, ry, pressed ? 0.82 : 1);
+
+    const loop = () => {
+      rx += (x - rx) * 0.18;
+      ry += (y - ry) * 0.18;
+      placeRing();
+      frame = Math.abs(x - rx) + Math.abs(y - ry) > 0.1 ? requestAnimationFrame(loop) : 0;
+    };
+
+    /* Tactile press: the ring contracts under the pointer and releases on up. */
+    const press = (state: boolean) => {
+      pressed = state;
+      placeRing();
+    };
+    window.addEventListener("pointerdown", () => press(true), { passive: true });
+    window.addEventListener("pointerup", () => press(false), { passive: true });
+    window.addEventListener("pointercancel", () => press(false), { passive: true });
+
+    window.addEventListener(
+      "pointermove",
+      (event) => {
+        x = event.clientX;
+        y = event.clientY;
+        place(dot, x, y);
+        if (!seen) {
+          seen = true;
+          rx = x;
+          ry = y;
+          document.body.classList.add("cursor-ready");
+        }
+        if (!frame) frame = requestAnimationFrame(loop);
+      },
+      { passive: true },
+    );
+
+    const hide = () => document.body.classList.remove("cursor-ready");
+    const show = () => {
+      if (seen) document.body.classList.add("cursor-ready");
+    };
+    document.documentElement.addEventListener("mouseleave", hide);
+    document.documentElement.addEventListener("mouseenter", show);
+    window.addEventListener("blur", hide);
+
+    /* Interactive things get a label chip instead of a mystery dot. */
+    document.addEventListener("pointerover", (event) => {
+      const node = event.target instanceof Element ? event.target.closest("a, button, [data-cursor]") : null;
+      if (node) {
+        const text = node.getAttribute("data-cursor");
+        if (text && label) {
+          label.textContent = text;
+          ring.dataset.state = "label";
+          dot.dataset.hidden = "true";
+          return;
+        }
+        ring.dataset.state = "hover";
+      } else {
+        ring.dataset.state = "default";
+        if (label) label.textContent = "";
+      }
+      dot.dataset.hidden = "false";
+    });
+  }
+</script>

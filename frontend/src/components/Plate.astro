@@ -1,0 +1,31 @@
+---
+import type { Plate } from "../data/work";
+
+interface Props {
+  plate: Plate;
+}
+
+const { plate } = Astro.props;
+---
+
+<figure class="plate">
+  {
+    plate.rows.map((row, rowIndex) => (
+      <ol class="plate__nodes" aria-label={`Stage ${rowIndex + 1} of ${plate.rows.length}`}>
+        {row.map((node, nodeIndex) => (
+          <li
+            class:list={[
+              "plate__node",
+              node.signal && "plate__node--signal",
+              nodeIndex > 0 && `tick-${Math.min(nodeIndex, 5)}`,
+            ]}
+          >
+            <span class="plate__k">{node.k}</span>
+            <span class="plate__v">{node.v}</span>
+          </li>
+        ))}
+      </ol>
+    ))
+  }
+  <figcaption class="plate__caption">{plate.caption}</figcaption>
+</figure>
